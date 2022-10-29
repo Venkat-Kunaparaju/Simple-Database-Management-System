@@ -3,3 +3,5 @@
 //traverses through row entries to execute queries
 
 
+struct
+

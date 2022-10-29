@@ -5,3 +5,18 @@
 
 
 //contains struct for database header which has linked list of database objects
+
+#include <iostream>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+#include "database.hh"
+#include "table.hh"
+
+struct databaseHeader {
+
+    int countDatabases;
+
+
+};
