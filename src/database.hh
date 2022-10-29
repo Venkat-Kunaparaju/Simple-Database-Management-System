@@ -11,7 +11,6 @@
 struct table {
     char name[MAXSTRINGLEN]; //Name is 32 bytes max
     table *next; //Not circular
-    table *prev;
     tableInformation *tableInfo; //TableInfo for current table
 
 };
