@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <vector>
 
 #include "database.hh"
 
@@ -34,16 +35,19 @@ struct database {
     database *prev;
     tableHeader *tableHeader; //TableHeader for current database
 
-
-
 };
+
 struct databaseHeader {
     int countDatabases;
     database *databases;
-    static void initialize();
-    static void addDatabase(database *);
+    static void initialize(); //Intialize dbheader
+    static void addDatabase(database *); //Add database to dbheader
+    static database * findDatabase(std::string); //Find database in dbheader
 };
 
 static databaseHeader *dbHead; //Current databaseheader
+
+
+
 
 

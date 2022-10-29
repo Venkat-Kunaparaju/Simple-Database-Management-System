@@ -11,6 +11,8 @@ char * requestMem(int size) { //Request mem from os
 void freeMem(int size) { //Free mem from os
     sbrk(size * -1);
 }
+
+
 //Intialize database header
 void databaseHeader::initialize() {
     char * heapOffset = requestMem(ARENA_SIZE);
@@ -30,13 +32,25 @@ void databaseHeader::addDatabase(database * db) {
     if (!head) { //If databases is null, set it to databases
         dbHead->databases = db;
     }
-    else {
+    else { //Else, add it to linked list
         while(head->next) {
             head->next = head->next->next;
         }
         head->next = db;
 
     }
+}
+
+//Find database name in db header
+//Returns NULL if name not found
+database * databaseHeader::findDatabase(std::string name) {
+    database * head = dbHead->databases;
+    while(head) {
+        if (strcmp(head->name,name.c_str()) == 0) {
+            return head;
+        }
+    }
+    return NULL;
 }
 int main () {
     databaseHeader::initialize(); //Intialize database header
