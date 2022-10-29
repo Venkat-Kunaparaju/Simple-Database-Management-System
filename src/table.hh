@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "constants.hh"
 struct fencePost {
     int type; //1 for begin, 0 for end
     fencePost *next; //Not a circular linked list

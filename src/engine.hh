@@ -12,8 +12,6 @@
 #include <stdio.h>
 
 #include "database.hh"
-#include "table.hh"
-#include "constants.hh"
 
 
 struct database {
@@ -26,5 +24,5 @@ struct database {
 struct databaseHeader {
     int countDatabases;
     database *databases;
-
 };
+

@@ -8,7 +8,6 @@
 #include <stdio.h>
 
 #include "table.hh"
-#include "constants.hh"
 
 
 struct table {
