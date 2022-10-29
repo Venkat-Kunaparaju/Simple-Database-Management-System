@@ -43,6 +43,7 @@ struct databaseHeader {
     static void initialize(); //Intialize dbheader
     static void addDatabase(database *); //Add database to dbheader
     static database * findDatabase(std::string); //Find database in dbheader
+    static int createDatabase(std::string); //Creates database
 };
 
 static databaseHeader *dbHead; //Current databaseheader
