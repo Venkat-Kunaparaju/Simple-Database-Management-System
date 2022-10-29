@@ -19,3 +19,8 @@ int heapUsed; //Amount of heap used
 char * heapOffset; //Next open spot on the heap
 std::vector<std::string> heapLayout; //Keeps track of the layout of the heap
 
+char * requestMem(int); //Request more memory 
+void freeMem(int size); //Free requested memory
+
+
+static databaseHeader *dbHead; //Current databaseheader

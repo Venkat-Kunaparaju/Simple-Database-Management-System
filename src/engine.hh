@@ -13,17 +13,21 @@
 
 #include "database.hh"
 
+
 struct database {
     char name[MAXSTRINGLEN]; //Name is 32 bytes max
     database *next; //Not circular
     database *prev;
     tableHeader *tableHeader; //TableHeader for current database
 
+
+
 };
 struct databaseHeader {
     int countDatabases;
     database *databases;
+    static void initialize();
+    static void addDatabase();
 };
 
 
-char * requestMem(int); //Request more memory 

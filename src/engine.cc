@@ -5,16 +5,10 @@
 #include "engine.hh"
 
 
-char * requestMem(int size) {
-   return (char *)sbrk(size);
-}
-void freeMem(int size) {
-    sbrk(size * -1);
-}
-int main () {
-    //Intialize database header
+//Intialize database header
+void databaseHeader::initialize() {
     char * heapOffset = requestMem(ARENA_SIZE);
-    databaseHeader *dbHead = (databaseHeader *)heapOffset;
+    dbHead = (databaseHeader *)heapOffset;
     dbHead->countDatabases = 0;
     dbHead->databases = NULL;
 
@@ -22,6 +16,13 @@ int main () {
     heapOffset += DB_HEADER_SIZE;
     heapUsed = DB_HEADER_SIZE;
     heapSize = ARENA_SIZE;
+}
+
+void databaseHeader::addDatabase() {
+   
+}
+int main () {
+    databaseHeader::initialize(); //Intialize database header
 
     //Free memory used
     freeMem(heapSize);
