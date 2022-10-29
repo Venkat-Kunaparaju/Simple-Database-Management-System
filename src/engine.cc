@@ -141,11 +141,23 @@ void test() {
     databaseHeader::createDatabase("TEST DATABASE 7");
     std::cout << (char *)databaseHeader::findDatabase("TEST DATABASE 7") - 
         (char *)databaseHeader::findDatabase("TEST DATABASE 3") << "\n"; //DB SIZE x 3
+    
+
+    databaseHeader::createDatabase("TEST DATABASE 8");
+    databaseHeader::createDatabase("TEST DATABASE 9");
+    databaseHeader::createDatabase("TEST DATABASE 10");
+    databaseHeader::createDatabase("TEST DATABASE 11");
+    databaseHeader::createDatabase("TEST DATABASE 12");
+    std::cout << (char *)databaseHeader::findDatabase("TEST DATABASE 12") - 
+        (char *)databaseHeader::findDatabase("TEST DATABASE 11") << "\n"; //DB SIZE x 3
+    printf("%p\n", (char *)databaseHeader::findDatabase("TEST DATABASE 12") - 497);
 }
 
 
 int main () {
     databaseHeader::initialize(); //Intialize database header
+    heapOffset += 1;
+    heapUsed += 1;
     test();
     //Free memory used
     std::cout << heapCheck() << "\n";
