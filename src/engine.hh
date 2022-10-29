@@ -31,8 +31,8 @@ char * requestMem(int); //Request more memory
 void freeMem(int size); //Free requested memory
 
 struct database {
-    char name[MAXSTRINGLEN+1]; //Name is 32 bytes max
-    //char *name;
+    char name[MAXSTRINGLEN]; //Name is 32 bytes max
+    //std::string name; //Uses Heap to store string
     database *next; //Not circular
     database *prev;
     tableHeader *tableHeader; //TableHeader for current database
