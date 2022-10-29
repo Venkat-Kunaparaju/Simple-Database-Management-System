@@ -1,0 +1,18 @@
+#include <iostream>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+#define MAXSTRINGLEN 32 //Max size for names
+#define ARENA_SIZE 256 //Current increments of size to request from the os
+
+#define DB_HEADER_SIZE sizeof(databaseHeader)
+#define DB_OBJECT_SIZE sizeof(database)
+#define TABLE_HEADER_SIZE sizeof(tableHeader)
+#define TABLE_OBJECT_SIZE sizeof(table)
+#define FENCEPOST_SIZE sizeof(fencePost)
+
+int heapSize; //Current size of heap
+int heapOffset; //Next open spot on the heap
+std::vector<std::string> heapLayout;
+

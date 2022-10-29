@@ -13,7 +13,6 @@
 
 #include "database.hh"
 
-
 struct database {
     char name[MAXSTRINGLEN]; //Name is 32 bytes max
     database *next; //Not circular
@@ -26,3 +25,5 @@ struct databaseHeader {
     database *databases;
 };
 
+
+void * requestMem(int); //Request more memory 
