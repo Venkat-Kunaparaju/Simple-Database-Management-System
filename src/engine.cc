@@ -14,6 +14,7 @@ void freeMem(int size) { //Free mem from os
 //Makes sure that the heap used is the same as the difference between the heapoffset and base
 //Returns 1 if true, 0 if false
 int heapCheck() {
+    fprintf(stderr, " HEAP SIZE: %d\n HEAP USED: %d\n BASE: %p\n OFFSET: %p\n", heapSize, heapUsed, base, heapOffset);
     if (heapOffset - base == heapUsed) {
         return 1;
     }
@@ -62,7 +63,7 @@ database * databaseHeader::findDatabase(std::string name) {
         }
         head = head->next;
     }
-    std::cerr << "ERROR: Database name not found";
+    //std::cerr << "ERROR: Database name not found\n";
     return NULL;
 }
 
@@ -70,7 +71,11 @@ database * databaseHeader::findDatabase(std::string name) {
 //Returns 1 on success, 0 for error
 int databaseHeader::createDatabase(std::string name) {
     if (name.size() + 1 > MAXSTRINGLEN) { //C++ strings dont have null terminator, so +1 accounts for it
-        std::cerr << "ERROR: Database name too large (Max 31 bytes)";
+        std::cerr << "ERROR: Database name too large (Max 31 bytes)\n";
+        return 0;
+    }
+    if (findDatabase(name)) { //Check if name is already take
+        std::cerr << "ERROR: Database name already exists\n";
         return 0;
     }
     char * mem;
@@ -100,6 +105,7 @@ void test() {
     databaseHeader::createDatabase("TEST DATABASE 2");
     databaseHeader::createDatabase("TEST DATABASE 3");
 
+
     std::cout << dbHead->databases->name << "\n"; //TEST DATABASE 
     std::cout << databaseHeader::findDatabase("TEST DATABASE")->name << "\n"; //TEST DATABASE 
     std::cout << databaseHeader::findDatabase("TEST DATABASE 2")->name << "\n"; //TEST DATABASE 2
@@ -107,9 +113,9 @@ void test() {
     std::cout << databaseHeader::findDatabase("TEST DATABASE")->next->name << "\n"; //TEST DATABASE 2
     std::cout << databaseHeader::findDatabase("TEST DATABASE")->next->next->name << "\n"; //TEST DATABASE 3
     std::cout << databaseHeader::findDatabase("TEST DATABASE 2")->next->name << "\n"; //TEST DATABASE 3
-    std::cout << databaseHeader::findDatabase("TEST DATABASE")->next->next->next << "\n"; //NULL
-    databaseHeader::findDatabase("TEST DATABASE 4"); //NO DATABASE
-    std::cout << std::endl;
+    std::cout << databaseHeader::findDatabase("TEST DATABASE")->next->next->next << "\n"; //NO DATABASE  (NULL)
+    std::cout << databaseHeader::findDatabase("TEST DATABASE 4") << "\n"; //NO DATABASE (NULL)
+    databaseHeader::createDatabase("TEST DATABASE 3"); //NAME ALREADY EXISTS
 
     //Check Locations
     std::cout << (char *)databaseHeader::findDatabase("TEST DATABASE 2") - 
@@ -130,8 +136,11 @@ void test() {
         (char *)databaseHeader::findDatabase("TEST DATABASE") << "\n"; //DB SIZE x 2 + sizeof(name) + sizeof(next)
 
 
-
-
+    databaseHeader::createDatabase("TEST DATABASE 5");
+    databaseHeader::createDatabase("TEST DATABASE 6");
+    databaseHeader::createDatabase("TEST DATABASE 7");
+    std::cout << (char *)databaseHeader::findDatabase("TEST DATABASE 7") - 
+        (char *)databaseHeader::findDatabase("TEST DATABASE 3") << "\n"; //DB SIZE x 3
 }
 
 
@@ -139,6 +148,7 @@ int main () {
     databaseHeader::initialize(); //Intialize database header
     test();
     //Free memory used
+    std::cout << heapCheck() << "\n";
     freeMem(heapSize);
 
 }
