@@ -5,6 +5,12 @@
 #include "engine.hh"
 
 
+char * requestMem(int size) { //Request mem from os
+   return (char *)sbrk(size);
+}
+void freeMem(int size) { //Free mem from os
+    sbrk(size * -1);
+}
 //Intialize database header
 void databaseHeader::initialize() {
     char * heapOffset = requestMem(ARENA_SIZE);

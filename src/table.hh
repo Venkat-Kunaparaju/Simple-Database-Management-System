@@ -7,7 +7,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "setup.cc"
+#include "setup.hh"
+
 
 struct fencePost {
     int type; //1 for begin, 0 for end
