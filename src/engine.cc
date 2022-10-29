@@ -8,6 +8,9 @@
 char * requestMem(int size) {
    return (char *)sbrk(size);
 }
+void freeMem(int size) {
+    sbrk(size * -1);
+}
 int main () {
     //Intialize database header
     char * heapOffset = requestMem(ARENA_SIZE);
@@ -20,5 +23,7 @@ int main () {
     heapUsed = DB_HEADER_SIZE;
     heapSize = ARENA_SIZE;
 
+    //Free memory used
+    freeMem(heapSize);
 
 }
