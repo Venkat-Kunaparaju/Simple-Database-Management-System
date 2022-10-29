@@ -15,7 +15,7 @@
 #define FENCEPOST_SIZE sizeof(fencePost)
 
 int heapSize; //Current size of heap
-int heapUsed;
+int heapUsed; //Amount of heap used
 char * heapOffset; //Next open spot on the heap
 std::vector<std::string> heapLayout; //Keeps track of the layout of the heap
 
