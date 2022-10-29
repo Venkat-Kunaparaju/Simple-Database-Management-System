@@ -8,9 +8,11 @@
 #include <stdio.h>
 
 #include "table.hh"
+#include "constants.hh"
+
 
 struct table {
-    char name[32]; //Name is 32 bytes max
+    char name[MAXSTRINGLEN]; //Name is 32 bytes max
     table *next; //Not circular
     table *prev;
     tableInformation *tableInfo; //TableInfo for current table

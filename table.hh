@@ -15,7 +15,8 @@ struct fencePost {
 
 };
 struct tableInformation {
-    char *column_information; //N * 40 bytes (N -> Number of columns)
+    int N; //N -> Number of columns
+    char *column_information; //N * 40 bytes 
     fencePost *fenceposts; //First fencepost
 };
 
