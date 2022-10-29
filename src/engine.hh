@@ -34,7 +34,6 @@ struct database {
     char name[MAXSTRINGLEN]; //Name is 32 bytes max
     //std::string name; //Uses Heap to store string
     database *next; //Not circular
-    database *prev;
     tableHeader *tableHeader; //TableHeader for current database
 
 };
