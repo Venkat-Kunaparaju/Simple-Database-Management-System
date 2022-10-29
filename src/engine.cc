@@ -100,7 +100,7 @@ void test() {
     databaseHeader::createDatabase("TEST DATABASE 2");
     databaseHeader::createDatabase("TEST DATABASE 3");
 
-    
+    std::cout << dbHead->databases->name << "\n"; //TEST DATABASE 
     std::cout << databaseHeader::findDatabase("TEST DATABASE")->name << "\n"; //TEST DATABASE 
     std::cout << databaseHeader::findDatabase("TEST DATABASE 2")->name << "\n"; //TEST DATABASE 2
     std::cout << databaseHeader::findDatabase("TEST DATABASE 3")->name << "\n"; //TEST DATABASE 3
@@ -108,8 +108,8 @@ void test() {
     std::cout << databaseHeader::findDatabase("TEST DATABASE")->next->next->name << "\n"; //TEST DATABASE 3
     std::cout << databaseHeader::findDatabase("TEST DATABASE 2")->next->name << "\n"; //TEST DATABASE 3
     std::cout << databaseHeader::findDatabase("TEST DATABASE")->next->next->next << "\n"; //NULL
-    std::cout << databaseHeader::findDatabase("TEST DATABASE 4") << "\n"; //NO DATABASE
-    
+    databaseHeader::findDatabase("TEST DATABASE 4"); //NO DATABASE
+    std::cout << std::endl;
 
     //Check Locations
     std::cout << (char *)databaseHeader::findDatabase("TEST DATABASE 2") - 
@@ -123,9 +123,9 @@ void test() {
     std::cout << (char *)&(databaseHeader::findDatabase("TEST DATABASE 3")->tableHeader) - 
         (char *)databaseHeader::findDatabase("TEST DATABASE 2") << "\n"; //DB SIZE + sizeof(name) + sizeof(next)
 
+
     std::cout << (char *)databaseHeader::findDatabase("TEST DATABASE 3") - 
         (char *)databaseHeader::findDatabase("TEST DATABASE") << "\n"; //DB SIZE x 2
-    
     std::cout << (char *)&(databaseHeader::findDatabase("TEST DATABASE 3")->tableHeader) - 
         (char *)databaseHeader::findDatabase("TEST DATABASE") << "\n"; //DB SIZE x 2 + sizeof(name) + sizeof(next)
 
