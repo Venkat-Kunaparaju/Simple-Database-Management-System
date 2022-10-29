@@ -4,4 +4,4 @@
 //Has a vector<std::string> to keep track of the layout and order of the heap (string reperesents the name of the object)
 
 
-//contains struct for database header and a linked list of database objects
+//contains struct for database header which has linked list of database objects
