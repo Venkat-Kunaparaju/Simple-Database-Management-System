@@ -24,13 +24,15 @@
 int heapSize; //Current size of heap
 int heapUsed; //Amount of heap used
 char * heapOffset; //Next open spot on the heap
+char * base; //Start of heap
 std::vector<std::string> heapLayout; //Keeps track of the layout of the heap
 
 char * requestMem(int); //Request more memory 
 void freeMem(int size); //Free requested memory
 
 struct database {
-    char name[MAXSTRINGLEN]; //Name is 32 bytes max
+    char name[MAXSTRINGLEN+1]; //Name is 32 bytes max
+    //char *name;
     database *next; //Not circular
     database *prev;
     tableHeader *tableHeader; //TableHeader for current database
