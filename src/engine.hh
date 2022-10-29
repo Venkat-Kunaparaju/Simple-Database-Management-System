@@ -26,4 +26,4 @@ struct databaseHeader {
 };
 
 
-void * requestMem(int); //Request more memory 
+char * requestMem(int); //Request more memory 

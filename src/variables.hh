@@ -2,6 +2,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string>
+#include <vector>
 
 #define MAXSTRINGLEN 32 //Max size for names
 #define ARENA_SIZE 256 //Current increments of size to request from the os
@@ -13,6 +15,7 @@
 #define FENCEPOST_SIZE sizeof(fencePost)
 
 int heapSize; //Current size of heap
-int heapOffset; //Next open spot on the heap
-std::vector<std::string> heapLayout;
+int heapUsed;
+char * heapOffset; //Next open spot on the heap
+std::vector<std::string> heapLayout; //Keeps track of the layout of the heap
 
