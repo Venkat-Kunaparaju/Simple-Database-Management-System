@@ -14,9 +14,15 @@
 #include "database.hh"
 #include "table.hh"
 
+struct database {
+    char name[32]; //Name is 32 bytes max
+    database *next; //Not circular
+    database *prev;
+    tableHeader *tableHeader; //TableHeader for current database
+
+};
 struct databaseHeader {
-
     int countDatabases;
-
+    database *databases;
 
 };
