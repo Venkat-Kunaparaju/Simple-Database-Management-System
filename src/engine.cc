@@ -11,10 +11,19 @@ void freeMem(int size) { //Free mem from os
     sbrk(size * -1);
 }
 
+//Makes sure that the heap used is the same as the difference between the heapoffset and base
+//Returns 1 if true, 0 if false
+int heapCheck() {
+    if (heapOffset - base == heapUsed) {
+        return 1;
+    }
+    return 0;
+}
+
 //Intialize database header
 void databaseHeader::initialize() {
     heapOffset = requestMem(ARENA_SIZE);
-    base = heapOffset - ARENA_SIZE;
+    base = heapOffset;
     dbHead = (databaseHeader *)heapOffset;
     dbHead->countDatabases = 0;
     dbHead->databases = NULL;
@@ -109,10 +118,14 @@ void test() {
 
 
 }
+
+
 int main () {
     databaseHeader::initialize(); //Intialize database header
-    test();
+    //test();
+    
     //Free memory used
+    std::cout << heapCheck();
     freeMem(heapSize);
 
 }
