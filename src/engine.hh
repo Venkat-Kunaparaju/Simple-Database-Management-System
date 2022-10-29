@@ -27,7 +27,9 @@ struct databaseHeader {
     int countDatabases;
     database *databases;
     static void initialize();
-    static void addDatabase();
+    static void addDatabase(database *);
 };
+
+static databaseHeader *dbHead; //Current databaseheader
 
 

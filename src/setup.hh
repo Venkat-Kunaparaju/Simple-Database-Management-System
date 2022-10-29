@@ -23,4 +23,3 @@ char * requestMem(int); //Request more memory
 void freeMem(int size); //Free requested memory
 
 
-static databaseHeader *dbHead; //Current databaseheader

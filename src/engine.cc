@@ -18,8 +18,19 @@ void databaseHeader::initialize() {
     heapSize = ARENA_SIZE;
 }
 
-void databaseHeader::addDatabase() {
-   
+//Add database to db header
+void databaseHeader::addDatabase(database * db) {
+    database * head = dbHead->databases;
+    if (!head) { //If databases is null, set it to databases
+        dbHead->databases = db;
+    }
+    else {
+        while(head->next) {
+            head->next = head->next->next;
+        }
+        head->next = db;
+
+    }
 }
 int main () {
     databaseHeader::initialize(); //Intialize database header
