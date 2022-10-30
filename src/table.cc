@@ -26,7 +26,7 @@ void testMeM() {
     int i = 0;
     while (i != N) {
         columnInfo *temp = (columnInfo *)heapOffset + i;
-        const char *hold = "TEST " + i;
+        const char *hold = "TEST ";
         strcpy(temp->name, hold);
         temp->size = 32;
         if (i == 0) {

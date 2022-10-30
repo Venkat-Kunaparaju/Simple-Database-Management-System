@@ -15,8 +15,8 @@ struct table {
 
 };
 struct tableHeader {
-    int countTables;
     table *tables;
+    int countTables;
     static void initialize(std::string); //Intialize tbheader with database name
     static void addTable(table *); //Add table to tbheader
     static table * findTable(std::string); //Find table in tbheader

@@ -14,9 +14,8 @@ struct fencePost {
     fencePost *next; //Not a circular linked list
     fencePost *prev;
     int type; //1 for begin, 0 for end
-
 };
-struct columnInfo {
+struct columnInfo { //No next pointer because columns are right next to each other (like a list)
     char name[MAXSTRINGLEN]; //Name for column
     int size; //Size of datatype in column
 };

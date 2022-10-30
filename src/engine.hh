@@ -50,8 +50,8 @@ struct database {
 };
 
 struct databaseHeader {
-    int countDatabases; //Counts number of databases
     database *databases; //Points to database
+    int countDatabases; //Counts number of databases
     static void initialize(); //Intialize dbheader
     static void addDatabase(database *); //Add database to dbheader
     static database * findDatabase(std::string); //Find database in dbheader
