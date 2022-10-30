@@ -101,6 +101,10 @@ int databaseHeader::createDatabase(std::string name) {
 
 }
 
+void databaseHeader::useDatabase(std::string name) {
+    currentDatabase = findDatabase(name);
+}
+
 //Function to test databaseHeader functions
 void test() {
     databaseHeader::createDatabase("TEST DATABASE");

@@ -27,7 +27,7 @@ char * heapOffset; //Next open spot on the heap
 char * base; //Start of heap
 
 char *dbHeaderString = "Database Header";
-char *dbString = "Database: ";
+char *tbHeaderString = "Table Header";
 std::vector<char *> heapLayout; //Keeps track of the layout of the heap
 
 char * requestMem(int); //Request more memory 
@@ -48,9 +48,12 @@ struct databaseHeader {
     static void addDatabase(database *); //Add database to dbheader
     static database * findDatabase(std::string); //Find database in dbheader
     static int createDatabase(std::string); //Creates database
+    static void useDatabase(std::string); //Sets current database
 };
 
-static databaseHeader *dbHead; //Current databaseheader
+databaseHeader *dbHead; //Current databaseheader
+database *currentDatabase; //Current database
+
 
 
 

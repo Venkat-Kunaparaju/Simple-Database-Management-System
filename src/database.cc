@@ -6,8 +6,3 @@
 #include "engine.cc"
 
 
-int check() {
-    database *ne;
-    databaseHeader::addDatabase(ne);
-
-}
