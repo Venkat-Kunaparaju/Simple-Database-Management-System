@@ -11,9 +11,9 @@
 #define ARENA_SIZE 256 //Current increments of size to request from the os
 
 struct fencePost {
-    int type; //1 for begin, 0 for end
     fencePost *next; //Not a circular linked list
     fencePost *prev;
+    int type; //1 for begin, 0 for end
 
 };
 struct columnInfo {
@@ -21,8 +21,8 @@ struct columnInfo {
     int size; //Size of datatype in column
 };
 struct tableInformation {
-    columnInfo *columns; //N * 40 bytes
-    int N; //N -> Number of columns
+    columnInfo *columns; //Head to column
     fencePost *fenceposts; //First fencepost
+    int N; //N -> Number of columns
 };
 

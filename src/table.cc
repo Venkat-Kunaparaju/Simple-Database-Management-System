@@ -9,7 +9,7 @@
 void testMeM() {
     char * mem;
     int N = 3;
-    if (heapUsed + N * 40 + 16 > heapSize) {
+    if (heapUsed + N * COLUMNINFO_SIZE + TABLEINFO_SIZE > heapSize) {
         mem = requestMem(ARENA_SIZE) - (heapSize - heapUsed);
         heapSize += ARENA_SIZE;
     }
@@ -17,16 +17,26 @@ void testMeM() {
         mem = heapOffset;
     }
     currentTable->tableInfo = (tableInformation *)mem;
-    currentTable->tableInfo->columns = NULL;
-    int i = 0;
-    while (i != N) {
-       columnInfo *temp = (columnInfo *)mem + i; 
-    }
     currentTable->tableInfo->N = N;
+    currentTable->tableInfo->columns = NULL;
     currentTable->tableInfo->fenceposts = NULL;
     
-    heapUsed += N * 40 + 16;
-    heapOffset += N * 40 + 16;
+    heapUsed += TABLEINFO_SIZE;
+    heapOffset +=TABLEINFO_SIZE;
+    int i = 0;
+    while (i != N) {
+        columnInfo *temp = (columnInfo *)heapOffset + i;
+        const char *hold = "TEST " + i;
+        strcpy(temp->name, hold);
+        temp->size = 32;
+        if (i == 0) {
+            currentTable->tableInfo->columns = temp;
+        }
+        i++;
+    }
+    std::cerr << (currentTable->tableInfo->columns + 1)->name << "\n";
+    heapUsed += N * COLUMNINFO_SIZE;
+    heapOffset += N * COLUMNINFO_SIZE;
 }
 
 
@@ -35,6 +45,8 @@ int main() {
 
     testDatabase(1);
     testTable(1);
+    tableHeader::useTable("Test Table 1");
+    testMeM();
 
     if (heapCheck())
         printHeapLayout();

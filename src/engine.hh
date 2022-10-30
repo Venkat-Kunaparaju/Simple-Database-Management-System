@@ -19,6 +19,9 @@
 #define TABLE_HEADER_SIZE sizeof(tableHeader)
 #define TABLE_OBJECT_SIZE sizeof(table)
 #define FENCEPOST_SIZE sizeof(fencePost)
+#define COLUMNINFO_SIZE sizeof(columnInfo)
+#define TABLEINFO_SIZE sizeof(tableInformation)
+
 #define ERROR_DB_NAME_NOT_EXIST "ERROR: Database name does not exist\n"
 #define ERROR_TB_NAME_NOT_EXIST "ERROR: Table name does not exist\n"
 #define ERROR_NAME_SIZE "ERROR: Name too large (Max 31 bytes)\n"
