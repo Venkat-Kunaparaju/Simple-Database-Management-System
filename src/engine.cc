@@ -159,7 +159,7 @@ void printHeapLayout() {
 }
 int main () {
     databaseHeader::initialize(); //Intialize database header
-    test();
+    //test();
     //Free memory used
     std::cout << heapCheck() << "\n";
     printHeapLayout();
