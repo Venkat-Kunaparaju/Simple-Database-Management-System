@@ -14,7 +14,7 @@ void freeMem(int size) { //Free mem from os
 //Makes sure that the heap used is the same as the difference between the heapoffset and base
 //Returns 1 if true, 0 if false
 int heapCheck() {
-    fprintf(stderr, " HEAP SIZE: %d\n HEAP USED: %d\n BASE: %p\n OFFSET: %p\n", heapSize, heapUsed, base, heapOffset);
+    fprintf(stderr, " \nHEAP SIZE: %d\n HEAP USED: %d\n BASE: %p\n OFFSET: %p\n\n", heapSize, heapUsed, base, heapOffset);
     if (heapOffset - base == heapUsed) {
         return 1;
     }
@@ -125,7 +125,7 @@ void testDatabase(int print) {
 
         //Check Locations
         std::cout << (char *)databaseHeader::findDatabase("TEST DATABASE 2") - 
-            (char *)databaseHeader::findDatabase("TEST DATABASE")<< "\n"; //DB SIZE
+            (char *)databaseHeader::findDatabase("TEST DATABASE") << "\n"; //DB SIZE
         std::cout << (char *)databaseHeader::findDatabase("TEST DATABASE 3") - 
             (char *)databaseHeader::findDatabase("TEST DATABASE 2") << "\n"; //DB SIZE
         std::cout << (char *)&(databaseHeader::findDatabase("TEST DATABASE 3")->name) - 

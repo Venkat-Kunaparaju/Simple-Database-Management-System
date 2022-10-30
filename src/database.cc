@@ -117,8 +117,38 @@ void testTable(int print) {
         tableHeader::createTable("Test Table 1"); //Name already exists
 
 
+        //Switch
+        tableHeader::initialize("TEST DATABASE 2");
+        tableHeader::createTable("2 Test Table 1");
+        tableHeader::createTable("2 Test Table 2");
+        tableHeader::createTable("2 Test Table 3");
+
+        tableHeader::initialize("TEST DATABASE");
+        std::cout << tableHeader::findTable("Test Table 1")->name << "\n"; //Test Table 1
+
+
         //Check locations
-        std::cout << tableHeader::findTable("");
+        std::cout << (char *)tableHeader::findTable("Test Table 2") - 
+            (char *)tableHeader::findTable("Test Table 1") << "\n"; //TB_SIZE 
+        std::cout << (char *)tableHeader::findTable("Test Table 3") - 
+            (char *)tableHeader::findTable("Test Table 2") << "\n"; //TB_SIZE 
+        std::cout << (char *)&(tableHeader::findTable("Test Table 3")->name) - 
+            (char *)tableHeader::findTable("Test Table 2") << "\n"; //TB_SIZE + 0
+        std::cout << (char *)&(tableHeader::findTable("Test Table 3")->name) - 
+            (char *)tableHeader::findTable("Test Table 2") << "\n"; //TB_SIZE + 0 
+        std::cout << (char *)&(tableHeader::findTable("Test Table 3")->next) - 
+            (char *)tableHeader::findTable("Test Table 2") << "\n"; //TB_SIZE + sizeof(name)          
+        std::cout << (char *)&(tableHeader::findTable("Test Table 3")->tableInfo) - 
+            (char *)tableHeader::findTable("Test Table 2") << "\n"; //TB_SIZE + sizeof(name) + sizeof(next)
+
+        std::cout << (char *)tableHeader::findTable("Test Table 3") - 
+            (char *)tableHeader::findTable("Test Table 1") << "\n"; //TB_SIZE x 2
+        std::cout << (char *)&(tableHeader::findTable("Test Table 3")->tableInfo) - 
+            (char *)tableHeader::findTable("Test Table 1") << "\n"; //TB_SIZE x 2 + sizeof(name) + sizeof(next)
+
+        tableHeader::createTable("Test Table 4");
+        std::cout << (char *)tableHeader::findTable("Test Table 4") - 
+            (char *)tableHeader::findTable("Test Table 3") << "\n"; //TB_SIZE x 4 + sizeof(table header)
     }
     
     
