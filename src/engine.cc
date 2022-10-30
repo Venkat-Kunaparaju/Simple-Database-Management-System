@@ -73,11 +73,11 @@ database * databaseHeader::findDatabase(std::string name) {
 //Returns 1 on success, 0 for error
 int databaseHeader::createDatabase(std::string name) {
     if (name.size() + 1 > MAXSTRINGLEN) { //C++ strings dont have null terminator, so +1 accounts for it
-        std::cerr << "ERROR: Database name too large (Max 31 bytes)\n";
+        std::cerr << ERROR_NAME_SIZE;
         return 0;
     }
     if (findDatabase(name)) { //Check if name is already take
-        std::cerr << "ERROR: Database name already exists\n";
+        std::cerr << ERROR_DB_NAME_EXIST;
         return 0;
     }
     char * mem;

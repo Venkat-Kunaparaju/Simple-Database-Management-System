@@ -8,6 +8,10 @@
 //Intialize table header
 void tableHeader::initialize(std::string databaseName) {
     databaseHeader::useDatabase(databaseName);
+    if (!currentDatabase) {
+        std::cerr << ERROR_DB_NAME_NOT_EXIST;
+        return;
+    }
     if(currentDatabase->tableHeader) {
         tbHead = currentDatabase->tableHeader;
     } else {
@@ -22,6 +26,7 @@ void tableHeader::initialize(std::string databaseName) {
         tbHead = (tableHeader *)mem;
         tbHead->countTables = 0;
         tbHead->tables = NULL;
+        currentDatabase->tableHeader = tbHead;
 
         heapUsed += TABLE_HEADER_SIZE;
         heapOffset += TABLE_HEADER_SIZE;

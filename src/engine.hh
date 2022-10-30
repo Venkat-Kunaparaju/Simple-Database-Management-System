@@ -20,6 +20,9 @@
 #define TABLE_HEADER_SIZE sizeof(tableHeader)
 #define TABLE_OBJECT_SIZE sizeof(table)
 #define FENCEPOST_SIZE sizeof(fencePost)
+#define ERROR_DB_NAME_NOT_EXIST "ERROR: Database name does not exist\n"
+#define ERROR_NAME_SIZE "ERROR: Database name too large (Max 31 bytes)\n"
+#define ERROR_DB_NAME_EXIST "ERROR: Database name already exists\n"
 
 int heapSize; //Current size of heap
 int heapUsed; //Amount of heap used
