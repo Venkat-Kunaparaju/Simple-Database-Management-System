@@ -5,18 +5,23 @@
 #include "engine.hh"
 
 char * requestMem(int size) { //Request mem from os
-   char * meme = (char *)sbrk(size);
+   char * mem = (char *)sbrk(size);
+   
    if (errno == ENOMEM) {
        std::cerr << "Allocation error";
        exit(1);
    }
+   
+  return mem;
 }
 void freeMem(int size) { //Free mem from os
     sbrk(size * -1);
+    
     if (errno == ENOMEM) {
        std::cerr << "Deallocation error";
        exit(1);
    }
+   
 }
 
 //Makes sure that the heap used is the same as the difference between the heapoffset and base
