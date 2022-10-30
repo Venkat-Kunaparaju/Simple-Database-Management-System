@@ -7,7 +7,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "setup.hh"
 
 
 struct fencePost {

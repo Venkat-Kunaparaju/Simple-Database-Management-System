@@ -76,7 +76,7 @@ int tableHeader::createTable(std::string name) {
         return 0;
     }
     char * mem;
-    if (heapUsed + DB_OBJECT_SIZE > heapSize) {
+    if (heapUsed + TABLE_OBJECT_SIZE > heapSize) {
         mem = requestMem(ARENA_SIZE) - (heapSize - heapUsed);
         heapSize += ARENA_SIZE;
     }
@@ -90,4 +90,8 @@ int tableHeader::createTable(std::string name) {
     heapUsed += TABLE_OBJECT_SIZE;
     heapOffset += TABLE_OBJECT_SIZE;
     return 1;
+}
+
+void tableHeader::useTable(std::string name) {
+    currentTable = findTable(name);
 }
