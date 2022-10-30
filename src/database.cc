@@ -5,7 +5,7 @@
 
 #include "engine.cc"
 
-//Intialize table header with database name
+//Intialize/set table header to the correseponding database name
 void tableHeader::initialize(std::string databaseName) {
     databaseHeader::useDatabase(databaseName);
     if (!currentDatabase) {
@@ -36,6 +36,7 @@ void tableHeader::initialize(std::string databaseName) {
     
 }
 
+//Add table to table header
 void tableHeader::addTable(table * tb) {
     table * head = tbHead->tables;
     if (!head) { //If table is null, set it to tables
@@ -54,6 +55,8 @@ void tableHeader::addTable(table * tb) {
     tbHead->countTables += 1;
 }
 
+//Find table name in tb header
+//Returns NULL if name not found
 table * tableHeader::findTable(std::string name) {
     table * head = tbHead->tables;
     while(head) {
@@ -65,6 +68,8 @@ table * tableHeader::findTable(std::string name) {
     return NULL;
 }
 
+//Create table (UPDATE FOR DELETING)
+//Returns 1 on success, 0 for error
 int tableHeader::createTable(std::string name) {
     if (!tbHead) {
         std::cerr << ERROR_NO_DB;
@@ -95,6 +100,7 @@ int tableHeader::createTable(std::string name) {
     return 1;
 }
 
+//Set current table
 void tableHeader::useTable(std::string name) {
     currentTable = findTable(name);
 }
@@ -106,6 +112,7 @@ void testTable(int print) {
     tableHeader::createTable("Test Table 3");
 
     if (print) {
+        std::cout << "TESTING BEGIN\n";
         tableHeader::initialize("TEST DATABASE 1"); //No database (NULL)
         std::cout << tableHeader::findTable("Test Table 1")->name << "\n"; //Test Table 1
         std::cout << tableHeader::findTable("Test Table 2")->name << "\n"; //Test Table 2
@@ -113,6 +120,7 @@ void testTable(int print) {
         std::cout << tableHeader::findTable("Test Table 1")->next->name << "\n"; //Test Table 2
         std::cout << tableHeader::findTable("Test Table 1")->next->next->name << "\n"; //Test Table 3
         std::cout << tableHeader::findTable("Test Table 2")->next->name << "\n"; //Test Table 3
+        printf("%s\n", (tableHeader::findTable("Test Table 2") + 1)->name); //Test Table 3
         std::cout << tableHeader::findTable("Test Table 1")->next->next->next << "\n"; //No table (NULL)
         tableHeader::createTable("Test Table 1"); //Name already exists
 
@@ -134,8 +142,6 @@ void testTable(int print) {
             (char *)tableHeader::findTable("Test Table 2") << "\n"; //TB_SIZE 
         std::cout << (char *)&(tableHeader::findTable("Test Table 3")->name) - 
             (char *)tableHeader::findTable("Test Table 2") << "\n"; //TB_SIZE + 0
-        std::cout << (char *)&(tableHeader::findTable("Test Table 3")->name) - 
-            (char *)tableHeader::findTable("Test Table 2") << "\n"; //TB_SIZE + 0 
         std::cout << (char *)&(tableHeader::findTable("Test Table 3")->next) - 
             (char *)tableHeader::findTable("Test Table 2") << "\n"; //TB_SIZE + sizeof(name)          
         std::cout << (char *)&(tableHeader::findTable("Test Table 3")->tableInfo) - 
@@ -151,17 +157,18 @@ void testTable(int print) {
             (char *)tableHeader::findTable("Test Table 3") << "\n"; //TB_SIZE x 4 + sizeof(table header)
         std::cout << (char *)tableHeader::findTable("Test Table 4") - 
             (char *)dbHead << "\n"; //Everything in heap layout up to this point - TB_SIZE
-
-        //Check next location manually
-        printf("%s\n", (tableHeader::findTable("Test Table 2") + 1)->name); //Test Table 3
+         std::cout << "TESTING END\n";
     }
 }
 
 int main() {
     databaseHeader::initialize();
-    testDatabase(0);
-    testTable(0);
-    std::cout << heapCheck() << "\n";
-    printHeapLayout();
+
+    testDatabase(1);
+    testTable(1);
+
+    if (heapCheck())
+        printHeapLayout();
+
     freeMem(heapSize);
 }

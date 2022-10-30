@@ -14,11 +14,19 @@ void freeMem(int size) { //Free mem from os
 //Makes sure that the heap used is the same as the difference between the heapoffset and base
 //Returns 1 if true, 0 if false
 int heapCheck() {
-    fprintf(stderr, " \nHEAP SIZE: %d\n HEAP USED: %d\n BASE: %p\n OFFSET: %p\n\n", heapSize, heapUsed, base, heapOffset);
+    fprintf(stderr, "\n HEAP SIZE: %d\n HEAP USED: %d\n BASE: %p\n OFFSET: %p\n\n", heapSize, heapUsed, base, heapOffset);
     if (heapOffset - base == heapUsed) {
         return 1;
     }
     return 0;
+}
+
+//Prints layout of the heap
+void printHeapLayout() {
+    std::cout << "HEAP LAYOUT\n";
+    for (int i = 0; i < heapLayout.size(); i++) {
+        std::cout << heapLayout.at(i) << "\n";
+    }
 }
 
 //Intialize database header
@@ -101,6 +109,7 @@ int databaseHeader::createDatabase(std::string name) {
 
 }
 
+//Set current database
 void databaseHeader::useDatabase(std::string name) {
     currentDatabase = findDatabase(name);
 }
@@ -112,6 +121,7 @@ void testDatabase(int print) {
     databaseHeader::createDatabase("TEST DATABASE 3");
 
     if (print) {
+        std::cout << "TESTING BEGIN\n";
         std::cout << dbHead->databases->name << "\n"; //TEST DATABASE 
         std::cout << databaseHeader::findDatabase("TEST DATABASE")->name << "\n"; //TEST DATABASE 
         std::cout << databaseHeader::findDatabase("TEST DATABASE 2")->name << "\n"; //TEST DATABASE 2
@@ -147,14 +157,8 @@ void testDatabase(int print) {
         databaseHeader::createDatabase("TEST DATABASE 7");
         std::cout << (char *)databaseHeader::findDatabase("TEST DATABASE 7") - 
             (char *)databaseHeader::findDatabase("TEST DATABASE 3") << "\n"; //DB SIZE x 3
+        std::cout << "TESTING END\n";
     }
 
-}
-
-//Prints layout of the heap
-void printHeapLayout() {
-    for (int i = 0; i < heapLayout.size(); i++) {
-        std::cout << heapLayout.at(i) << "\n";
-    }
 }
 
