@@ -24,6 +24,7 @@
 #define ERROR_NAME_SIZE "ERROR: Database name too large (Max 31 bytes)\n"
 #define ERROR_DB_NAME_EXIST "ERROR: Database name already exists\n"
 
+
 int heapSize; //Current size of heap
 int heapUsed; //Amount of heap used
 char * heapOffset; //Next open spot on the heap
