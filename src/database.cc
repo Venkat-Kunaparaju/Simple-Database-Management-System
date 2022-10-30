@@ -149,10 +149,14 @@ void testTable(int print) {
         tableHeader::createTable("Test Table 4");
         std::cout << (char *)tableHeader::findTable("Test Table 4") - 
             (char *)tableHeader::findTable("Test Table 3") << "\n"; //TB_SIZE x 4 + sizeof(table header)
+        std::cout << (char *)tableHeader::findTable("Test Table 4") - 
+            (char *)dbHead << "\n"; //Everything in heap layout up to this point - TB_SIZE
+
+        //Check next location manually
+        printf("%s\n", (tableHeader::findTable("Test Table 2") + 1)->name); //Test Table 3
     }
-    
-    
 }
+
 int main() {
     databaseHeader::initialize();
     testDatabase(0);
