@@ -21,8 +21,8 @@ struct columnInfo {
     int size; //Size of datatype in column
 };
 struct tableInformation {
+    columnInfo *columns; //N * 40 bytes
     int N; //N -> Number of columns
-    columnInfo *columns; //N * 40 bytes 
     fencePost *fenceposts; //First fencepost
 };
 

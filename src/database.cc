@@ -161,14 +161,3 @@ void testTable(int print) {
     }
 }
 
-int main() {
-    databaseHeader::initialize();
-
-    testDatabase(1);
-    testTable(1);
-
-    if (heapCheck())
-        printHeapLayout();
-
-    freeMem(heapSize);
-}
