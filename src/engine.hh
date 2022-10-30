@@ -25,7 +25,10 @@ int heapSize; //Current size of heap
 int heapUsed; //Amount of heap used
 char * heapOffset; //Next open spot on the heap
 char * base; //Start of heap
-std::vector<std::string> heapLayout; //Keeps track of the layout of the heap
+
+char *dbHeaderString = "Database Header";
+char *dbString = "Database: ";
+std::vector<char *> heapLayout; //Keeps track of the layout of the heap
 
 char * requestMem(int); //Request more memory 
 void freeMem(int size); //Free requested memory
@@ -39,8 +42,8 @@ struct database {
 };
 
 struct databaseHeader {
-    int countDatabases;
-    database *databases;
+    int countDatabases; //Counts number of databases
+    database *databases; //Points to database
     static void initialize(); //Intialize dbheader
     static void addDatabase(database *); //Add database to dbheader
     static database * findDatabase(std::string); //Find database in dbheader

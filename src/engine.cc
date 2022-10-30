@@ -28,11 +28,12 @@ void databaseHeader::initialize() {
     dbHead = (databaseHeader *)heapOffset;
     dbHead->countDatabases = 0;
     dbHead->databases = NULL;
-
+    
     //Update size of heap and heap offsets
     heapOffset += DB_HEADER_SIZE;
     heapUsed = DB_HEADER_SIZE;
     heapSize = ARENA_SIZE;
+    heapLayout.push_back(dbHeaderString);
 }
 
 //Add database to db header
@@ -48,6 +49,7 @@ void databaseHeader::addDatabase(database * db) {
         head->next = db;
 
     }
+    heapLayout.push_back(db->name);
     db->next = NULL;
     db->tableHeader = NULL;
     dbHead->countDatabases += 1;
@@ -143,24 +145,20 @@ void test() {
         (char *)databaseHeader::findDatabase("TEST DATABASE 3") << "\n"; //DB SIZE x 3
     
 
-    databaseHeader::createDatabase("TEST DATABASE 8");
-    databaseHeader::createDatabase("TEST DATABASE 9");
-    databaseHeader::createDatabase("TEST DATABASE 10");
-    databaseHeader::createDatabase("TEST DATABASE 11");
-    databaseHeader::createDatabase("TEST DATABASE 12");
-    std::cout << (char *)databaseHeader::findDatabase("TEST DATABASE 12") - 
-        (char *)databaseHeader::findDatabase("TEST DATABASE 11") << "\n"; //DB SIZE x 3
-    printf("%p\n", (char *)databaseHeader::findDatabase("TEST DATABASE 12") - 497);
 }
 
-
+//Prints layout of the heap
+void printHeapLayout() {
+    for (int i = 0; i < heapLayout.size(); i++) {
+        std::cout << heapLayout.at(i) << "\n";
+    }
+}
 int main () {
     databaseHeader::initialize(); //Intialize database header
-    heapOffset += 1;
-    heapUsed += 1;
     test();
     //Free memory used
     std::cout << heapCheck() << "\n";
+    printHeapLayout();
     freeMem(heapSize);
 
 }
