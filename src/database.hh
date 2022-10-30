@@ -17,5 +17,13 @@ struct table {
 struct tableHeader {
     int countTables;
     table *tables;
+    static void initialize(); //Intialize tbheader
+    static void addTable(table *); //Add table to tbheader
+    static table * findTable(std::string); //Find table in tbheader
+    static int createTable(std::string); //Creates table
+    static void useTable(std::string); //Sets current table
 
 };
+
+tableHeader * tbHead; //Current tableheader
+table *currentTable; //Current table
