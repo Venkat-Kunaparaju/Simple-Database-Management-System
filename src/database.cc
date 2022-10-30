@@ -160,7 +160,7 @@ void testTable(int print) {
 int main() {
     databaseHeader::initialize();
     testDatabase(0);
-    testTable(1);
+    testTable(0);
     std::cout << heapCheck() << "\n";
     printHeapLayout();
     freeMem(heapSize);
