@@ -66,7 +66,7 @@ int getSizeOfRow(table *tb) {
 
 //Adds value of row to given table and returns size of the allocation
 //Returns 0 if error occurs
-int addValueToRow(table * tb, char *temp, char *mem, char *columnName, int stringSize) {
+int addValueToRow(table * tb, unsigned char *temp, char *mem, char *columnName, int stringSize) {
     int N = tb->tableInfo->N;
 
     int offsetSize = 0;
@@ -112,28 +112,37 @@ void testRow() {
     table *tb = tableHeader::findTable("Test Table 1");
     createFenceposts(tb);
     char * mem = newMem(getSizeOfRow(tb));
-    char * hah = "hahahaha";
-    char * c = "0000";
-    char * b = "asfasf";
-    addValueToRow(tb, hah, mem, "Grades", 8);
-    addValueToRow(tb, c, mem, "Names", 0);
-    addValueToRow(tb, b, mem, "School", 0);
+    strcpy(tempString.string, "hahahahaha");
+    tempInt.integer = 234;
+    tempDouble.integer = 151.34;
+    addValueToRow(tb, tempString.bytes, mem, "Grades", 10);
+    addValueToRow(tb, tempInt.bytes, mem, "Names", 0);
+    addValueToRow(tb, tempDouble.bytes, mem, "School", 0);
     heapLayout.push_back(rowIString);
+    heapUsed += getSizeOfRow(tb);
+    heapOffset += getSizeOfRow(tb);
 
-
+    mem = newMem(getSizeOfRow(tb));
+    strcpy(tempString.string, "hahasahaha");
+    tempInt.integer = 203;
+    tempDouble.integer = 111.1;
+    addValueToRow(tb, tempString.bytes, mem, "Grades", 10);
+    addValueToRow(tb, tempInt.bytes, mem, "Names", 0);
+    addValueToRow(tb, tempDouble.bytes, mem, "School", 0);
+    heapLayout.push_back(rowIString);
     heapUsed += getSizeOfRow(tb);
     heapOffset += getSizeOfRow(tb);
 
     createEndFenceposts(tb);
 
     std::cout <<  ((rowString *)((char *)(tb->tableInfo->fenceposts) + 
-        FENCEPOST_SIZE))->value.string << "\n"; //First value in first row with char
+        FENCEPOST_SIZE + getSizeOfRow(tb)))->value.string << "\n"; //First value in first row with char
 
     std::cout <<  ((rowInt *)((char *)(tb->tableInfo->fenceposts) + 
-        FENCEPOST_SIZE + ROWSTRING_SIZE))->value.integer << "\n"; //Second value in first row with char
+        FENCEPOST_SIZE + ROWSTRING_SIZE + getSizeOfRow(tb)))->value.integer << "\n"; //Second value in first row with char
 
-    std::cout <<  ((rowInt *)((char *)(tb->tableInfo->fenceposts) + 
-        FENCEPOST_SIZE + ROWSTRING_SIZE + ROWINT_SIZE))->value.integer << "\n"; //THird value in first row with char
+    std::cout <<  *((double *) ((rowInt *)((char *)(tb->tableInfo->fenceposts) + 
+        FENCEPOST_SIZE + ROWSTRING_SIZE + ROWINT_SIZE + getSizeOfRow(tb)))->value.bytes)<< "\n"; //THird value in first row with char
 
     
     
