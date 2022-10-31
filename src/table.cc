@@ -66,7 +66,7 @@ int getSizeOfRow(table *tb) {
 
 //Adds value of row to given table and returns size of the allocation
 //Returns 0 if error occurs
-int addValueToRow(table * tb, char *temp, char *mem, char *columnName) {
+int addValueToRow(table * tb, char *temp, char *mem, char *columnName, int stringSize) {
     int N = tb->tableInfo->N;
 
     int offsetSize = 0;
@@ -74,7 +74,7 @@ int addValueToRow(table * tb, char *temp, char *mem, char *columnName) {
     int check = 1;
     columnInfo *head = tb->tableInfo->columns;
     while(head->size) {
-        if (strcpy(head->name, columnName) == 0) {
+        if (strcmp(head->name, columnName) == 0) { 
             currSize = head->size;
             check = 0;
             break;
@@ -86,9 +86,9 @@ int addValueToRow(table * tb, char *temp, char *mem, char *columnName) {
         std::cout << ERRRO_COLUMN_NAME_NOT_EXIST;
         return 0;
     }
-
+    
     if (currSize == ROWINT_SIZE) {
-        rowInt *insert = (rowInt *)(mem + offsetSize);
+        rowInt *insert = (rowInt *)((char *)(mem + offsetSize));
         memcpy(insert->value.bytes, temp, ROWINT_SIZE);
     }
 
@@ -96,10 +96,10 @@ int addValueToRow(table * tb, char *temp, char *mem, char *columnName) {
         rowDouble *insert = (rowDouble *)(mem + offsetSize);
         memcpy(insert->value.bytes, temp, ROWDOUBLE_SIZE);
     }
-
+    
     else if (currSize == ROWSTRING_SIZE) {
         rowString *insert = (rowString *)(mem + offsetSize);
-        memcpy(insert->value.bytes, temp, ROWSTRING_SIZE);
+        memcpy(insert->value.bytes, temp, stringSize);
     }
 
 
@@ -111,19 +111,35 @@ int addValueToRow(table * tb, char *temp, char *mem, char *columnName) {
 void testRow() {
     table *tb = tableHeader::findTable("Test Table 1");
     createFenceposts(tb);
+    char * mem = newMem(getSizeOfRow(tb));
+    char * hah = "hahahaha";
+    char * c = "0000";
+    char * b = "asfasf";
+    addValueToRow(tb, hah, mem, "Grades", 8);
+    addValueToRow(tb, c, mem, "Names", 0);
+    addValueToRow(tb, b, mem, "School", 0);
 
+
+    heapUsed += getSizeOfRow(tb);
+    heapOffset += getSizeOfRow(tb);
 
     createEndFenceposts(tb);
-    std::cout << ((rowInt *)(tb->tableInfo->fenceposts + 1))->value.integer << "\n"; //First value in first row
+
+    std::cout <<  ((rowString *)((char *)(tb->tableInfo->fenceposts) + 
+        FENCEPOST_SIZE))->value.string << "\n"; //First value in first row with char
 
     std::cout <<  ((rowInt *)((char *)(tb->tableInfo->fenceposts) + 
-        FENCEPOST_SIZE))->value.integer << "\n"; //First value in first row with char
+        FENCEPOST_SIZE + ROWSTRING_SIZE))->value.integer << "\n"; //Second value in first row with char
 
-    std::cout <<  ((rowDouble *)((char *)(tb->tableInfo->fenceposts) + 
-        FENCEPOST_SIZE + ROWINT_SIZE))->value.integer << "\n"; //Second value in first row with char
+    std::cout <<  ((rowInt *)((char *)(tb->tableInfo->fenceposts) + 
+        FENCEPOST_SIZE + ROWSTRING_SIZE + ROWINT_SIZE))->value.integer << "\n"; //THird value in first row with char
+
+
     
+    /*
     std::cout <<  ((rowString *)((char *)(tb->tableInfo->fenceposts) + 
         FENCEPOST_SIZE + ROWINT_SIZE + ROWDOUBLE_SIZE))->value.string << "\n"; //Third value in first row with char
+    */
     
     
 }
@@ -131,7 +147,7 @@ int main() {
     databaseHeader::initialize();
     testDatabase(1);
     testTable(1);
-    testTable(1);
+    //testTable(1);
     testRow();
     
 

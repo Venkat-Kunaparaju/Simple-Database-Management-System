@@ -193,9 +193,9 @@ void testTable(int print) {
 
 
         //Add columns check
-        char *temp[] = {"Grades", "Names", "Grades"};
-        int temp2[] = {32, 8};
-        tableHeader::addColumns("Test Table 1", temp, temp2, 2);
+        char *temp[] = {"Grades", "Names", "School"};
+        int temp2[] = {32, 4, 8};
+        tableHeader::addColumns("Test Table 1", temp, temp2, 3);
         std::cout << tableHeader::findTable("Test Table 1")->tableInfo->N << "\n"; //2
         std::cout << tableHeader::findTable("Test Table 1")->tableInfo->columns->name << "\n"; //"Grades"
         std::cout << tableHeader::findTable("Test Table 1")->tableInfo->columns->size << "\n"; //32
