@@ -25,6 +25,7 @@ struct tableInformation {
     columnInfo *columns; //Head to column
     fencePost *fenceposts; //First fencepost
     int N; //N -> Number of columns
+    static void addRow(char *); //Adds signular row to an already established fencepost
 };
 
 
