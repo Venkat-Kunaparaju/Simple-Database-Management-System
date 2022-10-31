@@ -21,6 +21,10 @@
 #define FENCEPOST_SIZE sizeof(fencePost)
 #define COLUMNINFO_SIZE sizeof(columnInfo)
 #define TABLEINFO_SIZE sizeof(tableInformation)
+#define ROWINT_SIZE sizeof(rowInt)
+#define ROWDOUBLE_SIZE sizeof(rowDouble)
+#define ROWSTRING_SIZE sizeof(rowString)
+
 
 #define ERROR_DB_NAME_NOT_EXIST "ERROR: Database name does not exist\n"
 #define ERROR_TB_NAME_NOT_EXIST "ERROR: Table name does not exist\n"

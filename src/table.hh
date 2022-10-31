@@ -51,6 +51,7 @@ struct rowDouble {
 struct rowString {
     union {
         char string[MAXSTRINGLEN];
+        unsigned char bytes[32];
     } value;
 };
 

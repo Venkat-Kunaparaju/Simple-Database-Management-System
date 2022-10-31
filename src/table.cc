@@ -72,6 +72,7 @@ void createEndFenceposts(table *tb) {
     fp->next->prev = fp;
     heapUsed += FENCEPOST_SIZE;
     heapOffset += FENCEPOST_SIZE;
+    heapLayout.push_back(fencePostEndString);
 }
 
 //Adds row to given table
@@ -103,9 +104,22 @@ void testRow() {
     int type = INT;
     if (type == INT) {
         rowInt *temp = (rowInt *)heapOffset;
+        temp->value.integer = value;
+        heapUsed += ROWINT_SIZE;
+        heapOffset += ROWINT_SIZE;
     }
+    rowDouble *temp = (rowDouble *)heapOffset;
+    temp->value.integer = 151.25;
+    heapUsed += ROWDOUBLE_SIZE;
+    heapOffset += ROWDOUBLE_SIZE;
+
+    rowString *temp2 = (rowString *)heapOffset;
+    strcpy(temp2->value.string, "HELLO");
+    heapUsed += ROWSTRING_SIZE;
+    heapOffset += ROWSTRING_SIZE;
 
     createEndFenceposts(tb);
+    std::cout << ((rowInt *)(tb->tableInfo->fenceposts + 1))->value.integer << "\n";
     
     
 }
@@ -113,6 +127,8 @@ int main() {
     databaseHeader::initialize();
     testDatabase(1);
     testTable(1);
+    testTable(1);
+    testRow();
     
 
     if (heapCheck())
