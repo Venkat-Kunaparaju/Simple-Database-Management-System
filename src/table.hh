@@ -12,10 +12,14 @@
 #define MAXTABLES 20
 #define ARENA_SIZE 256 //Current increments of size to request from the os
 
+enum rowType {
+    BEGIN = 1,
+    END = 0
+};
 struct fencePost {
     fencePost *next; //Not a circular linked list
     fencePost *prev;
-    int type; //1 for begin, 0 for end
+    rowType type; //1 for begin, 0 for end
 };
 struct columnInfo { //No next pointer because columns are right next to each other (like a list)
     char name[MAXSTRINGLEN]; //Name for column
@@ -27,6 +31,11 @@ struct tableInformation {
     int N; //N -> Number of columns
 };
 
+enum varType {
+    STRING = 2,
+    DOUBLE = 1,
+    INT = 0
+};
 struct rowInt {
     union {
         unsigned int integer;

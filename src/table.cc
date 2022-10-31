@@ -17,7 +17,7 @@ void intializeFencepost(table * tb) {
         mem = heapOffset;
     }
     tb->tableInfo->fenceposts = (fencePost *)mem;
-    tb->tableInfo->fenceposts->type = 1;
+    tb->tableInfo->fenceposts->type = BEGIN;
     tb->tableInfo->fenceposts->next = NULL;
     tb->tableInfo->fenceposts->prev= NULL;
     heapUsed += FENCEPOST_SIZE;
@@ -43,7 +43,7 @@ void createFenceposts(table * tb) {
             mem = heapOffset;
         }
         fp->next = (fencePost *)mem;
-        fp->next->type = 1;
+        fp->next->type = BEGIN;
         fp->next->next = NULL;
         fp->next->prev = fp;
         heapUsed += FENCEPOST_SIZE;
@@ -67,7 +67,7 @@ void createEndFenceposts(table *tb) {
         mem = heapOffset;
     }
     fp->next = (fencePost *)mem;
-    fp->next->type = 0;
+    fp->next->type = END;
     fp->next->next = NULL;
     fp->next->prev = fp;
     heapUsed += FENCEPOST_SIZE;
@@ -98,6 +98,14 @@ void addRow(std::string name, char **row, int rows, int size) {
 
 void testRow() {
     table *tb = tableHeader::findTable("Test Table 1");
+    createFenceposts(tb);
+    int value = 232;
+    int type = INT;
+    if (type == INT) {
+        
+    }
+
+    createEndFenceposts(tb);
     
     
 }
