@@ -111,7 +111,9 @@ int addValueToRow(table * tb, unsigned char *temp, char *mem, char *columnName, 
 void testRow() {
     table *tb = tableHeader::findTable("Test Table 1");
     createFenceposts(tb);
-    char * mem = newMem(getSizeOfRow(tb));
+
+    int size = getSizeOfRow(tb);
+    char * mem = newMem(size);
     strcpy(tempString.string, "hahahahaha");
     tempInt.integer = 234;
     tempDouble.integer = 151.34;
@@ -119,10 +121,10 @@ void testRow() {
     addValueToRow(tb, tempInt.bytes, mem, "Names", 0);
     addValueToRow(tb, tempDouble.bytes, mem, "School", 0);
     heapLayout.push_back(rowIString);
-    heapUsed += getSizeOfRow(tb);
-    heapOffset += getSizeOfRow(tb);
+    heapUsed += size;
+    heapOffset += size;
 
-    mem = newMem(getSizeOfRow(tb));
+    mem = newMem(size);
     strcpy(tempString.string, "hahasahaha");
     tempInt.integer = 203;
     tempDouble.integer = 111.1;
@@ -130,26 +132,28 @@ void testRow() {
     addValueToRow(tb, tempInt.bytes, mem, "Names", 0);
     addValueToRow(tb, tempDouble.bytes, mem, "School", 0);
     heapLayout.push_back(rowIString);
-    heapUsed += getSizeOfRow(tb);
-    heapOffset += getSizeOfRow(tb);
+    heapUsed += size;
+    heapOffset += size;
+
 
     createEndFenceposts(tb);
-
+    
+    
     std::cout <<  ((rowString *)((char *)(tb->tableInfo->fenceposts) + 
-        FENCEPOST_SIZE + getSizeOfRow(tb)))->value.string << "\n"; //First value in first row with char
+        FENCEPOST_SIZE + size))->value.string << "\n"; //First value in first row with char
 
     std::cout <<  ((rowInt *)((char *)(tb->tableInfo->fenceposts) + 
-        FENCEPOST_SIZE + ROWSTRING_SIZE + getSizeOfRow(tb)))->value.integer << "\n"; //Second value in first row with char
+        FENCEPOST_SIZE + ROWSTRING_SIZE + size))->value.integer << "\n"; //Second value in first row with char
 
     std::cout <<  *((double *) ((rowInt *)((char *)(tb->tableInfo->fenceposts) + 
-        FENCEPOST_SIZE + ROWSTRING_SIZE + ROWINT_SIZE + getSizeOfRow(tb)))->value.bytes)<< "\n"; //THird value in first row with char
+        FENCEPOST_SIZE + ROWSTRING_SIZE + ROWINT_SIZE + size))->value.bytes)<< "\n"; //THird value in first row with char
 
     
     
 }
 int main() {
     databaseHeader::initialize();
-    testDatabase(1);
+    testDatabase(0);
     testTable(1);
     //testTable(1);
     testRow();
