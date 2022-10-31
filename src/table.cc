@@ -8,14 +8,7 @@
 
 //Intalizes first fenceposts
 void intializeFencepost(table * tb) {
-    char * mem;
-    if (heapUsed + FENCEPOST_SIZE > heapSize) {
-        mem = requestMem(ARENA_SIZE) - (heapSize - heapUsed);
-        heapSize += ARENA_SIZE;
-    }
-    else {
-        mem = heapOffset;
-    }
+    char * mem = newMem(FENCEPOST_SIZE);
     tb->tableInfo->fenceposts = (fencePost *)mem;
     tb->tableInfo->fenceposts->type = BEGIN;
     tb->tableInfo->fenceposts->next = NULL;
@@ -34,14 +27,7 @@ void createFenceposts(table * tb) {
         while(fp->next) {
             fp = fp->next;
         }
-        char * mem;
-        if (heapUsed + FENCEPOST_SIZE > heapSize) {
-            mem = requestMem(ARENA_SIZE) - (heapSize - heapUsed);
-            heapSize += ARENA_SIZE;
-        }
-        else {
-            mem = heapOffset;
-        }
+        char * mem = newMem(FENCEPOST_SIZE);
         fp->next = (fencePost *)mem;
         fp->next->type = BEGIN;
         fp->next->next = NULL;
@@ -58,14 +44,7 @@ void createEndFenceposts(table *tb) {
     while(fp->next) {
         fp = fp->next;
     }
-    char * mem;
-    if (heapUsed + FENCEPOST_SIZE > heapSize) {
-        mem = requestMem(ARENA_SIZE) - (heapSize - heapUsed);
-        heapSize += ARENA_SIZE;
-    }
-    else {
-        mem = heapOffset;
-    }
+    char * mem = newMem(FENCEPOST_SIZE);
     fp->next = (fencePost *)mem;
     fp->next->type = END;
     fp->next->next = NULL;
@@ -79,7 +58,6 @@ void createEndFenceposts(table *tb) {
 //Returns 0 if error occurs
 int addValueToRow(table * tb, char *temp, int type, char *columnName) {
     int N = tb->tableInfo->N;
-    int i = 0;
 
     int offsetSize = 0;
     int currSize = 0;
@@ -100,19 +78,27 @@ int addValueToRow(table * tb, char *temp, int type, char *columnName) {
     }
 
     if (currSize == ROWINT_SIZE) {
-        char * mem;
-        if (heapUsed + TABLE_OBJECT_SIZE > heapSize) {
-            mem = requestMem(ARENA_SIZE) - (heapSize - heapUsed);
-            heapSize += ARENA_SIZE;
-        }
-        else {
-            mem = heapOffset;
-        }
-        rowInt *insert = (rowInt *)heapOffset;
+        char * mem = newMem(ROWINT_SIZE);
+        rowInt *insert = (rowInt *)(mem + offsetSize);
         memcpy(insert->value.bytes, temp, ROWINT_SIZE);
         heapUsed += ROWINT_SIZE;
-        heapOffset += ROWINT_SIZE;
     }
+
+    else if (currSize == ROWDOUBLE_SIZE) {
+        char * mem = newMem(ROWDOUBLE_SIZE);
+        rowDouble *insert = (rowDouble *)(mem + offsetSize);
+        memcpy(insert->value.bytes, temp, ROWDOUBLE_SIZE);
+        heapUsed += ROWDOUBLE_SIZE;
+    }
+
+    else if (currSize == ROWSTRING_SIZE) {
+        char * mem = newMem(ROWSTRING_SIZE);
+        rowString *insert = (rowString *)(mem + offsetSize);
+        memcpy(insert->value.bytes, temp, ROWSTRING_SIZE);
+        heapUsed += ROWSTRING_SIZE;
+    }
+
+
     
 
 

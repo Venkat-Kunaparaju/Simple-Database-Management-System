@@ -32,6 +32,7 @@ char * newMem(int objectSize) {
     else {
         mem = heapOffset;
     }
+    return mem;
 }
 //Makes sure that the heap used is the same as the difference between the heapoffset and base
 //Returns 1 if true, 0 if false
@@ -110,14 +111,7 @@ int databaseHeader::createDatabase(std::string name) {
         std::cerr << ERROR_DB_NAME_EXIST;
         return 0;
     }
-    char * mem;
-    if (heapUsed + DB_OBJECT_SIZE > heapSize) {
-        mem = requestMem(ARENA_SIZE) - (heapSize - heapUsed);
-        heapSize += ARENA_SIZE;
-    }
-    else {
-        mem = heapOffset;
-    }
+    char * mem = newMem(DB_OBJECT_SIZE);
     database *db = (database *)mem;
     strcpy(db->name, name.c_str()); 
      

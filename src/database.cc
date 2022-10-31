@@ -15,14 +15,7 @@ void tableHeader::initialize(std::string databaseName) {
     if(currentDatabase->tableHeader) {
         tbHead = currentDatabase->tableHeader;
     } else {
-        char * mem;
-        if (heapUsed + TABLE_HEADER_SIZE > heapSize) {
-            mem = requestMem(ARENA_SIZE) - (heapSize - heapUsed);
-            heapSize += ARENA_SIZE;
-        }
-        else {
-            mem = heapOffset;
-        }
+        char * mem = newMem(TABLE_HEADER_SIZE);
         tbHead = (tableHeader *)mem;
         tbHead->countTables = 0;
         tbHead->tables = NULL;
@@ -84,14 +77,7 @@ int tableHeader::createTable(std::string name) {
         std::cerr << ERROR_TB_NAME_EXIST;
         return 0;
     }
-    char * mem;
-    if (heapUsed + TABLE_OBJECT_SIZE > heapSize) {
-        mem = requestMem(ARENA_SIZE) - (heapSize - heapUsed);
-        heapSize += ARENA_SIZE;
-    }
-    else {
-        mem = heapOffset;
-    }
+    char * mem = newMem(TABLE_OBJECT_SIZE);
     table *tb = (table *)mem;
     strcpy(tb->name, name.c_str()); 
      
@@ -110,15 +96,8 @@ void tableHeader::useTable(std::string name) {
 //Adds columns to given table
 void tableHeader::addColumns(std::string name, char **columnNames, int * columnSizes, int N) {
     table * toAdd = findTable(name);
-    char * mem;
     char *dupCheck[N];
-    if (heapUsed + N * COLUMNINFO_SIZE + TABLEINFO_SIZE > heapSize) {
-        mem = requestMem(ARENA_SIZE) - (heapSize - heapUsed);
-        heapSize += ARENA_SIZE;
-    }
-    else {
-        mem = heapOffset;
-    }
+    char * mem = newMem(N * COLUMNINFO_SIZE + TABLEINFO_SIZE);
     toAdd->tableInfo = (tableInformation *)mem;
     toAdd->tableInfo->N = N;
     toAdd->tableInfo->columns = NULL;
