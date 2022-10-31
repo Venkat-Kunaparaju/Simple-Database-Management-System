@@ -23,7 +23,16 @@ void freeMem(int size) { //Free mem from os
    }
    
 }
-
+char * newMem(int objectSize) {
+    char * mem;
+    if (heapUsed + objectSize > heapSize) {
+        mem = requestMem(ARENA_SIZE) - (heapSize - heapUsed);
+        heapSize += ARENA_SIZE;
+    }
+    else {
+        mem = heapOffset;
+    }
+}
 //Makes sure that the heap used is the same as the difference between the heapoffset and base
 //Returns 1 if true, 0 if false
 int heapCheck() {

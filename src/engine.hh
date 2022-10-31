@@ -32,7 +32,9 @@
 #define ERROR_DB_NAME_EXIST "ERROR: Database name already exists\n"
 #define ERROR_TB_NAME_EXIST "ERROR: Table name already exists\n"
 #define ERROR_NO_DB "ERROR: No Database in use\n"
+#define ERRRO_COLUMN_NAME_NOT_EXIST "ERROR: Column name does not exist\n"
 #define ERROR_DUP_COLUMN "ERROR: Duplicate column names found\n"
+#define ERROR_DIFF_SIZES "ERROR: "
 
 int heapSize; //Current size of heap
 int heapUsed; //Amount of heap used
