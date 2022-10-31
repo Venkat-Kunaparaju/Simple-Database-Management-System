@@ -73,17 +73,19 @@ void tableInformation::createEndFenceposts(table *tb) {
 }
 
 //Adds row to given table
-void tableInformation::addRow(std::string name, char **row, int rows) {
+void tableInformation::addRow(std::string name, char **row, int rows, int size) {
     table *tb = tableHeader::findTable(name);
     int N = tb->tableInfo->N;
     int i = 0;
+    /*
     int size = 0;
     while (i != N) {
         size += (tb->tableInfo->columns + i)->size;
         i++;
     }
+    */
     createFenceposts(tb);
-    
+
 
 
     createEndFenceposts(tb);
@@ -91,6 +93,8 @@ void tableInformation::addRow(std::string name, char **row, int rows) {
 
 
 }
+
+
 int main() {
     databaseHeader::initialize();
     testDatabase(1);

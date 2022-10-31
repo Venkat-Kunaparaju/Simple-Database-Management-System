@@ -25,7 +25,7 @@ struct tableInformation {
     columnInfo *columns; //Head to column
     fencePost *fenceposts; //First fencepost
     int N; //N -> Number of columns
-    static void addRow(std::string, char **, int); //Adds row(s) and adds begin and end row
+    static void addRow(std::string, char **, int, int); //Adds row(s) and adds begin and end row
     static void intializeFencepost(table *); //Intialize first fencepost
     static void createFenceposts(table *); //Creates begin fenceposts
     static void createEndFenceposts(table *); //Creates end fenceposts
