@@ -37,6 +37,8 @@ char * base; //Start of heap
 char *dbHeaderString = "Database Header";
 char *tbHeaderString = "Table Header";
 char *tbInformationString = "Table Information";
+char *fencePostBeginString = "Fencepost Begin";
+char *fencePostEndString = "Fencepost End";
 std::vector<char *> heapLayout; //Keeps track of the layout of the heap
 
 char * requestMem(int); //Request more memory 
