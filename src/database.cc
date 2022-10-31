@@ -111,6 +111,7 @@ void tableHeader::useTable(std::string name) {
 void tableHeader::addColumns(std::string name, char **columnNames, int * columnSizes, int N) {
     table * toAdd = findTable(name);
     char * mem;
+    char *dupCheck[N];
     if (heapUsed + N * COLUMNINFO_SIZE + TABLEINFO_SIZE > heapSize) {
         mem = requestMem(ARENA_SIZE) - (heapSize - heapUsed);
         heapSize += ARENA_SIZE;
@@ -128,15 +129,28 @@ void tableHeader::addColumns(std::string name, char **columnNames, int * columnS
     heapOffset +=TABLEINFO_SIZE;
     int i = 0;
     while (i != N) {
-        columnInfo *temp = (columnInfo *)heapOffset + i;
         char *hold = columnNames[i];
-        strcpy(temp->name, hold);
-        temp->size = columnSizes[i];
-        heapLayout.push_back(hold);
-        if (i == 0) {
-            toAdd->tableInfo->columns = temp;
+        int x = 0;
+        int ignore = 0;
+        while( i != x) { //Checks for duplicate column names and ignores the duplicate column name
+            if (strcmp((toAdd->tableInfo->columns + x)->name, hold) == 0) {
+                int ignore = 1;
+                break;
+            }
+            x++;
         }
-        i++;
+        
+        if (!ignore) {
+            
+            columnInfo *temp = (columnInfo *)heapOffset + i;
+            strcpy(temp->name, hold);
+            temp->size = columnSizes[i];
+            heapLayout.push_back(hold);
+            if (i == 0) {
+                toAdd->tableInfo->columns = temp;
+            }
+            i++;
+        }
         
     }
    
@@ -200,7 +214,7 @@ void testTable(int print) {
 
 
         //Add columns check
-        char *temp[] = {"Grades", "Names"};
+        char *temp[] = {"Grades", "Names", "Grades"};
         int temp2[] = {32, 8};
         tableHeader::addColumns("Test Table 1", temp, temp2, 2);
         std::cout << tableHeader::findTable("Test Table 1")->tableInfo->N << "\n"; //2

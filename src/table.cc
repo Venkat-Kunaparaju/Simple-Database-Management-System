@@ -102,7 +102,7 @@ void testRow() {
     int value = 232;
     int type = INT;
     if (type == INT) {
-        
+        rowInt *temp = (rowInt *)heapOffset;
     }
 
     createEndFenceposts(tb);
@@ -113,6 +113,7 @@ int main() {
     databaseHeader::initialize();
     testDatabase(1);
     testTable(1);
+    
 
     if (heapCheck())
         printHeapLayout();
