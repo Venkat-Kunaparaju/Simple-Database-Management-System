@@ -134,12 +134,6 @@ void testRow() {
     std::cout <<  ((rowInt *)((char *)(tb->tableInfo->fenceposts) + 
         FENCEPOST_SIZE + ROWSTRING_SIZE + ROWINT_SIZE))->value.integer << "\n"; //THird value in first row with char
 
-
-    
-    /*
-    std::cout <<  ((rowString *)((char *)(tb->tableInfo->fenceposts) + 
-        FENCEPOST_SIZE + ROWINT_SIZE + ROWDOUBLE_SIZE))->value.string << "\n"; //Third value in first row with char
-    */
     
     
 }
