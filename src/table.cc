@@ -17,12 +17,25 @@ void intializeFencepost(table * tb) {
     heapOffset += FENCEPOST_SIZE;
 }
 
+fencePost *lastFencePost(table *tb) {
+    fencePost *head = tb->tableInfo->fenceposts;
+    while(head->next) {
+        head = head->next;
+    }
+    return head;
+}
 //Adds being fencepost
 void createFenceposts(table * tb) {
     fencePost *fp = tb->tableInfo->fenceposts;
     if (!fp) {
         intializeFencepost(tb);
     } 
+    else if ((char *)(heapOffset - FENCEPOST_SIZE) == (char *)lastFencePost(tb)) { //Coalesce
+        fencePost *temp = lastFencePost(tb);
+        heapOffset -= FENCEPOST_SIZE;
+        heapUsed -= FENCEPOST_SIZE;
+        temp->prev->next = NULL;
+    }
     else {
         while(fp->next) {
             fp = fp->next;
@@ -35,6 +48,7 @@ void createFenceposts(table * tb) {
         heapUsed += FENCEPOST_SIZE;
         heapOffset += FENCEPOST_SIZE;
     }
+    
     heapLayout.push_back(fencePostBeginString);
 }
 
@@ -57,9 +71,11 @@ void createEndFenceposts(table *tb) {
 int getSizeOfRow(table *tb) {
     int size = 0;
     columnInfo *head = tb->tableInfo->columns;
-    while(head->size) {
+    int N = tb->tableInfo->N;
+    for (int i = 0; i < N; i++) {
         size += head->size;
         head = (head + 1);
+        
     }
     return size;
 }
@@ -138,7 +154,34 @@ void testRow() {
 
     createEndFenceposts(tb);
     
-    
+    createFenceposts(tb);
+
+    mem = newMem(size);
+    strcpy(tempString.string, "hahahahaha");
+    tempInt.integer = 234;
+    tempDouble.integer = 151.34;
+    addValueToRow(tb, tempString.bytes, mem, "Grades", 10);
+    addValueToRow(tb, tempInt.bytes, mem, "Names", 0);
+    addValueToRow(tb, tempDouble.bytes, mem, "School", 0);
+    heapLayout.push_back(rowIString);
+    heapUsed += size;
+    heapOffset += size;
+
+
+
+    mem = newMem(size);
+    strcpy(tempString.string, "hahasahaha");
+    tempInt.integer = 203;
+    tempDouble.integer = 111.1;
+    addValueToRow(tb, tempString.bytes, mem, "Grades", 10);
+    addValueToRow(tb, tempInt.bytes, mem, "Names", 0);
+    addValueToRow(tb, tempDouble.bytes, mem, "School", 0);
+    heapLayout.push_back(rowIString);
+    heapUsed += size;
+    heapOffset += size;
+
+    createEndFenceposts(tb);
+
     std::cout <<  ((rowString *)((char *)(tb->tableInfo->fenceposts) + 
         FENCEPOST_SIZE + size))->value.string << "\n"; //First value in first row with char
 
