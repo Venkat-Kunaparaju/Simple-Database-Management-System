@@ -9,6 +9,7 @@
 
 #define MAXSTRINGLEN 32 //Max size for names
 #define MAXCOLUMNS 20
+#define MAXTABLES 20
 #define ARENA_SIZE 256 //Current increments of size to request from the os
 
 struct fencePost {
@@ -24,8 +25,6 @@ struct tableInformation {
     columnInfo *columns; //Head to column
     fencePost *fenceposts; //First fencepost
     int N; //N -> Number of columns
-    static void initialize(std::string name);
 };
 
-char *columnNames[MAXCOLUMNS];
 

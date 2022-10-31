@@ -22,8 +22,10 @@ struct tableHeader {
     static table * findTable(std::string); //Find table in tbheader
     static int createTable(std::string); //Creates table
     static void useTable(std::string); //Sets current table
+    static void addColumns(std::string, char **, int *, int); //Add columns to given table name
 
 };
 
 tableHeader * tbHead; //Current tableheader
-table *currentTable; //Current table
+table *currentTables[MAXTABLES]; //Current table in use
+int numberOfTables = 0; //Number of tables currently in use

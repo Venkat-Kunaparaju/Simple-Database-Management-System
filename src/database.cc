@@ -50,8 +50,9 @@ void tableHeader::addTable(table * tb) {
 
     }
     heapLayout.push_back(tb->name);
-    tb->next = NULL;
     tb->tableInfo = NULL;
+    tb->next = NULL;
+    
     tbHead->countTables += 1;
 }
 
@@ -102,7 +103,43 @@ int tableHeader::createTable(std::string name) {
 
 //Set current table
 void tableHeader::useTable(std::string name) {
-    currentTable = findTable(name);
+    currentTables[numberOfTables] = findTable(name);
+    numberOfTables++;
+}
+
+//Adds columns to given table
+void tableHeader::addColumns(std::string name, char **columnNames, int * columnSizes, int N) {
+    table * toAdd = findTable(name);
+    char * mem;
+    if (heapUsed + N * COLUMNINFO_SIZE + TABLEINFO_SIZE > heapSize) {
+        mem = requestMem(ARENA_SIZE) - (heapSize - heapUsed);
+        heapSize += ARENA_SIZE;
+    }
+    else {
+        mem = heapOffset;
+    }
+    toAdd->tableInfo = (tableInformation *)mem;
+    toAdd->tableInfo->N = N;
+    toAdd->tableInfo->columns = NULL;
+    toAdd->tableInfo->fenceposts = NULL;
+    
+    heapUsed += TABLEINFO_SIZE;
+    heapOffset +=TABLEINFO_SIZE;
+    int i = 0;
+    while (i != N) {
+        columnInfo *temp = (columnInfo *)heapOffset + i;
+        char *hold = columnNames[i];
+        strcpy(temp->name, hold);
+        temp->size = columnSizes[i];
+        if (i == 0) {
+            toAdd->tableInfo->columns = temp;
+        }
+        i++;
+    }
+   
+    heapUsed += N * COLUMNINFO_SIZE;
+    heapOffset += N * COLUMNINFO_SIZE;
+
 }
 
 void testTable(int print) {
