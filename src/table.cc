@@ -35,6 +35,7 @@ void createFenceposts(table * tb) {
         heapOffset -= FENCEPOST_SIZE;
         heapUsed -= FENCEPOST_SIZE;
         temp->prev->next = NULL;
+        std::cerr << "CHECK\n";
     }
     else {
         while(fp->next) {
@@ -181,6 +182,7 @@ void testRow() {
     heapOffset += size;
 
     createEndFenceposts(tb);
+
 
     std::cout <<  ((rowString *)((char *)(tb->tableInfo->fenceposts) + 
         FENCEPOST_SIZE + size))->value.string << "\n"; //First value in first row with char
