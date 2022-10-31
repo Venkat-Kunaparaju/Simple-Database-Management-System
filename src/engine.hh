@@ -46,6 +46,7 @@ char *tbHeaderString = "Table Header";
 char *tbInformationString = "Table Information";
 char *fencePostBeginString = "Fencepost Begin";
 char *fencePostEndString = "Fencepost End";
+char *rowIString = "Row";
 std::vector<char *> heapLayout; //Keeps track of the layout of the heap
 
 char * requestMem(int); //Request more memory 

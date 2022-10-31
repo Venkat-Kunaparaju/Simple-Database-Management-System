@@ -118,6 +118,7 @@ void testRow() {
     addValueToRow(tb, hah, mem, "Grades", 8);
     addValueToRow(tb, c, mem, "Names", 0);
     addValueToRow(tb, b, mem, "School", 0);
+    heapLayout.push_back(rowIString);
 
 
     heapUsed += getSizeOfRow(tb);
