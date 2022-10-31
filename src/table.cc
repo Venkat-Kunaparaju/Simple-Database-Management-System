@@ -54,16 +54,26 @@ void createEndFenceposts(table *tb) {
     heapLayout.push_back(fencePostEndString);
 }
 
+int getSizeOfRow(table *tb) {
+    int size = 0;
+    columnInfo *head = tb->tableInfo->columns;
+    while(head->size) {
+        size += head->size;
+        head = (head + 1);
+    }
+    return size;
+}
+
 //Adds value of row to given table and returns size of the allocation
 //Returns 0 if error occurs
-int addValueToRow(table * tb, char *temp, int type, char *columnName) {
+int addValueToRow(table * tb, char *temp, char *mem, char *columnName) {
     int N = tb->tableInfo->N;
 
     int offsetSize = 0;
     int currSize = 0;
     int check = 1;
     columnInfo *head = tb->tableInfo->columns;
-    while(head) {
+    while(head->size) {
         if (strcpy(head->name, columnName) == 0) {
             currSize = head->size;
             check = 0;
@@ -78,24 +88,18 @@ int addValueToRow(table * tb, char *temp, int type, char *columnName) {
     }
 
     if (currSize == ROWINT_SIZE) {
-        char * mem = newMem(ROWINT_SIZE);
         rowInt *insert = (rowInt *)(mem + offsetSize);
         memcpy(insert->value.bytes, temp, ROWINT_SIZE);
-        heapUsed += ROWINT_SIZE;
     }
 
     else if (currSize == ROWDOUBLE_SIZE) {
-        char * mem = newMem(ROWDOUBLE_SIZE);
         rowDouble *insert = (rowDouble *)(mem + offsetSize);
         memcpy(insert->value.bytes, temp, ROWDOUBLE_SIZE);
-        heapUsed += ROWDOUBLE_SIZE;
     }
 
     else if (currSize == ROWSTRING_SIZE) {
-        char * mem = newMem(ROWSTRING_SIZE);
         rowString *insert = (rowString *)(mem + offsetSize);
         memcpy(insert->value.bytes, temp, ROWSTRING_SIZE);
-        heapUsed += ROWSTRING_SIZE;
     }
 
 
@@ -107,24 +111,7 @@ int addValueToRow(table * tb, char *temp, int type, char *columnName) {
 void testRow() {
     table *tb = tableHeader::findTable("Test Table 1");
     createFenceposts(tb);
-    int value = 232;
-    int type = INT;
-    rowInt *temp = NULL;
-    if (type == INT) {
-        temp = (rowInt *)heapOffset;
-        temp->value.integer = value;
-        heapUsed += ROWINT_SIZE;
-        heapOffset += ROWINT_SIZE;
-    }
-    rowDouble *temp1 = (rowDouble *)heapOffset;
-    temp1->value.integer = 151.25;
-    heapUsed += ROWDOUBLE_SIZE;
-    heapOffset += ROWDOUBLE_SIZE;
 
-    rowString *temp2 = (rowString *)heapOffset;
-    strcpy(temp2->value.string, "HELLO");
-    heapUsed += ROWSTRING_SIZE;
-    heapOffset += ROWSTRING_SIZE;
 
     createEndFenceposts(tb);
     std::cout << ((rowInt *)(tb->tableInfo->fenceposts + 1))->value.integer << "\n"; //First value in first row
