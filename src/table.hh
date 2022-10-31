@@ -25,10 +25,24 @@ struct tableInformation {
     columnInfo *columns; //Head to column
     fencePost *fenceposts; //First fencepost
     int N; //N -> Number of columns
-    static void addRow(std::string, char **, int, int); //Adds row(s) and adds begin and end row
-    static void intializeFencepost(table *); //Intialize first fencepost
-    static void createFenceposts(table *); //Creates begin fenceposts
-    static void createEndFenceposts(table *); //Creates end fenceposts
+};
+
+struct rowInt {
+    union {
+        unsigned int integer;
+        unsigned char bytes[4];
+    } value;
+};
+struct rowDouble {
+    union {
+        double integer;
+        unsigned char bytes[8];
+    } value;
+};
+struct rowString {
+    union {
+        char string[MAXSTRINGLEN];
+    } value;
 };
 
 

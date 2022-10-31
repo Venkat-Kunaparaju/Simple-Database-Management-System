@@ -7,7 +7,7 @@
 
 
 //Intalizes first fenceposts
-void tableInformation::intializeFencepost(table * tb) {
+void intializeFencepost(table * tb) {
     char * mem;
     if (heapUsed + FENCEPOST_SIZE > heapSize) {
         mem = requestMem(ARENA_SIZE) - (heapSize - heapUsed);
@@ -22,10 +22,10 @@ void tableInformation::intializeFencepost(table * tb) {
     tb->tableInfo->fenceposts->prev= NULL;
     heapUsed += FENCEPOST_SIZE;
     heapOffset += FENCEPOST_SIZE;
-
-    
 }
-void tableInformation::createFenceposts(table * tb) {
+
+//Adds being fencepost
+void createFenceposts(table * tb) {
     fencePost *fp = tb->tableInfo->fenceposts;
     if (!fp) {
         intializeFencepost(tb);
@@ -51,7 +51,9 @@ void tableInformation::createFenceposts(table * tb) {
     }
     heapLayout.push_back(fencePostBeginString);
 }
-void tableInformation::createEndFenceposts(table *tb) {
+
+//Adds end fencpost
+void createEndFenceposts(table *tb) {
     fencePost *fp = tb->tableInfo->fenceposts;
     while(fp->next) {
         fp = fp->next;
@@ -73,7 +75,7 @@ void tableInformation::createEndFenceposts(table *tb) {
 }
 
 //Adds row to given table
-void tableInformation::addRow(std::string name, char **row, int rows, int size) {
+void addRow(std::string name, char **row, int rows, int size) {
     table *tb = tableHeader::findTable(name);
     int N = tb->tableInfo->N;
     int i = 0;
@@ -94,7 +96,11 @@ void tableInformation::addRow(std::string name, char **row, int rows, int size) 
 
 }
 
-
+void testRow() {
+    table *tb = tableHeader::findTable("Test Table 1");
+    
+    
+}
 int main() {
     databaseHeader::initialize();
     testDatabase(1);
