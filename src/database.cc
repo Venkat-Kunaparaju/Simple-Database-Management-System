@@ -122,6 +122,7 @@ void tableHeader::addColumns(std::string name, char **columnNames, int * columnS
     toAdd->tableInfo->N = N;
     toAdd->tableInfo->columns = NULL;
     toAdd->tableInfo->fenceposts = NULL;
+    heapLayout.push_back(tbInformationString);
     
     heapUsed += TABLEINFO_SIZE;
     heapOffset +=TABLEINFO_SIZE;
@@ -131,10 +132,12 @@ void tableHeader::addColumns(std::string name, char **columnNames, int * columnS
         char *hold = columnNames[i];
         strcpy(temp->name, hold);
         temp->size = columnSizes[i];
+        heapLayout.push_back(hold);
         if (i == 0) {
             toAdd->tableInfo->columns = temp;
         }
         i++;
+        
     }
    
     heapUsed += N * COLUMNINFO_SIZE;
@@ -194,6 +197,18 @@ void testTable(int print) {
             (char *)tableHeader::findTable("Test Table 3") << "\n"; //TB_SIZE x 4 + sizeof(table header)
         std::cout << (char *)tableHeader::findTable("Test Table 4") - 
             (char *)dbHead << "\n"; //Everything in heap layout up to this point - TB_SIZE
+
+
+        //Add columns check
+        char *temp[] = {"Grades", "Names"};
+        int temp2[] = {32, 8};
+        tableHeader::addColumns("Test Table 1", temp, temp2, 2);
+        std::cout << tableHeader::findTable("Test Table 1")->tableInfo->N << "\n"; //2
+        std::cout << tableHeader::findTable("Test Table 1")->tableInfo->columns->name << "\n"; //"Grades"
+        std::cout << tableHeader::findTable("Test Table 1")->tableInfo->columns->size << "\n"; //32
+        std::cout << (tableHeader::findTable("Test Table 1")->tableInfo->columns + 1)->name<< "\n"; //"Names"
+        std::cout << (tableHeader::findTable("Test Table 1")->tableInfo->columns + 1)->size << "\n"; //8
+
          std::cout << "TESTING END\n";
     }
 }
