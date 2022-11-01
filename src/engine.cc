@@ -88,10 +88,10 @@ void databaseHeader::addDatabase(database * db) {
 
 //Find database name in db header
 //Returns NULL if name not found
-database * databaseHeader::findDatabase(std::string name) {
+database * databaseHeader::findDatabase(char * name) {
     database * head = dbHead->databases;
     while(head) {
-        if (strcmp(head->name,name.c_str()) == 0) {
+        if (strcmp(head->name,name) == 0) {
             return head;
         }
         head = head->next;
@@ -102,8 +102,8 @@ database * databaseHeader::findDatabase(std::string name) {
 
 //Create daatabase (UPDATE FOR DELETING)
 //Returns 1 on success, 0 for error
-int databaseHeader::createDatabase(std::string name) {
-    if (name.size() + 1 > MAXSTRINGLEN) { //C++ strings dont have null terminator, so +1 accounts for it
+int databaseHeader::createDatabase(char * name) {
+    if (strlen(name) + 1 > MAXSTRINGLEN) { //C++ strings dont have null terminator, so +1 accounts for it
         std::cerr << ERROR_NAME_SIZE;
         return 0;
     }
@@ -113,7 +113,7 @@ int databaseHeader::createDatabase(std::string name) {
     }
     char * mem = newMem(DB_OBJECT_SIZE);
     database *db = (database *)mem;
-    strcpy(db->name, name.c_str()); 
+    strcpy(db->name, name); 
      
     databaseHeader::addDatabase(db);
     heapUsed += DB_OBJECT_SIZE;
@@ -126,7 +126,7 @@ int databaseHeader::createDatabase(std::string name) {
 }
 
 //Set current database
-void databaseHeader::useDatabase(std::string name) {
+void databaseHeader::useDatabase(char * name) {
     currentDatabase = findDatabase(name);
 }
 
@@ -148,6 +148,7 @@ void testDatabase(int print) {
         std::cout << databaseHeader::findDatabase("TEST DATABASE")->next->next->next << "\n"; //NO DATABASE  (NULL)
         std::cout << databaseHeader::findDatabase("TEST DATABASE 4") << "\n"; //NO DATABASE (NULL)
         databaseHeader::createDatabase("TEST DATABASE 3"); //NAME ALREADY EXISTS
+        databaseHeader::createDatabase("TEST DATABASE 3 TEST DATABASE T"); //NAME ALREADY EXISTS
 
         //Check Locations
         std::cout << (char *)databaseHeader::findDatabase("TEST DATABASE 2") - 

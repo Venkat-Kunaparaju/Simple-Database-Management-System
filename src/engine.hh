@@ -34,7 +34,7 @@
 #define ERROR_NO_DB "ERROR: No Database in use\n"
 #define ERRRO_COLUMN_NAME_NOT_EXIST "ERROR: Column name does not exist\n"
 #define ERROR_DUP_COLUMN "ERROR: Duplicate column names found\n"
-#define ERROR_DIFF_SIZES "ERROR: "
+#define ERROR_DIFF_SIZES "ERROR: Different sizes"
 
 int heapSize; //Current size of heap
 int heapUsed; //Amount of heap used
@@ -66,9 +66,9 @@ struct databaseHeader {
     int countDatabases; //Counts number of databases
     static void initialize(); //Intialize dbheader
     static void addDatabase(database *); //Add database to dbheader
-    static database * findDatabase(std::string); //Find database in dbheader
-    static int createDatabase(std::string); //Creates database
-    static void useDatabase(std::string); //Sets current database
+    static database * findDatabase(char *); //Find database in dbheader
+    static int createDatabase(char *); //Creates database
+    static void useDatabase(char *); //Sets current database
 };
 
 databaseHeader *dbHead; //Current databaseheader

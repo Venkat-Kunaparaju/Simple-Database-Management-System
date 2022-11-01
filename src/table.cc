@@ -275,10 +275,10 @@ void testRow() {
 }
 int main() {
     databaseHeader::initialize();
-    testDatabase(0);
-    testTable(1);
-    testTable(1);
-    testRow();
+    testDatabase(1);
+    //testTable(1);
+    //testTable(1);
+    //testRow();
     
 
     if (heapCheck())

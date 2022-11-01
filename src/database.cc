@@ -6,7 +6,7 @@
 #include "engine.cc"
 
 //Intialize/set table header to the correseponding database name
-void tableHeader::initialize(std::string databaseName) {
+void tableHeader::initialize(char * databaseName) {
     databaseHeader::useDatabase(databaseName);
     if (!currentDatabase) {
         std::cerr << ERROR_DB_NAME_NOT_EXIST;
@@ -109,6 +109,10 @@ void tableHeader::addColumns(std::string name, char **columnNames, int * columnS
     int i = 0;
     while (i != N) {
         char *hold = columnNames[i];
+        if (strlen(hold) + 1 > MAXSTRINGLEN) {
+            std::cout << ERROR_NAME_SIZE;
+            return;
+        }
         int x = 0;
         int ignore = 0;
         while( i != x) { //Checks for duplicate column names and ignores the duplicate column name
