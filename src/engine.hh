@@ -41,6 +41,7 @@ int heapUsed; //Amount of heap used
 char * heapOffset; //Next open spot on the heap
 char * base; //Start of heap
 
+//Strings for heap layout
 char *dbHeaderString = "Database Header";
 char *tbHeaderString = "Table Header";
 char *tbInformationString = "Table Information";

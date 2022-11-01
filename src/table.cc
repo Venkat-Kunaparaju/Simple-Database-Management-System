@@ -6,7 +6,7 @@
 #include "database.cc"
 
 
-//Intalizes first fenceposts
+//Intalizes first fencepost
 void intializeFencepost(table * tb) {
     char * mem = newMem(FENCEPOST_SIZE);
     tb->tableInfo->fenceposts = (fencePost *)mem;
@@ -17,6 +17,7 @@ void intializeFencepost(table * tb) {
     heapOffset += FENCEPOST_SIZE;
 }
 
+//Returns last fencpost (for coalescing)
 fencePost *lastFencePost(table *tb) {
     fencePost *head = tb->tableInfo->fenceposts;
     while(head->next) {
@@ -24,7 +25,8 @@ fencePost *lastFencePost(table *tb) {
     }
     return head;
 }
-//Adds being fencepost
+
+//Creates begining fenceposts
 void createFenceposts(table * tb) {
     fencePost *fp = tb->tableInfo->fenceposts;
     if (!fp) {
@@ -35,7 +37,6 @@ void createFenceposts(table * tb) {
         heapOffset -= FENCEPOST_SIZE;
         heapUsed -= FENCEPOST_SIZE;
         temp->prev->next = NULL;
-        std::cerr << "CHECK\n";
     }
     else {
         while(fp->next) {
@@ -53,7 +54,7 @@ void createFenceposts(table * tb) {
     heapLayout.push_back(fencePostBeginString);
 }
 
-//Adds end fencpost
+//Creates ending Fenceposts
 void createEndFenceposts(table *tb) {
     fencePost *fp = tb->tableInfo->fenceposts;
     while(fp->next) {
@@ -69,6 +70,7 @@ void createEndFenceposts(table *tb) {
     heapLayout.push_back(fencePostEndString);
 }
 
+//Gets size of the rows of the table (used for updating used and offsetting)
 int getSizeOfRow(table *tb) {
     int size = 0;
     columnInfo *head = tb->tableInfo->columns;
@@ -81,6 +83,7 @@ int getSizeOfRow(table *tb) {
     return size;
 }
 
+//Get size of the rows up till a certain column number (used in offsets for inserting rows)
 int getSizeOfRowStop(table *tb, char * name) {
     int size = 0;
     columnInfo *head = tb->tableInfo->columns;
@@ -95,6 +98,7 @@ int getSizeOfRowStop(table *tb, char * name) {
     return size;
 }
 
+//Finds column given column (used to check if column name exists in inserting)
 columnInfo * findColumn(table * tb, char * name) {
     columnInfo *head = tb->tableInfo->columns;
     int N = tb->tableInfo->N;
@@ -107,6 +111,7 @@ columnInfo * findColumn(table * tb, char * name) {
     return NULL;
 }
 
+//Adds row given row information in bytes and the corresponding column names
 int addRow(table *tb, unsigned char *temp[], char **columnNames) {
     int rowSize = getSizeOfRow(tb);
     char *mem = newMem(rowSize);
@@ -144,9 +149,10 @@ int addRow(table *tb, unsigned char *temp[], char **columnNames) {
     heapOffset += rowSize;
 }
 
+//These 3 functions are used for converting int/double/string to byte array
 TempString * getTempString(char * string) {
     TempString *temp = new TempString;
-    memcpy(temp->string, string, strlen(string));
+    memcpy(temp->string, string, ROWSTRING_SIZE);
     return temp;
 }
 
@@ -161,12 +167,13 @@ TempDouble * getTempDouble(double val) {
     temp->integer = val;
     return temp;
 }
+
 void testRow() {
     table *tb = tableHeader::findTable("Test Table 1");
     createFenceposts(tb);
     unsigned char *hold[3];
     char *columns[] = {"Grades", "Names", "School"};
-
+    
     TempString *store3 = getTempString("hahahasgsadgagda");
     hold[0] = store3->bytes;
     
@@ -177,11 +184,11 @@ void testRow() {
     hold[1] = store1->bytes;
 
     addRow(tb, hold, columns);
-     delete store1;
-    delete store2;
-    delete store3;
 
     addRow(tb, hold, columns);
+    delete store1;
+    delete store2;
+    delete store3;
 
 
     createEndFenceposts(tb);

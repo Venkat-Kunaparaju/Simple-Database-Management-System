@@ -12,6 +12,7 @@
 #define MAXTABLES 20
 #define ARENA_SIZE 256 //Current increments of size to request from the os
 
+//Enum for row types
 enum rowType {
     BEGIN = -1,
     END = -2
@@ -31,11 +32,14 @@ struct tableInformation {
     int N; //N -> Number of columns
 };
 
+//Enum of varType (unused)
 enum varType {
     STRING = 2,
     DOUBLE = 1,
     INT = 0
 };
+
+//Structs for different row values
 struct rowInt {
     union {
         unsigned int integer;
