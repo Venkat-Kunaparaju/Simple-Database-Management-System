@@ -56,17 +56,16 @@ struct rowString {
 };
 
 //Unions to store temporary row values
-union {
+union TempInt {
     unsigned int integer;
     unsigned char bytes[4];
-} tempInt;
-union {
+};
+union TempDouble {
     double integer;
     unsigned char bytes[8];
-} tempDouble;
-union {
+};
+union TempString {
     char string[MAXSTRINGLEN];
     unsigned char bytes[32];
-} tempString;
-
+};
 
