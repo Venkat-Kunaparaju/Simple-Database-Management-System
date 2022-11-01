@@ -13,13 +13,13 @@
 #define ARENA_SIZE 256 //Current increments of size to request from the os
 
 enum rowType {
-    BEGIN = 1,
-    END = 0
+    BEGIN = -1,
+    END = -2
 };
 struct fencePost {
+    rowType type; //1 for begin, 0 for end
     fencePost *next; //Not a circular linked list
     fencePost *prev;
-    rowType type; //1 for begin, 0 for end
 };
 struct columnInfo { //No next pointer because columns are right next to each other (like a list)
     char name[MAXSTRINGLEN]; //Name for column

@@ -205,8 +205,6 @@ void testRow() {
 
     createEndFenceposts(tb);
     
-    
-
 
     std::cout <<  ((rowString *)((char *)(tb->tableInfo->fenceposts) + 
         FENCEPOST_SIZE + 88))->value.string << "\n"; //First value in first row with char
