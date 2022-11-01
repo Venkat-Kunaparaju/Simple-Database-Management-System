@@ -98,6 +98,10 @@ void tableHeader::addColumns(char * name, char **columnNames, int * columnSizes,
     table * toAdd = findTable(name);
     char *dupCheck[N];
     char * mem = newMem(N * COLUMNINFO_SIZE + TABLEINFO_SIZE);
+    if (toAdd->tableInfo) {
+        std::cout << ERROR_COLUMNS_DEFINED;
+        return;
+    }
     toAdd->tableInfo = (tableInformation *)mem;
     toAdd->tableInfo->N = N;
     toAdd->tableInfo->columns = NULL;

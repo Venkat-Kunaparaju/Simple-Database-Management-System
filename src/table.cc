@@ -265,10 +265,7 @@ void testRow() {
 
     createEndFenceposts(tb);
 
-    TempInt *store7 = new TempInt;
-    memcpy(store7->bytes, searchRow(tb, "Names")[3], ROWINT_SIZE);
-    std::cout << store7->integer << "\n";
-
+    searchRow(tb, "Names");
     searchRow(tb, "Grades");
     searchRow(tb, "School");
 
@@ -277,7 +274,6 @@ int main() {
     databaseHeader::initialize();
     testDatabase(1);
     testTable(1);
-    //testTable(1);
     testRow();
     
 
