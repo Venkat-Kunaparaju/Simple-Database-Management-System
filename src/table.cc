@@ -107,7 +107,7 @@ columnInfo * findColumn(table * tb, char * name) {
     return NULL;
 }
 
-int addRow(table *tb, unsigned char *temp[], char **columnNames, int *stringSize) {
+int addRow(table *tb, unsigned char *temp[], char **columnNames) {
     int rowSize = getSizeOfRow(tb);
     char *mem = newMem(rowSize);
 
@@ -135,82 +135,88 @@ int addRow(table *tb, unsigned char *temp[], char **columnNames, int *stringSize
         }
         else if (sizes[i] == ROWSTRING_SIZE) {
             rowString *insert = (rowString *)((char *)(mem + offsets[i]));
-            memcpy(insert->value.bytes, temp[i], stringSize[i]);
+            memcpy(insert->value.bytes, temp[i], ROWSTRING_SIZE);
         }
 
     }
-
+    heapLayout.push_back(rowIString);
     heapUsed += rowSize;
     heapOffset += rowSize;
+}
+
+TempString * getTempString(char * string) {
+    TempString *temp = new TempString;
+    memcpy(temp->string, string, strlen(string));
+    return temp;
+}
+
+TempInt * getTempInt(int val) {
+    TempInt *temp = new TempInt;
+    temp->integer = val;
+    return temp;
+}
+
+TempDouble * getTempDouble(double val) {
+    TempDouble *temp = new TempDouble;
+    temp->integer = val;
+    return temp;
 }
 void testRow() {
     table *tb = tableHeader::findTable("Test Table 1");
     createFenceposts(tb);
     unsigned char *hold[3];
     char *columns[] = {"Grades", "Names", "School"};
-    int stringSize[] = {10, 0, 0};
 
-    TempString *store3 = new TempString;
-    memcpy(store3->string, "hahahahaha", 10);
+    TempString *store3 = getTempString("hahahasgsadgagda");
     hold[0] = store3->bytes;
     
-
-    TempDouble *store2 = new TempDouble;
-    store2->integer = 151.34;
+    TempDouble *store2 = getTempDouble(151.34);
     hold[2] = store2->bytes;
    
-
-    TempInt *store1 = new TempInt;
-    store1->integer = 89;
+    TempInt *store1 = getTempInt(89);
     hold[1] = store1->bytes;
-    
 
-    addRow(tb, hold, columns, stringSize);
-    delete store1;
+    addRow(tb, hold, columns);
+     delete store1;
     delete store2;
     delete store3;
-    
-    
 
+    addRow(tb, hold, columns);
 
-/*
-    int size = getSizeOfRow(tb);
-    char * mem = newMem(size);
-    strcpy(tempString.string, "hahahahaha");
-    tempInt.integer = 234;
-    tempDouble.integer = 151.34;
-    addValueToRow(tb, tempString.bytes, mem, "Grades", 10);
-    addValueToRow(tb, tempInt.bytes, mem, "Names", 0);
-    addValueToRow(tb, tempDouble.bytes, mem, "School", 0);
-    heapLayout.push_back(rowIString);
-    heapUsed += size;
-    heapOffset += size;
-
-    mem = newMem(size);
-    strcpy(tempString.string, "hahasahaha");
-    tempInt.integer = 203;
-    tempDouble.integer = 111.1;
-    addValueToRow(tb, tempString.bytes, mem, "Grades", 10);
-    addValueToRow(tb, tempInt.bytes, mem, "Names", 0);
-    addValueToRow(tb, tempDouble.bytes, mem, "School", 0);
-    heapLayout.push_back(rowIString);
-    heapUsed += size;
-    heapOffset += size;
-*/
 
     createEndFenceposts(tb);
+
+    createFenceposts(tb);
+
+    TempString *store5 = getTempString("sdguo");
+    hold[0] = store5->bytes;
+
+    TempDouble *store4 = getTempDouble(101.56);
+    hold[2] = store4->bytes;
+
+    TempInt *store6 = getTempInt(201);
+    hold[1] = store6->bytes;
+
+    addRow(tb, hold, columns);
+    delete store5;
+    delete store4;
+    delete store6;
+    
+
+    createEndFenceposts(tb);
+    
     
 
 
     std::cout <<  ((rowString *)((char *)(tb->tableInfo->fenceposts) + 
-        FENCEPOST_SIZE))->value.string << "\n"; //First value in first row with char
+        FENCEPOST_SIZE + 88))->value.string << "\n"; //First value in first row with char
 
     std::cout <<  ((rowInt *)((char *)(tb->tableInfo->fenceposts) + 
-        FENCEPOST_SIZE + ROWSTRING_SIZE))->value.integer << "\n"; //Second value in first row with char
+        FENCEPOST_SIZE + ROWSTRING_SIZE + 88))->value.integer << "\n"; //Second value in first row with char
 
 
-    std::cout <<  *((double *) ((rowInt *)((char *)(tb->tableInfo->fenceposts) + 
-        FENCEPOST_SIZE + ROWSTRING_SIZE + ROWINT_SIZE))->value.bytes)<< "\n"; //THird value in first row with char
+    std::cout <<  *((double *) ((rowDouble *)((char *)(tb->tableInfo->fenceposts) + 
+        FENCEPOST_SIZE + ROWSTRING_SIZE + ROWINT_SIZE + 88))->value.bytes)<< "\n"; //THird value in first row with char
  
 }
 int main() {
