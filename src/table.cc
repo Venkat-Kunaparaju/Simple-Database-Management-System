@@ -272,17 +272,6 @@ void testRow() {
     searchRow(tb, "Grades");
     searchRow(tb, "School");
 
-/*
-    std::cout <<  ((rowString *)((char *)(tb->tableInfo->fenceposts) + 
-        FENCEPOST_SIZE + 88))->value.string << "\n"; //First value in first row with char
-
-    std::cout <<  ((rowInt *)((char *)(tb->tableInfo->fenceposts) + 
-        FENCEPOST_SIZE + ROWSTRING_SIZE + 88))->value.integer << "\n"; //Second value in first row with char
-
-
-    std::cout <<  *((double *) ((rowDouble *)((char *)(tb->tableInfo->fenceposts) + 
-        FENCEPOST_SIZE + ROWSTRING_SIZE + ROWINT_SIZE + 88))->value.bytes)<< "\n"; //THird value in first row with char
- */
 }
 int main() {
     databaseHeader::initialize();
