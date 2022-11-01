@@ -83,7 +83,7 @@ int getSizeOfRow(table *tb) {
     return size;
 }
 
-//Get size of the rows up till a certain column number (used in offsets for inserting rows)
+//Get size of the rows up till a certain column name (used in offsets for inserting rows)
 int getSizeOfRowStop(table *tb, char * name) {
     int size = 0;
     columnInfo *head = tb->tableInfo->columns;
@@ -144,6 +144,7 @@ int addRow(table *tb, unsigned char *temp[], char **columnNames) {
         }
 
     }
+    tb->tableInfo->R += 1;
     heapLayout.push_back(rowIString);
     heapUsed += rowSize;
     heapOffset += rowSize;
@@ -168,6 +169,12 @@ TempDouble * getTempDouble(double val) {
     return temp;
 }
 
+char ** searchRow(table *tb, char *columnName) {
+    fencePost *first = tb->tableInfo->fenceposts;
+    int size = getSizeOfRow(tb);
+    int offset = getSizeOfRowStop(tb, columnName);
+
+}
 void testRow() {
     table *tb = tableHeader::findTable("Test Table 1");
     createFenceposts(tb);

@@ -30,6 +30,7 @@ struct tableInformation {
     columnInfo *columns; //Head to column
     fencePost *fenceposts; //First fencepost
     int N; //N -> Number of columns
+    int R; //R - >Number of rows
 };
 
 //Enum of varType (unused)
