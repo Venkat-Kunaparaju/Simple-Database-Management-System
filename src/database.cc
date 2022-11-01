@@ -51,10 +51,10 @@ void tableHeader::addTable(table * tb) {
 
 //Find table name in tb header
 //Returns NULL if name not found
-table * tableHeader::findTable(std::string name) {
+table * tableHeader::findTable(char * name) {
     table * head = tbHead->tables;
     while(head) {
-        if (strcmp(head->name,name.c_str()) == 0) {
+        if (strcmp(head->name, name) == 0) {
             return head;
         }
         head = head->next;
@@ -64,12 +64,12 @@ table * tableHeader::findTable(std::string name) {
 
 //Create table (UPDATE FOR DELETING)
 //Returns 1 on success, 0 for error
-int tableHeader::createTable(std::string name) {
+int tableHeader::createTable(char * name) {
     if (!tbHead) {
         std::cerr << ERROR_NO_DB;
         return 0;
     }
-    if (name.size() + 1 > MAXSTRINGLEN) { //C++ strings dont have null terminator, so +1 accounts for it
+    if (strlen(name) + 1 > MAXSTRINGLEN) { //C++ strings dont have null terminator, so +1 accounts for it
         std::cerr << ERROR_NAME_SIZE;
         return 0;
     }
@@ -79,7 +79,7 @@ int tableHeader::createTable(std::string name) {
     }
     char * mem = newMem(TABLE_OBJECT_SIZE);
     table *tb = (table *)mem;
-    strcpy(tb->name, name.c_str()); 
+    strcpy(tb->name, name); 
      
     tableHeader::addTable(tb);
     heapUsed += TABLE_OBJECT_SIZE;
@@ -88,13 +88,13 @@ int tableHeader::createTable(std::string name) {
 }
 
 //Set current table
-void tableHeader::useTable(std::string name) {
+void tableHeader::useTable(char * name) {
     currentTables[numberOfTables] = findTable(name);
     numberOfTables++;
 }
 
 //Adds columns to given table
-void tableHeader::addColumns(std::string name, char **columnNames, int * columnSizes, int N) {
+void tableHeader::addColumns(char * name, char **columnNames, int * columnSizes, int N) {
     table * toAdd = findTable(name);
     char *dupCheck[N];
     char * mem = newMem(N * COLUMNINFO_SIZE + TABLEINFO_SIZE);
@@ -160,7 +160,7 @@ void testTable(int print) {
         printf("%s\n", (tableHeader::findTable("Test Table 2") + 1)->name); //Test Table 3
         std::cout << tableHeader::findTable("Test Table 1")->next->next->next << "\n"; //No table (NULL)
         tableHeader::createTable("Test Table 1"); //Name already exists
-
+        tableHeader::createTable("TEST DATABASE 3 TEST DATABASE TE"); //NAME TOO LONG
 
         //Switch
         tableHeader::initialize("TEST DATABASE 2");

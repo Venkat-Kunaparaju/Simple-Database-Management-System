@@ -19,10 +19,10 @@ struct tableHeader {
     int countTables;
     static void initialize(char *); //Intialize tbheader with database name
     static void addTable(table *); //Add table to tbheader
-    static table * findTable(std::string); //Find table in tbheader
-    static int createTable(std::string); //Creates table
-    static void useTable(std::string); //Sets current table
-    static void addColumns(std::string, char **, int *, int); //Add columns to given table name
+    static table * findTable(char *); //Find table in tbheader
+    static int createTable(char *); //Creates table
+    static void useTable(char *); //Sets current table
+    static void addColumns(char *, char **, int *, int); //Add columns to given table name
 
 };
 

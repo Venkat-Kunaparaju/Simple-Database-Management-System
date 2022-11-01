@@ -26,8 +26,10 @@ void freeMem(int size) { //Free mem from os
 char * newMem(int objectSize) {
     char * mem;
     if (heapUsed + objectSize > heapSize) {
-        mem = requestMem(ARENA_SIZE) - (heapSize - heapUsed);
-        heapSize += ARENA_SIZE;
+        while (heapUsed + objectSize > heapSize) {
+            mem = requestMem(ARENA_SIZE) - (heapSize - heapUsed);
+            heapSize += ARENA_SIZE;
+        }
     }
     else {
         mem = heapOffset;
@@ -148,7 +150,7 @@ void testDatabase(int print) {
         std::cout << databaseHeader::findDatabase("TEST DATABASE")->next->next->next << "\n"; //NO DATABASE  (NULL)
         std::cout << databaseHeader::findDatabase("TEST DATABASE 4") << "\n"; //NO DATABASE (NULL)
         databaseHeader::createDatabase("TEST DATABASE 3"); //NAME ALREADY EXISTS
-        databaseHeader::createDatabase("TEST DATABASE 3 TEST DATABASE T"); //NAME ALREADY EXISTS
+        databaseHeader::createDatabase("TEST DATABASE 3 TEST DATABASE TE"); //NAME TOO LONG
 
         //Check Locations
         std::cout << (char *)databaseHeader::findDatabase("TEST DATABASE 2") - 

@@ -276,9 +276,9 @@ void testRow() {
 int main() {
     databaseHeader::initialize();
     testDatabase(1);
+    testTable(1);
     //testTable(1);
-    //testTable(1);
-    //testRow();
+    testRow();
     
 
     if (heapCheck())
