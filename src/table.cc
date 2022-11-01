@@ -94,49 +94,6 @@ int getSizeOfRowStop(table *tb, char * name) {
     }
     return size;
 }
-//Adds value of row to given table and returns size of the allocation
-//Returns 0 if error occurs
-int addValueToRow(table * tb, unsigned char *temp, char *mem, char *columnName, int stringSize) {
-    int N = tb->tableInfo->N;
-
-    int offsetSize = 0;
-    int currSize = 0;
-    int check = 1;
-    columnInfo *head = tb->tableInfo->columns;
-    for (int i = 0; i < N; i++) {
-        if (strcmp(head->name, columnName) == 0) { 
-            currSize = head->size;
-            check = 0;
-            break;
-        }
-        offsetSize += head->size;
-        head = (head + 1);
-    }
-    if (check) {
-        std::cout << ERRRO_COLUMN_NAME_NOT_EXIST;
-        return 0;
-    }
-    
-    if (currSize == ROWINT_SIZE) {
-        rowInt *insert = (rowInt *)((char *)(mem + offsetSize));
-        memcpy(insert->value.bytes, temp, ROWINT_SIZE);
-    }
-
-    else if (currSize == ROWDOUBLE_SIZE) {
-        rowDouble *insert = (rowDouble *)(mem + offsetSize);
-        memcpy(insert->value.bytes, temp, ROWDOUBLE_SIZE);
-    }
-    
-    else if (currSize == ROWSTRING_SIZE) {
-        rowString *insert = (rowString *)(mem + offsetSize);
-        memcpy(insert->value.bytes, temp, stringSize);
-    }
-
-
-    
-
-
-}
 
 columnInfo * findColumn(table * tb, char * name) {
     columnInfo *head = tb->tableInfo->columns;
@@ -149,6 +106,7 @@ columnInfo * findColumn(table * tb, char * name) {
     }
     return NULL;
 }
+
 int addRow(table *tb, unsigned char *temp[], char **columnNames, int *stringSize) {
     int rowSize = getSizeOfRow(tb);
     char *mem = newMem(rowSize);
