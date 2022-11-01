@@ -111,6 +111,12 @@ columnInfo * findColumn(table * tb, char * name) {
     return NULL;
 }
 
+//Gets size of given column name
+int getColumnSize(table *tb, char *columnName) {
+    columnInfo *column = findColumn(tb, columnName);
+    return column->size;
+}
+
 //Adds row given row information in bytes and the corresponding column names
 int addRow(table *tb, unsigned char *temp[], char **columnNames) {
     int rowSize = getSizeOfRow(tb);
@@ -169,30 +175,44 @@ TempDouble * getTempDouble(double val) {
     return temp;
 }
 
-char ** searchRow(table *tb, char *columnName) {
+//Returns all values in column in bytes
+unsigned char ** searchRow(table *tb, char *columnName) {
     fencePost *first = tb->tableInfo->fenceposts;
     int size = getSizeOfRow(tb);
     int offset = getSizeOfRowStop(tb, columnName);
     int rows = tb->tableInfo->R;
-    char *output[rows];
+    unsigned char *output[rows];
 
     columnInfo *column = findColumn(tb, columnName);
     int blockRow = 0;
     for (int i = 0; i < rows; i++) {
-        if (((fencePost *)((char *)(tb->tableInfo->fenceposts) + FENCEPOST_SIZE + 
-            offset + size * (i-blockRow) ))->type < 0) { //Reaches fencepost
+        if (((fencePost *)((char *)(first) + FENCEPOST_SIZE + 
+            size * (i-blockRow) ))->type < 0) { //Reaches fencepost
+                first = ((fencePost *)((char *)(first) + FENCEPOST_SIZE + 
+                    size * (i-blockRow) ))->next;
+                blockRow = i;
 
-            blockRow = i + 1;
-            
         }
         if (column->size == ROWINT_SIZE) {
-            std::cout << ((rowInt *)((char *)(tb->tableInfo->fenceposts) + 
-                FENCEPOST_SIZE + offset + size * (i- blockRow)))->value.integer << "\n";
+            //std::cout << ((rowInt *)((char *)(first) + FENCEPOST_SIZE + offset + size * (i- blockRow)))->value.integer << "\n";
+            output[i] = ((rowInt *)((char *)(first) + 
+                FENCEPOST_SIZE + offset + size * (i- blockRow)))->value.bytes;
         }
-
+        if (column->size == ROWSTRING_SIZE) {
+            //std::cout << ((rowString *)((char *)(first) + FENCEPOST_SIZE + offset + size * (i- blockRow)))->value.string << "\n";
+            output[i] = ((rowString *)((char *)(first) + 
+                FENCEPOST_SIZE + offset + size * (i- blockRow)))->value.bytes;
+        }
+        if (column->size == ROWDOUBLE_SIZE) {
+            //std::cout << ((rowDouble *)((char *)(first) + FENCEPOST_SIZE + offset + size * (i- blockRow)))->value.integer << "\n";
+            output[i] = ((rowDouble *)((char *)(first) + 
+                FENCEPOST_SIZE + offset + size * (i- blockRow)))->value.bytes;
+        }
     }
+    return output;
 
 }
+
 void testRow() {
     table *tb = tableHeader::findTable("Test Table 1");
     createFenceposts(tb);
@@ -217,6 +237,7 @@ void testRow() {
 
 
     createEndFenceposts(tb);
+    databaseHeader::createDatabase("dsga");
 
     createFenceposts(tb);
 
@@ -230,14 +251,28 @@ void testRow() {
     hold[1] = store6->bytes;
 
     addRow(tb, hold, columns);
+
+    createEndFenceposts(tb);
+
+    databaseHeader::createDatabase("dsgaa");
+
+    createFenceposts(tb);
+
+    addRow(tb, hold, columns);
     delete store5;
     delete store4;
     delete store6;
-    
 
     createEndFenceposts(tb);
-    
 
+    TempInt *store7 = new TempInt;
+    memcpy(store7->bytes, searchRow(tb, "Names")[3], ROWINT_SIZE);
+    std::cout << store7->integer << "\n";
+
+    searchRow(tb, "Grades");
+    searchRow(tb, "School");
+
+/*
     std::cout <<  ((rowString *)((char *)(tb->tableInfo->fenceposts) + 
         FENCEPOST_SIZE + 88))->value.string << "\n"; //First value in first row with char
 
@@ -247,13 +282,13 @@ void testRow() {
 
     std::cout <<  *((double *) ((rowDouble *)((char *)(tb->tableInfo->fenceposts) + 
         FENCEPOST_SIZE + ROWSTRING_SIZE + ROWINT_SIZE + 88))->value.bytes)<< "\n"; //THird value in first row with char
- 
+ */
 }
 int main() {
     databaseHeader::initialize();
     testDatabase(0);
     testTable(1);
-    //testTable(1);
+    testTable(1);
     testRow();
     
 
