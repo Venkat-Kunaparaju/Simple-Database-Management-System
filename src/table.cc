@@ -173,6 +173,24 @@ char ** searchRow(table *tb, char *columnName) {
     fencePost *first = tb->tableInfo->fenceposts;
     int size = getSizeOfRow(tb);
     int offset = getSizeOfRowStop(tb, columnName);
+    int rows = tb->tableInfo->R;
+    char *output[rows];
+
+    columnInfo *column = findColumn(tb, columnName);
+    int blockRow = 0;
+    for (int i = 0; i < rows; i++) {
+        if (((fencePost *)((char *)(tb->tableInfo->fenceposts) + FENCEPOST_SIZE + 
+            offset + size * (i-blockRow) ))->type < 0) { //Reaches fencepost
+
+            blockRow = i + 1;
+            
+        }
+        if (column->size == ROWINT_SIZE) {
+            std::cout << ((rowInt *)((char *)(tb->tableInfo->fenceposts) + 
+                FENCEPOST_SIZE + offset + size * (i- blockRow)))->value.integer << "\n";
+        }
+
+    }
 
 }
 void testRow() {
