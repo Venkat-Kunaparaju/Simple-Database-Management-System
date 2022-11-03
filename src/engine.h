@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <vector>
 
-#include "database.hh"
+#include "database.h"
 
 
 #define DB_HEADER_SIZE sizeof(databaseHeader)

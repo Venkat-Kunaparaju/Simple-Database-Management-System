@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "engine.hh"
+#include "engine.h"
 
 char * requestMem(int size) { //Request mem from os
    char * mem = (char *)sbrk(size);

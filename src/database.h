@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "table.hh"
+#include "table.h"
 
 
 struct table {
