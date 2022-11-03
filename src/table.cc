@@ -5,8 +5,6 @@
 
 #include "database.cc"
 
-
-
 //Intalizes first fencepost
 void intializeFencepost(table * tb) {
     char * mem = newMem(FENCEPOST_SIZE);
