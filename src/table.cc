@@ -6,6 +6,7 @@
 #include "database.cc"
 
 
+
 //Intalizes first fencepost
 void intializeFencepost(table * tb) {
     char * mem = newMem(FENCEPOST_SIZE);
@@ -154,6 +155,7 @@ int addRow(table *tb, unsigned char *temp[], char **columnNames) {
     heapLayout.push_back(rowIString);
     heapUsed += rowSize;
     heapOffset += rowSize;
+    return 1;
 }
 
 //These 3 functions are used for converting int/double/string to byte array
@@ -176,12 +178,10 @@ TempDouble * getTempDouble(double val) {
 }
 
 //Returns all values in column in bytes
-unsigned char ** searchRow(table *tb, char *columnName) {
+void searchRow(table *tb, char *columnName, unsigned char **output, int rows) {
     fencePost *first = tb->tableInfo->fenceposts;
     int size = getSizeOfRow(tb);
     int offset = getSizeOfRowStop(tb, columnName);
-    int rows = tb->tableInfo->R;
-    unsigned char *output[rows];
 
     columnInfo *column = findColumn(tb, columnName);
     int blockRow = 0;
@@ -209,7 +209,7 @@ unsigned char ** searchRow(table *tb, char *columnName) {
                 FENCEPOST_SIZE + offset + size * (i- blockRow)))->value.bytes;
         }
     }
-    return output;
+    
 
 }
 
@@ -265,11 +265,19 @@ void testRow() {
 
     createEndFenceposts(tb);
 
-    searchRow(tb, "Names");
-    searchRow(tb, "Grades");
-    searchRow(tb, "School");
+    int rows = tb->tableInfo->R;
+    unsigned char *output[rows];  
+
+    searchRow(tb, "Names", output, rows);  
+    TempInt *jk = new TempInt;
+    memcpy(jk->bytes, output[3], ROWINT_SIZE);
+    std::cout << jk->integer << "\n";
+
+    searchRow(tb, "Grades", output, rows);
+    searchRow(tb, "School", output, rows);
 
 }
+
 int main() {
     databaseHeader::initialize();
     testDatabase(1);
