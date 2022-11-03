@@ -5,10 +5,6 @@
 
 //contains struct for database header which has linked list of database objects
 
-#include <iostream>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <vector>
 
 #include "database.h"

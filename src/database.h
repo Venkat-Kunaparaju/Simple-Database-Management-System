@@ -1,9 +1,5 @@
 //Traverses and inserts tables
 //contains struct for  table header which has linked list of table objects
-#include <iostream>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 #include "table.h"
 

@@ -2,10 +2,7 @@
 //traverses through row entries to execute queries
 
 //contains structs for table table_information which has linked list of fence posts
-#include <iostream>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
+
 
 #define MAXSTRINGLEN 32 //Max size for names
 #define MAXCOLUMNS 20
