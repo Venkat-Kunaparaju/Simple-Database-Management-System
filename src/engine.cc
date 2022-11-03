@@ -2,7 +2,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <vector>
 #include "engine.h"
+
+std::vector<char *> heapLayout; //Keeps track of the layout of the heap
 
 char * requestMem(int size) { //Request mem from os
    char * mem = (char *)sbrk(size);
