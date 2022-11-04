@@ -19,7 +19,8 @@
 
 %token <intVal> SQLINT
 %token <doubleVal> SQLDOUBLE
-%token <stringVal> SQLSTRING EXIT
+%token <stringVal> SQLSTRING
+%token EXIT SEMICOLON NEWLINE
 
 %%
 
@@ -31,17 +32,17 @@ commands:
     | commands command
     ;
 command:
-    SQLINT {
+    SQLINT SEMICOLON {
         std::cout << "Int Check" << "\n";
         testDatabase(1);
     }
-    | SQLDOUBLE {
+    | SQLDOUBLE SEMICOLON {
         std::cout << "Double Check" << "\n";
     }
-    | SQLSTRING {
+    | SQLSTRING SEMICOLON {
         std::cout << "String Check" << "\n";
     }
-    | EXIT {
+    | EXIT SEMICOLON {
         std::cout << "Exiting..." << "\n";
         exit(1);
     }

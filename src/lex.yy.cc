@@ -383,8 +383,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	(yy_more_offset) = 0; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 6
-#define YY_END_OF_BUFFER 7
+#define YY_NUM_RULES 7
+#define YY_END_OF_BUFFER 8
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -392,16 +392,17 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static yyconst flex_int16_t yy_acclist[20] =
+static yyconst flex_int16_t yy_acclist[22] =
     {   0,
-        7,    6,    6,    3,    5,    6,    5,    6,    5,    6,
-        1,    3,    5,    5,    5,    2,    5,    4,    5
+        8,    7,    1,    7,    5,    6,    7,    3,    7,    6,
+        7,    6,    7,    5,    6,    6,    6,    4,    6,    2,
+        6
     } ;
 
 static yyconst flex_int16_t yy_accept[19] =
     {   0,
-        1,    1,    1,    2,    3,    4,    7,    9,   11,   12,
-       12,   14,   15,   16,   17,   18,   20,   20
+        1,    1,    1,    2,    3,    5,    8,   10,   12,   14,
+       14,   16,   17,   18,   19,   20,   22,   22
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -443,21 +444,21 @@ static yyconst flex_int32_t yy_meta[11] =
 
 static yyconst flex_int16_t yy_base[19] =
     {   0,
-        0,    0,   25,   36,   19,    8,   16,   10,   36,   14,
+        0,    0,   24,   36,   36,    8,   36,   16,   10,   14,
        18,   14,   20,   12,   26,   12,   36,   12
     } ;
 
 static yyconst flex_int16_t yy_def[19] =
     {   0,
-       17,    1,   17,   17,   17,   18,   18,   18,   17,   17,
+       17,    1,   17,   17,   17,   18,   17,   18,   18,   17,
        18,   18,   18,   17,   18,   18,    0,   17
     } ;
 
 static yyconst flex_int16_t yy_nxt[47] =
     {   0,
-        4,    5,    4,    6,    4,    7,    8,    7,    7,    7,
+        4,    5,    4,    6,    7,    8,    9,    8,    8,    8,
        10,   11,   17,   12,   17,   14,   17,   14,   17,   13,
-       10,   11,   17,    9,   17,   17,   17,   15,   17,   17,
+       10,   11,   17,   17,   17,   17,   17,   15,   17,   17,
        17,   17,   17,   17,   16,    3,   17,   17,   17,   17,
        17,   17,   17,   17,   17,   17
     } ;
@@ -465,16 +466,16 @@ static yyconst flex_int16_t yy_nxt[47] =
 static yyconst flex_int16_t yy_chk[47] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        6,    6,    8,   18,   16,   14,   12,   10,    7,    8,
-       11,   11,   13,    5,    3,    0,    0,   13,   15,    0,
+        6,    6,    9,   18,   16,   14,   12,   10,    8,    9,
+       11,   11,   13,    3,    0,    0,    0,   13,   15,    0,
         0,    0,    0,    0,   15,   17,   17,   17,   17,   17,
        17,   17,   17,   17,   17,   17
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static yyconst flex_int32_t yy_rule_can_match_eol[7] =
+static yyconst flex_int32_t yy_rule_can_match_eol[8] =
     {   0,
-1, 0, 0, 0, 0, 0,     };
+1, 0, 0, 0, 0, 0, 0,     };
 
 extern int yy_flex_debug;
 int yy_flex_debug = 0;
@@ -512,7 +513,7 @@ char *yytext_ptr;
   #include "y.tab.hh"
   extern int yylex();
 
-#line 516 "lex.yy.cc"
+#line 517 "lex.yy.cc"
 
 #define INITIAL 0
 
@@ -696,7 +697,7 @@ YY_DECL
     
 #line 8 "engine.l"
 
-#line 700 "lex.yy.cc"
+#line 701 "lex.yy.cc"
 
 	if ( !(yy_init) )
 		{
@@ -803,42 +804,51 @@ case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
 #line 9 "engine.l"
-
+{
+  //Ignore space and tabs
+}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 11 "engine.l"
-{ 
-  return SQLDOUBLE;
-   }
-	YY_BREAK
-case 3:
-YY_RULE_SETUP
 #line 14 "engine.l"
-{ 
-  return SQLINT; 
-  }
-	YY_BREAK
-case 4:
-YY_RULE_SETUP
-#line 18 "engine.l"
 {
     return EXIT;
   }
 	YY_BREAK
-case 5:
+case 3:
+YY_RULE_SETUP
+#line 17 "engine.l"
+{
+  return SEMICOLON;
+}
+	YY_BREAK
+case 4:
 YY_RULE_SETUP
 #line 21 "engine.l"
 { 
-  return SQLSTRING; 
+  return SQLDOUBLE;
+   }
+	YY_BREAK
+case 5:
+YY_RULE_SETUP
+#line 24 "engine.l"
+{ 
+  return SQLINT; 
   }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 24 "engine.l"
+#line 28 "engine.l"
+{ 
+  return SQLSTRING; 
+  }
+	YY_BREAK
+case 7:
+YY_RULE_SETUP
+#line 31 "engine.l"
 ECHO;
 	YY_BREAK
-#line 842 "lex.yy.cc"
+#line 852 "lex.yy.cc"
 			case YY_STATE_EOF(INITIAL):
 				yyterminate();
 
@@ -1821,7 +1831,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 24 "engine.l"
+#line 31 "engine.l"
 
 
 

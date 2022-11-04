@@ -6,7 +6,17 @@
 %}
 %option noyywrap
 %%
-[ \t\n];
+[ \t\n] {
+  //Ignore space and tabs
+}
+
+
+"EXIT" {
+    return EXIT;
+  }
+";" {
+  return SEMICOLON;
+}
 
 [0-9]+\.[0-9]+ { 
   return SQLDOUBLE;
@@ -15,9 +25,6 @@
   return SQLINT; 
   }
 
-"EXIT" {
-    return EXIT;
-  }
 [a-zA-Z0-9]+ { 
   return SQLSTRING; 
   }
