@@ -51,3 +51,15 @@ void yyerror(const char *s) {
     fprintf(stderr, "%s\n", s);
     exit(1);
 }
+int main() {
+    databaseHeader::initialize();
+    testDatabase(1);
+    testTable(1);
+    testRow();
+    
+    if (heapCheck())
+        printHeapLayout();
+
+    freeMem(heapSize);
+    yyparse();
+}
