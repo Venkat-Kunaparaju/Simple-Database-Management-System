@@ -282,7 +282,6 @@ int main() {
     testTable(1);
     testRow();
     
-
     if (heapCheck())
         printHeapLayout();
 

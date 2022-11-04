@@ -1,19 +1,18 @@
 %{
   #include <iostream>
-  using namespace std;
   extern int yylex();
 %}
 %option noyywrap
 %%
 [ \t\n];
 [0-9]+\.[0-9]+ { 
-  cout << "Found a floating-point number:" << yytext << endl;
+  std::cout << "Found a floating-point number:" << yytext << "\n";
    }
 [0-9]+ { 
-  cout << "Found an integer:" << yytext << endl; 
+  std::cout << "Found an integer:" << yytext << "\n"; 
   }
 [a-zA-Z0-9]+ { 
-  cout << "Found a string: " << yytext << endl; 
+  std::cout << "Found a string: " << yytext << "\n"; 
   }
 %%
 

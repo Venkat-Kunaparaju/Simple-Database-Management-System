@@ -505,9 +505,8 @@ char *yytext_ptr;
 #line 1 "engine.l"
 #line 2 "engine.l"
   #include <iostream>
-  using namespace std;
   extern int yylex();
-#line 511 "lex.yy.cc"
+#line 510 "lex.yy.cc"
 
 #define INITIAL 0
 
@@ -689,9 +688,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 7 "engine.l"
+#line 6 "engine.l"
 
-#line 695 "lex.yy.cc"
+#line 694 "lex.yy.cc"
 
 	if ( !(yy_init) )
 		{
@@ -797,36 +796,36 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 8 "engine.l"
+#line 7 "engine.l"
 
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 9 "engine.l"
+#line 8 "engine.l"
 { 
-  cout << "Found a floating-point number:" << yytext << endl;
+  std::cout << "Found a floating-point number:" << yytext << "\n";
    }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 12 "engine.l"
+#line 11 "engine.l"
 { 
-  cout << "Found an integer:" << yytext << endl; 
+  std::cout << "Found an integer:" << yytext << "\n"; 
   }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 15 "engine.l"
+#line 14 "engine.l"
 { 
-  cout << "Found a string: " << yytext << endl; 
+  std::cout << "Found a string: " << yytext << "\n"; 
   }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 18 "engine.l"
+#line 17 "engine.l"
 ECHO;
 	YY_BREAK
-#line 830 "lex.yy.cc"
+#line 829 "lex.yy.cc"
 			case YY_STATE_EOF(INITIAL):
 				yyterminate();
 
@@ -1809,7 +1808,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 18 "engine.l"
+#line 17 "engine.l"
 
 
 
