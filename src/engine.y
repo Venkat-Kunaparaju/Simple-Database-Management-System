@@ -32,21 +32,30 @@ commands:
     | commands command
     ;
 command:
-    SQLINT SEMICOLON {
-        std::cout << "Int Check: " << $1 << "\n";
-        testDatabase(1);
+    words SEMICOLON {
+        std::cout << "Statement Check" << "\n";
     }
-    | SQLDOUBLE SEMICOLON {
+    | SEMICOLON
+    ;
+words:
+    word
+    | words word
+word:
+    SQLINT {
+        std::cout << "Int Check: " << $1 << "\n";
+    }
+    | SQLDOUBLE {
         std::cout << "Double Check: " << $1 << "\n";
     }
-    | SQLSTRING SEMICOLON {
+    | SQLSTRING {
         std::cout << "String Check" << "\n";
     }
-    | EXIT SEMICOLON {
+    | EXIT {
         std::cout << "Exiting..." << "\n";
         exit(1);
     }
     ;
+
 %%
 void yyerror(const char *s) {
     fprintf(stderr, "%s\n", s);
