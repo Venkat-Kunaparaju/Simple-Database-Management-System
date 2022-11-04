@@ -1,18 +1,20 @@
 %{
   #include <iostream>
+  #include "y.tab.hh"
   extern int yylex();
+
 %}
 %option noyywrap
 %%
 [ \t\n];
 [0-9]+\.[0-9]+ { 
-  std::cout << "Found a floating-point number:" << yytext << "\n";
+  return DOUBLETEST;
    }
 [0-9]+ { 
-  std::cout << "Found an integer:" << yytext << "\n"; 
+  return INTTEST; 
   }
 [a-zA-Z0-9]+ { 
-  std::cout << "Found a string: " << yytext << "\n"; 
+  return STRINGTEST; 
   }
 %%
 

@@ -5,6 +5,8 @@
 
 #include "database.cc"
 
+int yyparse(void);
+
 //Intalizes first fencepost
 void intializeFencepost(table * tb) {
     char * mem = newMem(FENCEPOST_SIZE);
@@ -281,6 +283,7 @@ int main() {
     testDatabase(1);
     testTable(1);
     testRow();
+    yyparse();
     
     if (heapCheck())
         printHeapLayout();
