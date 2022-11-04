@@ -419,7 +419,7 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    27,    27,    30,    31,    34,    37,    40,    43
+       0,    27,    27,    30,    31,    34,    38,    41,    44
 };
 #endif
 
@@ -1319,25 +1319,26 @@ yyreduce:
 #line 34 "engine.y"
     {
         std::cout << "Int Check" << "\n";
+        testDatabase(1);
     }
     break;
 
   case 6:
-#line 37 "engine.y"
+#line 38 "engine.y"
     {
         std::cout << "Double Check" << "\n";
     }
     break;
 
   case 7:
-#line 40 "engine.y"
+#line 41 "engine.y"
     {
         std::cout << "String Check" << "\n";
     }
     break;
 
   case 8:
-#line 43 "engine.y"
+#line 44 "engine.y"
     {
         std::cout << "Exiting..." << "\n";
         exit(1);
@@ -1346,7 +1347,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1350 "y.tab.cc"
+#line 1351 "y.tab.cc"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1560,7 +1561,7 @@ yyreturn:
 }
 
 
-#line 48 "engine.y"
+#line 49 "engine.y"
 
 void yyerror(const char *s) {
     fprintf(stderr, "%s\n", s);

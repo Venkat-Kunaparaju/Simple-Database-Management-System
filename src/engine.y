@@ -33,6 +33,7 @@ commands:
 command:
     INTTEST {
         std::cout << "Int Check" << "\n";
+        testDatabase(1);
     }
     | DOUBLETEST {
         std::cout << "Double Check" << "\n";
