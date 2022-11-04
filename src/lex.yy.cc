@@ -826,29 +826,31 @@ case 4:
 YY_RULE_SETUP
 #line 21 "engine.l"
 { 
+  yylval.doubleVal = atof(yytext);
   return SQLDOUBLE;
    }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 24 "engine.l"
+#line 25 "engine.l"
 { 
+  yylval.intVal = atoi(yytext);
   return SQLINT; 
   }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 28 "engine.l"
+#line 30 "engine.l"
 { 
   return SQLSTRING; 
   }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 31 "engine.l"
+#line 33 "engine.l"
 ECHO;
 	YY_BREAK
-#line 852 "lex.yy.cc"
+#line 854 "lex.yy.cc"
 			case YY_STATE_EOF(INITIAL):
 				yyterminate();
 
@@ -1831,7 +1833,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 31 "engine.l"
+#line 33 "engine.l"
 
 
 

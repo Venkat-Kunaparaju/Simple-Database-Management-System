@@ -33,11 +33,11 @@ commands:
     ;
 command:
     SQLINT SEMICOLON {
-        std::cout << "Int Check" << "\n";
+        std::cout << "Int Check: " << $1 << "\n";
         testDatabase(1);
     }
     | SQLDOUBLE SEMICOLON {
-        std::cout << "Double Check" << "\n";
+        std::cout << "Double Check: " << $1 << "\n";
     }
     | SQLSTRING SEMICOLON {
         std::cout << "String Check" << "\n";

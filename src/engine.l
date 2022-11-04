@@ -19,9 +19,11 @@
 }
 
 [0-9]+\.[0-9]+ { 
+  yylval.doubleVal = atof(yytext);
   return SQLDOUBLE;
    }
 [0-9]+ { 
+  yylval.intVal = atoi(yytext);
   return SQLINT; 
   }
 

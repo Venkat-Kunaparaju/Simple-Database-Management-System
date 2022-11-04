@@ -1326,7 +1326,7 @@ yyreduce:
         case 5:
 #line 35 "engine.y"
     {
-        std::cout << "Int Check" << "\n";
+        std::cout << "Int Check: " << (yyvsp[(1) - (2)].intVal) << "\n";
         testDatabase(1);
     }
     break;
@@ -1334,7 +1334,7 @@ yyreduce:
   case 6:
 #line 39 "engine.y"
     {
-        std::cout << "Double Check" << "\n";
+        std::cout << "Double Check: " << (yyvsp[(1) - (2)].doubleVal) << "\n";
     }
     break;
 
