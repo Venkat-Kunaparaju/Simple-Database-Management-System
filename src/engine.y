@@ -1,10 +1,12 @@
 %{
   #include <cstdio>
   #include <iostream>
+  #include "table.cc"
 
   // Declare stuff from Flex that Bison needs to know about:
   extern int yylex();
   extern int yyparse();
+
  
   void yyerror(const char *s);
 %}
@@ -17,7 +19,7 @@
 
 %token <intVal> INTTEST
 %token <doubleVal> DOUBLETEST
-%token <stringVal> STRINGTEST
+%token <stringVal> STRINGTEST EXIT
 
 %%
 
@@ -37,6 +39,10 @@ command:
     }
     | STRINGTEST {
         std::cout << "String Check" << "\n";
+    }
+    | EXIT {
+        std::cout << "Exiting..." << "\n";
+        exit(1);
     }
     ;
 %%

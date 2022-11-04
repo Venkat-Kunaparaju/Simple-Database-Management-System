@@ -13,6 +13,10 @@
 [0-9]+ { 
   return INTTEST; 
   }
+
+  "EXIT" {
+    return EXIT;
+  }
 [a-zA-Z0-9]+ { 
   return STRINGTEST; 
   }

@@ -41,27 +41,29 @@
    enum yytokentype {
      INTTEST = 258,
      DOUBLETEST = 259,
-     STRINGTEST = 260
+     STRINGTEST = 260,
+     EXIT = 261
    };
 #endif
 /* Tokens.  */
 #define INTTEST 258
 #define DOUBLETEST 259
 #define STRINGTEST 260
+#define EXIT 261
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 12 "engine.y"
+#line 14 "engine.y"
 {
     int intVal;
     double doubleVal;
     char *stringVal;
 }
 /* Line 1529 of yacc.c.  */
-#line 65 "y.tab.hh"
+#line 67 "y.tab.hh"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

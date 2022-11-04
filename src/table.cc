@@ -283,10 +283,10 @@ int main() {
     testDatabase(1);
     testTable(1);
     testRow();
-    yyparse();
     
     if (heapCheck())
         printHeapLayout();
 
     freeMem(heapSize);
+    yyparse();
 }
