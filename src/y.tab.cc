@@ -66,16 +66,16 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     INTTEST = 258,
-     DOUBLETEST = 259,
-     STRINGTEST = 260,
+     SQLINT = 258,
+     SQLDOUBLE = 259,
+     SQLSTRING = 260,
      EXIT = 261
    };
 #endif
 /* Tokens.  */
-#define INTTEST 258
-#define DOUBLETEST 259
-#define STRINGTEST 260
+#define SQLINT 258
+#define SQLDOUBLE 259
+#define SQLSTRING 260
 #define EXIT 261
 
 
@@ -428,7 +428,7 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "INTTEST", "DOUBLETEST", "STRINGTEST",
+  "$end", "error", "$undefined", "SQLINT", "SQLDOUBLE", "SQLSTRING",
   "EXIT", "$accept", "goal", "commands", "command", 0
 };
 #endif

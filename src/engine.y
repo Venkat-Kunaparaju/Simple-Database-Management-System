@@ -17,9 +17,9 @@
     char *stringVal;
 }
 
-%token <intVal> INTTEST
-%token <doubleVal> DOUBLETEST
-%token <stringVal> STRINGTEST EXIT
+%token <intVal> SQLINT
+%token <doubleVal> SQLDOUBLE
+%token <stringVal> SQLSTRING EXIT
 
 %%
 
@@ -31,14 +31,14 @@ commands:
     | commands command
     ;
 command:
-    INTTEST {
+    SQLINT {
         std::cout << "Int Check" << "\n";
         testDatabase(1);
     }
-    | DOUBLETEST {
+    | SQLDOUBLE {
         std::cout << "Double Check" << "\n";
     }
-    | STRINGTEST {
+    | SQLSTRING {
         std::cout << "String Check" << "\n";
     }
     | EXIT {

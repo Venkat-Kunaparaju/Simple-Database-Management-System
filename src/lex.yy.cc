@@ -807,35 +807,35 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 10 "engine.l"
+#line 11 "engine.l"
 { 
-  return DOUBLETEST;
+  return SQLDOUBLE;
    }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 13 "engine.l"
+#line 14 "engine.l"
 { 
-  return INTTEST; 
+  return SQLINT; 
   }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 17 "engine.l"
+#line 18 "engine.l"
 {
     return EXIT;
   }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 20 "engine.l"
+#line 21 "engine.l"
 { 
-  return STRINGTEST; 
+  return SQLSTRING; 
   }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 23 "engine.l"
+#line 24 "engine.l"
 ECHO;
 	YY_BREAK
 #line 842 "lex.yy.cc"
@@ -1821,7 +1821,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 23 "engine.l"
+#line 24 "engine.l"
 
 
 

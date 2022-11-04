@@ -7,18 +7,19 @@
 %option noyywrap
 %%
 [ \t\n];
+
 [0-9]+\.[0-9]+ { 
-  return DOUBLETEST;
+  return SQLDOUBLE;
    }
 [0-9]+ { 
-  return INTTEST; 
+  return SQLINT; 
   }
 
-  "EXIT" {
+"EXIT" {
     return EXIT;
   }
 [a-zA-Z0-9]+ { 
-  return STRINGTEST; 
+  return SQLSTRING; 
   }
 %%
 
