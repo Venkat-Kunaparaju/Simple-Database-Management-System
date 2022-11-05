@@ -14,13 +14,13 @@
 %union {
     int intVal;
     double doubleVal;
-    char *stringVal;
+    char stringVal[32];
 }
 
 %token <intVal> SQLINT
 %token <doubleVal> SQLDOUBLE
 %token <stringVal> SQLSTRING
-%token EXIT INSERT CREATE DATABASE SEMICOLON COMMA
+%token EXIT INSERT CREATE DATABASE SEMICOLON COMMA OPEN CLOSE
 
 %%
 
@@ -32,8 +32,13 @@ commands:
     | commands command
     ;
 command:
-    list SEMICOLON {
-        std::cout << "Statement Check" << "\n";
+    CREATE DATABASE SQLSTRING SEMICOLON {
+        databaseHeader::createDatabase($3);
+        heapCheck();
+    }
+    | EXIT SEMICOLON {
+        std::cout << "Exiting..." << "\n";
+        exit(1);
     }
     | SEMICOLON
     ;
@@ -51,10 +56,6 @@ word:
     }
     | SQLSTRING {
         std::cout << "String Check" << "\n";
-    }
-    | EXIT {
-        std::cout << "Exiting..." << "\n";
-        exit(1);
     }
     |
     ;

@@ -47,7 +47,9 @@
      CREATE = 263,
      DATABASE = 264,
      SEMICOLON = 265,
-     COMMA = 266
+     COMMA = 266,
+     OPEN = 267,
+     CLOSE = 268
    };
 #endif
 /* Tokens.  */
@@ -60,6 +62,8 @@
 #define DATABASE 264
 #define SEMICOLON 265
 #define COMMA 266
+#define OPEN 267
+#define CLOSE 268
 
 
 
@@ -70,10 +74,10 @@ typedef union YYSTYPE
 {
     int intVal;
     double doubleVal;
-    char *stringVal;
+    char stringVal[32];
 }
 /* Line 1529 of yacc.c.  */
-#line 77 "y.tab.hh"
+#line 81 "y.tab.hh"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

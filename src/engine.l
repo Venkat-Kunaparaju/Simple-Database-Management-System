@@ -17,17 +17,24 @@
 [Ii][Nn][Ss][Ee][Rr][Tt] {
   return INSERT;
 }
-[Cc][Rr][Ee][Aa][Tt] {
+[Cc][Rr][Ee][Aa][Tt][Ee] {
   return CREATE;
 }
-[Dd][Aa][Tt][[Aa]Bb][Aa][Ss][Ee] {
+[Dd][Aa][Tt][Aa][Bb][Aa][Ss][Ee] {
   return DATABASE;
 }
+
 ";" {
   return SEMICOLON;
 }
 "," {
   return COMMA;
+}
+"(" {
+  return OPEN;
+}
+")" {
+  return CLOSE;
 }
 
 [0-9]+\.[0-9]+ { 
@@ -40,6 +47,7 @@
   }
 
 [a-zA-Z0-9]+ { 
+  memcpy(yylval.stringVal, yytext, 32);
   return SQLSTRING; 
   }
 %%
