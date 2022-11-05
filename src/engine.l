@@ -23,8 +23,17 @@
 [Uu][Ss][Ee] {
   return USE;
 }
+[Tt][Aa][Bb][Ll][Ee] {
+  return TABLE;
+}
 [Dd][Aa][Tt][Aa][Bb][Aa][Ss][Ee] {
   return DATABASE;
+}
+[Ss][Ee][Ll][Ee][Cc][Tt] {
+  return SELECT;
+}
+[Ff][Rr][Oo][Mm] {
+  return FROM;
 }
 
 ";" {
@@ -49,7 +58,7 @@
   return SQLINT; 
   }
 
-\"[^\n\t][^\n\t]*\" { 
+\"[^"\n\t][^"\n\t]*\" { 
   std::string s = std::string(yytext);
   s.erase(s.begin());
   s.erase(s.end() - 1);
