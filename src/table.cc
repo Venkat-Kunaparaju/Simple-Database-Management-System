@@ -213,6 +213,10 @@ void searchRow(table *tb, char *columnName, unsigned char **output, int rows) {
 
 }
 
+void addColumn(char *name) {
+    strcpy(currentColumns[numberOfColumns], name);
+    numberOfColumns += 1;
+}
 void testRow() {
     table *tb = tableHeader::findTable("Test Table 1");
     createFenceposts(tb);

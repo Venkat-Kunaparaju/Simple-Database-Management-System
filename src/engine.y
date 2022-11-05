@@ -41,28 +41,45 @@ command:
         tableHeader::initialize($3);
         heapCheck();
     }
-    | SELECT SQLSTRING FROM SQLSTRING SEMICOLON {
+    | SELECT columnList FROM SQLSTRING SEMICOLON {
         table *tb = tableHeader::findTable($4);
         if (tb) {
             int rows = tb->tableInfo->R;
-            unsigned char *output[rows]; 
-            searchRow(tb, $2, output, rows);
-            std::cout << $2 << "\n\n";
+            unsigned char *output[numberOfColumns][rows]; 
+            std::cerr << numberOfColumns << "\n";
+            std::cerr << "|";
+            for (int i = 0; i < numberOfColumns; i++) {
+                std::cerr << currentColumns[i] << "|";
+                searchRow(tb, currentColumns[i], output[i], rows);
+                
+            }
+            std::cout << "\n\n";
             for (int i = 0; i < rows; i++) {
-                if (getColumnSize(tb, $2) == ROWINT_SIZE) {
-                    TempInt *jk = new TempInt;
-                    memcpy(jk->bytes, output[i], ROWINT_SIZE);
-                    std::cout << jk->integer << "\n";
-                    delete jk;
+                std::cerr << "|";
+                for (int x = 0; x < numberOfColumns; x++) {
+                    if (getColumnSize(tb, currentColumns[x]) == ROWINT_SIZE) {
+                        TempInt *jk = new TempInt;
+                        memcpy(jk->bytes, output[x][i], ROWINT_SIZE);
+                        std::cout << jk->integer << "|";
+                        delete jk;
+                    }
+                    else if (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE) {
+                        TempDouble *jk = new TempDouble;
+                        memcpy(jk->bytes, output[x][i], ROWDOUBLE_SIZE);
+                        std::cout << jk->integer << "|";
+                        delete jk;
+                    }
+                    else if ()
+                    
                 }
+                std::cout << "\n";
             }
         }
         else {
             yyerror ("Can't find table!");
         }
-    }
-    | SELECT list FROM SQLSTRING SEMICOLON {
-        std::cout << "CHECK" << "\n";
+        numberOfColumns = 0;
+        
     }
     | EXIT SEMICOLON {
         std::cout << "Exiting..." << "\n";
@@ -76,7 +93,7 @@ columnList:
     ;
 column:
     | SQLSTRING {
-        std::cout << "String Check" << "\n";
+        addColumn($1);
     }
     |
     ;
