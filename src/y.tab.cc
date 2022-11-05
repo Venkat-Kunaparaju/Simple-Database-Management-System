@@ -446,8 +446,8 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    29,    29,    32,    33,    36,    40,    44,    83,    87,
-      90,    91,    93,    94,    97
+       0,    29,    29,    32,    33,    36,    40,    44,    88,    92,
+      95,    96,    98,    99,   102
 };
 #endif
 
@@ -1381,7 +1381,6 @@ yyreduce:
         if (tb) {
             int rows = tb->tableInfo->R;
             unsigned char *output[numberOfColumns][rows]; 
-            std::cerr << numberOfColumns << "\n";
             std::cerr << "|";
             for (int i = 0; i < numberOfColumns; i++) {
                 std::cerr << currentColumns[i] << "|";
@@ -1404,6 +1403,12 @@ yyreduce:
                         std::cout << jk->integer << "|";
                         delete jk;
                     }
+                    else if (getColumnSize(tb, currentColumns[x]) == ROWSTRING_SIZE) {
+                        TempString *jk = new TempString;
+                        memcpy(jk->bytes, output[x][i], ROWSTRING_SIZE);
+                        std::cout << jk->string << "|";
+                        delete jk;
+                    }
                     
                 }
                 std::cout << "\n";
@@ -1418,7 +1423,7 @@ yyreduce:
     break;
 
   case 8:
-#line 83 "engine.y"
+#line 88 "engine.y"
     {
         std::cout << "Exiting..." << "\n";
         exit(1);
@@ -1426,7 +1431,7 @@ yyreduce:
     break;
 
   case 13:
-#line 94 "engine.y"
+#line 99 "engine.y"
     {
         addColumn((yyvsp[(1) - (1)].stringVal));
     }
@@ -1434,7 +1439,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1438 "y.tab.cc"
+#line 1443 "y.tab.cc"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1648,7 +1653,7 @@ yyreturn:
 }
 
 
-#line 100 "engine.y"
+#line 105 "engine.y"
 
 void yyerror(const char *s) {
     fprintf(stderr, "%s\n", s);

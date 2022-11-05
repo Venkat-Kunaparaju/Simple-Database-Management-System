@@ -248,7 +248,7 @@ void testRow() {
     TempString *store5 = getTempString("sdguo");
     hold[0] = store5->bytes;
 
-    TempDouble *store4 = getTempDouble(101.56);
+    TempDouble *store4 = getTempDouble(104.56);
     hold[2] = store4->bytes;
 
     TempInt *store6 = getTempInt(201);

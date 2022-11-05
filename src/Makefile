@@ -6,6 +6,7 @@ YACC = yacc -d -o
 
 all: engine
 
+
 y.tab.o: engine.y
 	$(YACC) y.tab.cc engine.y
 	$(CCc) $(WARNINGS) y.tab.cc
@@ -15,8 +16,8 @@ lex.yy.o: engine.l
 	$(CCc) $(WARNINGS) lex.yy.cc
 
 
-engine: y.tab.o lex.yy.o
-	$(CCo) engine y.tab.o lex.yy.o
+engine: y.tab.o lex.yy.o 
+	$(CCo) engine y.tab.o lex.yy.o 
 
 .PHONY: clean
 clean:

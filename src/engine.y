@@ -46,7 +46,6 @@ command:
         if (tb) {
             int rows = tb->tableInfo->R;
             unsigned char *output[numberOfColumns][rows]; 
-            std::cerr << numberOfColumns << "\n";
             std::cerr << "|";
             for (int i = 0; i < numberOfColumns; i++) {
                 std::cerr << currentColumns[i] << "|";
@@ -69,7 +68,12 @@ command:
                         std::cout << jk->integer << "|";
                         delete jk;
                     }
-                    else if ()
+                    else if (getColumnSize(tb, currentColumns[x]) == ROWSTRING_SIZE) {
+                        TempString *jk = new TempString;
+                        memcpy(jk->bytes, output[x][i], ROWSTRING_SIZE);
+                        std::cout << jk->string << "|";
+                        delete jk;
+                    }
                     
                 }
                 std::cout << "\n";
