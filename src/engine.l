@@ -20,6 +20,9 @@
 [Cc][Rr][Ee][Aa][Tt][Ee] {
   return CREATE;
 }
+[Uu][Ss][Ee] {
+  return USE;
+}
 [Dd][Aa][Tt][Aa][Bb][Aa][Ss][Ee] {
   return DATABASE;
 }
@@ -46,8 +49,11 @@
   return SQLINT; 
   }
 
-[a-zA-Z0-9]+ { 
-  memcpy(yylval.stringVal, yytext, 32);
+\"[^\n\t][^\n\t]*\" { 
+  std::string s = std::string(yytext);
+  s.erase(s.begin());
+  s.erase(s.end() - 1);
+  memcpy(yylval.stringVal, s.c_str(), 32);
   return SQLSTRING; 
   }
 %%

@@ -20,7 +20,7 @@
 %token <intVal> SQLINT
 %token <doubleVal> SQLDOUBLE
 %token <stringVal> SQLSTRING
-%token EXIT INSERT CREATE DATABASE SEMICOLON COMMA OPEN CLOSE
+%token EXIT INSERT CREATE USE DATABASE SEMICOLON COMMA OPEN CLOSE
 
 %%
 
@@ -34,6 +34,10 @@ commands:
 command:
     CREATE DATABASE SQLSTRING SEMICOLON {
         databaseHeader::createDatabase($3);
+        heapCheck();
+    }
+    | USE DATABASE SQLSTRING SEMICOLON {
+        tableHeader::initialize($3);
         heapCheck();
     }
     | EXIT SEMICOLON {
