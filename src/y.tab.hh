@@ -43,8 +43,11 @@
      SQLDOUBLE = 259,
      SQLSTRING = 260,
      EXIT = 261,
-     SEMICOLON = 262,
-     NEWLINE = 263
+     INSERT = 262,
+     CREATE = 263,
+     DATABASE = 264,
+     SEMICOLON = 265,
+     COMMA = 266
    };
 #endif
 /* Tokens.  */
@@ -52,8 +55,11 @@
 #define SQLDOUBLE 259
 #define SQLSTRING 260
 #define EXIT 261
-#define SEMICOLON 262
-#define NEWLINE 263
+#define INSERT 262
+#define CREATE 263
+#define DATABASE 264
+#define SEMICOLON 265
+#define COMMA 266
 
 
 
@@ -67,7 +73,7 @@ typedef union YYSTYPE
     char *stringVal;
 }
 /* Line 1529 of yacc.c.  */
-#line 71 "y.tab.hh"
+#line 77 "y.tab.hh"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

@@ -20,7 +20,7 @@
 %token <intVal> SQLINT
 %token <doubleVal> SQLDOUBLE
 %token <stringVal> SQLSTRING
-%token EXIT SEMICOLON NEWLINE
+%token EXIT INSERT CREATE DATABASE SEMICOLON COMMA
 
 %%
 
@@ -32,14 +32,16 @@ commands:
     | commands command
     ;
 command:
-    words SEMICOLON {
+    list SEMICOLON {
         std::cout << "Statement Check" << "\n";
     }
     | SEMICOLON
     ;
-words:
+list:
     word
-    | words word
+    | list COMMA word
+    | COMMA word
+    ;
 word:
     SQLINT {
         std::cout << "Int Check: " << $1 << "\n";
@@ -54,6 +56,7 @@ word:
         std::cout << "Exiting..." << "\n";
         exit(1);
     }
+    |
     ;
 
 %%
