@@ -248,7 +248,7 @@ void testRow() {
     TempString *store5 = getTempString("sdguo");
     hold[0] = store5->bytes;
 
-    TempDouble *store4 = getTempDouble(104.56);
+    TempDouble *store4 = getTempDouble(106.56);
     hold[2] = store4->bytes;
 
     TempInt *store6 = getTempInt(201);
@@ -262,10 +262,14 @@ void testRow() {
 
     createFenceposts(tb);
 
+    TempInt *store9 = getTempInt(22135);
+    hold[1] = store9->bytes;
+
     addRow(tb, hold, columns);
     delete store5;
     delete store4;
     delete store6;
+    delete store9;
 
     createEndFenceposts(tb);
 

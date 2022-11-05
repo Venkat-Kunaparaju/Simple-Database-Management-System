@@ -21,10 +21,12 @@ engine: y.tab.o lex.yy.o
 
 .PHONY: clean
 clean:
-	rm -f table.o
 	rm -f engine
 	rm -f lex.yy.cc
 	rm -f lex.yy.o
+	rm -f y.tab.hh
+	rm -f y.tab.cc
+	rm -f y.tab.o
 
 
 
