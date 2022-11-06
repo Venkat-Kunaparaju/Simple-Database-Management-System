@@ -91,6 +91,13 @@ void databaseHeader::addDatabase(database * db) {
     dbHead->countDatabases += 1;
 }
 
+void databaseHeader::printDatabases() {
+    database * head = dbHead->databases;
+    while(head) {
+        std::cout << head->name << "\n";
+        head = head->next;
+    }
+}
 //Find database name in db header
 //Returns NULL if name not found
 database * databaseHeader::findDatabase(char * name) {

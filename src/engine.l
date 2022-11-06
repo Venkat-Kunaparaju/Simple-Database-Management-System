@@ -20,6 +20,9 @@
 [Cc][Rr][Ee][Aa][Tt][Ee] {
   return CREATE;
 }
+[Ss][Hh][Oo][Ww] {
+  return SHOW;
+}
 [Uu][Ss][Ee] {
   return USE;
 }
@@ -28,6 +31,9 @@
 }
 [Dd][Aa][Tt][Aa][Bb][Aa][Ss][Ee] {
   return DATABASE;
+}
+[Dd][Aa][Tt][Aa][Bb][Aa][Ss][Ee][Ss] {
+  return DATABASES;
 }
 [Ss][Ee][Ll][Ee][Cc][Tt] {
   return SELECT;

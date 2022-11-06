@@ -64,6 +64,7 @@ struct databaseHeader {
     static database * findDatabase(char *); //Find database in dbheader
     static int createDatabase(char *); //Creates database
     static void useDatabase(char *); //Sets current database
+    static void printDatabases(); //Prints databases
 };
 
 databaseHeader *dbHead; //Current databaseheader
