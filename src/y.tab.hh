@@ -45,15 +45,17 @@
      EXIT = 261,
      INSERT = 262,
      CREATE = 263,
-     USE = 264,
-     DATABASE = 265,
-     TABLE = 266,
-     SELECT = 267,
-     FROM = 268,
-     SEMICOLON = 269,
-     COMMA = 270,
-     OPEN = 271,
-     CLOSE = 272
+     SHOW = 264,
+     USE = 265,
+     DATABASE = 266,
+     DATABASES = 267,
+     TABLE = 268,
+     SELECT = 269,
+     FROM = 270,
+     SEMICOLON = 271,
+     COMMA = 272,
+     OPEN = 273,
+     CLOSE = 274
    };
 #endif
 /* Tokens.  */
@@ -63,15 +65,17 @@
 #define EXIT 261
 #define INSERT 262
 #define CREATE 263
-#define USE 264
-#define DATABASE 265
-#define TABLE 266
-#define SELECT 267
-#define FROM 268
-#define SEMICOLON 269
-#define COMMA 270
-#define OPEN 271
-#define CLOSE 272
+#define SHOW 264
+#define USE 265
+#define DATABASE 266
+#define DATABASES 267
+#define TABLE 268
+#define SELECT 269
+#define FROM 270
+#define SEMICOLON 271
+#define COMMA 272
+#define OPEN 273
+#define CLOSE 274
 
 
 
@@ -85,7 +89,7 @@ typedef union YYSTYPE
     char stringVal[32];
 }
 /* Line 1529 of yacc.c.  */
-#line 89 "y.tab.hh"
+#line 93 "y.tab.hh"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

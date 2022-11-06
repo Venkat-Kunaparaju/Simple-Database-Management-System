@@ -20,7 +20,7 @@
 %token <intVal> SQLINT
 %token <doubleVal> SQLDOUBLE
 %token <stringVal> SQLSTRING
-%token EXIT INSERT CREATE USE DATABASE DATABASES TABLE SELECT FROM
+%token EXIT INSERT CREATE SHOW USE DATABASE DATABASES TABLE SELECT FROM
 %token SEMICOLON COMMA OPEN CLOSE
 
 %%
@@ -36,7 +36,7 @@ command:
     CREATE DATABASE SQLSTRING SEMICOLON {
         databaseHeader::createDatabase($3);
     }
-    SHOW DATABASES {
+    | SHOW DATABASES SEMICOLON {
         databaseHeader::printDatabases();
 
     }
