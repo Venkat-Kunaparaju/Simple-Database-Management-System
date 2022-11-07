@@ -120,6 +120,7 @@ create:
     | SQLSTRING TYPESTRING {
         
     }
+    |
 
 
 
