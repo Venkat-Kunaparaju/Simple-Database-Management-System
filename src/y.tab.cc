@@ -459,9 +459,9 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    30,    30,    33,    34,    37,    40,    43,    46,    49,
-      93,    97,   100,   101,   103,   104,   109,   110,   112,   113,
-     116,   119
+       0,    30,    30,    33,    34,    37,    40,    43,    46,    51,
+      95,    99,   102,   103,   105,   106,   111,   112,   114,   115,
+     118,   121
 };
 #endif
 
@@ -1408,12 +1408,14 @@ yyreduce:
   case 8:
 #line 46 "engine.y"
     {
-
+        tableHeader::createTable((yyvsp[(3) - (7)].stringVal));
+        tableHeader::addColumns((yyvsp[(3) - (7)].stringVal), currentColumns, currentSizes, numberOfColumns);
+        numberOfColumns = 0;
     }
     break;
 
   case 9:
-#line 49 "engine.y"
+#line 51 "engine.y"
     {
         table *tb = tableHeader::findTable((yyvsp[(4) - (5)].stringVal));
         if (tb) {
@@ -1461,7 +1463,7 @@ yyreduce:
     break;
 
   case 10:
-#line 93 "engine.y"
+#line 95 "engine.y"
     {
         std::cout << "Exiting..." << "\n";
         exit(1);
@@ -1469,28 +1471,28 @@ yyreduce:
     break;
 
   case 15:
-#line 104 "engine.y"
+#line 106 "engine.y"
     {
         addColumn((yyvsp[(1) - (1)].stringVal), 0);
     }
     break;
 
   case 19:
-#line 113 "engine.y"
+#line 115 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 4);
     }
     break;
 
   case 20:
-#line 116 "engine.y"
+#line 118 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 8);
     }
     break;
 
   case 21:
-#line 119 "engine.y"
+#line 121 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 32);
     }
@@ -1498,7 +1500,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1502 "y.tab.cc"
+#line 1504 "y.tab.cc"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1712,7 +1714,7 @@ yyreturn:
 }
 
 
-#line 126 "engine.y"
+#line 128 "engine.y"
 
 void yyerror(const char *s) {
     fprintf(stderr, "%s\n", s);

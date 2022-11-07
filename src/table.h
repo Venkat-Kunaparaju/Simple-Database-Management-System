@@ -31,7 +31,7 @@ struct tableInformation {
     int R; //R - >Number of rows
 };
 
-char currentColumns[MAXCOLUMNS][32]; //Current table in use
+char currentColumns[MAXCOLUMNS][MAXSTRINGLEN]; //Current table in use
 int numberOfColumns = 0; //Number of tables currently in use
 
 int currentSizes[MAXCOLUMNS];

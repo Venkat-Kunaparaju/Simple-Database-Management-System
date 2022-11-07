@@ -18,7 +18,7 @@ struct tableHeader {
     static table * findTable(char *); //Find table in tbheader
     static int createTable(char *); //Creates table
     static void useTable(char *); //Sets current table
-    static void addColumns(char *, char **, int *, int); //Add columns to given table name
+    static void addColumns(char *, char [MAXCOLUMNS][MAXSTRINGLEN], int *, int); //Add columns to given table name
 
 };
 

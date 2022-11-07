@@ -94,7 +94,7 @@ void tableHeader::useTable(char * name) {
 }
 
 //Adds columns to given table
-void tableHeader::addColumns(char * name, char **columnNames, int * columnSizes, int N) {
+void tableHeader::addColumns(char * name, char columnNames[MAXCOLUMNS][MAXSTRINGLEN], int * columnSizes, int N) {
     table * toAdd = findTable(name);
     char *dupCheck[N];
     char * mem = newMem(N * COLUMNINFO_SIZE + TABLEINFO_SIZE);
@@ -108,6 +108,7 @@ void tableHeader::addColumns(char * name, char **columnNames, int * columnSizes,
     toAdd->tableInfo->fenceposts = NULL;
     heapLayout.push_back(tbInformationString);
     
+    
     heapUsed += TABLEINFO_SIZE;
     heapOffset +=TABLEINFO_SIZE;
     int i = 0;
@@ -117,6 +118,7 @@ void tableHeader::addColumns(char * name, char **columnNames, int * columnSizes,
             std::cout << ERROR_NAME_SIZE;
             return;
         }
+        
         int x = 0;
         int ignore = 0;
         while( i != x) { //Checks for duplicate column names and ignores the duplicate column name
@@ -201,7 +203,7 @@ void testTable(int print) {
 
 
         //Add columns check
-        char *temp[] = {"Grades", "Names", "School"};
+        char temp[MAXCOLUMNS][MAXSTRINGLEN] = {"Grades", "Names", "School"};
         int temp2[] = {32, 4, 8};
         tableHeader::addColumns("Test Table 1", temp, temp2, 3);
         std::cout << tableHeader::findTable("Test Table 1")->tableInfo->N << "\n"; //3
