@@ -41,6 +41,15 @@
 [Ff][Rr][Oo][Mm] {
   return FROM;
 }
+[Ii][Nn][Tt] {
+  return TYPEINT;
+}
+[Dd][Oo][Uu][Bb][Ll][Ee] {
+  return TYPEDOUBLE;
+}
+[Ss][Tt][Rr][Ii][Nn][Gg] {
+  return TYPESTRING;
+}
 
 ";" {
   return SEMICOLON;

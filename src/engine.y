@@ -22,6 +22,7 @@
 %token <stringVal> SQLSTRING
 %token EXIT INSERT CREATE SHOW USE DATABASE DATABASES TABLE SELECT FROM
 %token SEMICOLON COMMA OPEN CLOSE
+%token TYPEINT TYPEDOUBLE TYPESTRING
 
 %%
 
@@ -38,10 +39,12 @@ command:
     }
     | SHOW DATABASES SEMICOLON {
         databaseHeader::printDatabases();
-
     }
     | USE DATABASE SQLSTRING SEMICOLON {
         tableHeader::initialize($3);
+    }
+    | CREATE TABLE SQLSTRING OPEN createList CLOSE SEMICOLON {
+
     }
     | SELECT columnList FROM SQLSTRING SEMICOLON {
         table *tb = tableHeader::findTable($4);
@@ -103,6 +106,22 @@ column:
     }
     |
     ;
+createList:
+    create
+    | createList COMMA create
+    ;
+create:
+    | SQLSTRING TYPEINT {
+
+    }
+    | SQLSTRING TYPEDOUBLE {
+
+    }
+    | SQLSTRING TYPESTRING {
+        
+    }
+
+
 
 %%
 void yyerror(const char *s) {

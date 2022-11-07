@@ -55,7 +55,10 @@
      SEMICOLON = 271,
      COMMA = 272,
      OPEN = 273,
-     CLOSE = 274
+     CLOSE = 274,
+     TYPEINT = 275,
+     TYPEDOUBLE = 276,
+     TYPESTRING = 277
    };
 #endif
 /* Tokens.  */
@@ -76,6 +79,9 @@
 #define COMMA 272
 #define OPEN 273
 #define CLOSE 274
+#define TYPEINT 275
+#define TYPEDOUBLE 276
+#define TYPESTRING 277
 
 
 
@@ -89,7 +95,7 @@ typedef union YYSTYPE
     char stringVal[32];
 }
 /* Line 1529 of yacc.c.  */
-#line 93 "y.tab.hh"
+#line 99 "y.tab.hh"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
