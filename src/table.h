@@ -34,6 +34,8 @@ struct tableInformation {
 char currentColumns[MAXCOLUMNS][32]; //Current table in use
 int numberOfColumns = 0; //Number of tables currently in use
 
+int currentSizes[MAXCOLUMNS];
+
 //Enum of varType (unused)
 enum varType {
     STRING = 2,

@@ -213,8 +213,9 @@ void searchRow(table *tb, char *columnName, unsigned char **output, int rows) {
 
 }
 
-void addColumn(char *name) {
+void addColumn(char *name, int size) {
     strcpy(currentColumns[numberOfColumns], name);
+    currentSizes[numberOfColumns] = size;
     numberOfColumns += 1;
 }
 void testRow() {

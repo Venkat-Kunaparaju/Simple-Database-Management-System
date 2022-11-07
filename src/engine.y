@@ -102,7 +102,7 @@ columnList:
     ;
 column:
     | SQLSTRING {
-        addColumn($1);
+        addColumn($1, 0);
     }
     |
     ;
@@ -112,15 +112,16 @@ createList:
     ;
 create:
     | SQLSTRING TYPEINT {
-
+        addColumn($1, 4);
     }
     | SQLSTRING TYPEDOUBLE {
-
+        addColumn($1, 8);
     }
     | SQLSTRING TYPESTRING {
-        
+        addColumn($1, 32);
     }
     |
+    ;
 
 
 
