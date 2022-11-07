@@ -390,7 +390,7 @@ union yyalloc
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  8
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  22
+#define YYNRULES  21
 /* YYNRULES -- Number of states.  */
 #define YYNSTATES  42
 
@@ -440,8 +440,8 @@ static const yytype_uint8 yytranslate[] =
 static const yytype_uint8 yyprhs[] =
 {
        0,     0,     3,     5,     7,    10,    15,    19,    24,    32,
-      38,    41,    43,    45,    49,    50,    52,    53,    55,    59,
-      60,    63,    66
+      38,    41,    43,    45,    49,    50,    52,    54,    58,    59,
+      62,    65
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
@@ -452,16 +452,16 @@ static const yytype_int8 yyrhs[] =
       11,     5,    16,    -1,     8,    13,     5,    18,    29,    19,
       16,    -1,    14,    27,    15,     5,    16,    -1,     6,    16,
       -1,    16,    -1,    28,    -1,    27,    17,    28,    -1,    -1,
-       5,    -1,    -1,    30,    -1,    29,    17,    30,    -1,    -1,
-       5,    20,    -1,     5,    21,    -1,     5,    22,    -1
+       5,    -1,    30,    -1,    29,    17,    30,    -1,    -1,     5,
+      20,    -1,     5,    21,    -1,     5,    22,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
        0,    30,    30,    33,    34,    37,    40,    43,    46,    49,
-      93,    97,   100,   101,   103,   104,   107,   110,   111,   113,
-     114,   117,   120
+      93,    97,   100,   101,   103,   104,   109,   110,   112,   113,
+     116,   119
 };
 #endif
 
@@ -493,16 +493,16 @@ static const yytype_uint16 yytoknum[] =
 static const yytype_uint8 yyr1[] =
 {
        0,    23,    24,    25,    25,    26,    26,    26,    26,    26,
-      26,    26,    27,    27,    28,    28,    28,    29,    29,    30,
-      30,    30,    30
+      26,    26,    27,    27,    28,    28,    29,    29,    30,    30,
+      30,    30
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
        0,     2,     1,     1,     2,     4,     3,     4,     7,     5,
-       2,     1,     1,     3,     0,     1,     0,     1,     3,     0,
-       2,     2,     2
+       2,     1,     1,     3,     0,     1,     1,     3,     0,     2,
+       2,     2
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -512,9 +512,9 @@ static const yytype_uint8 yydefact[] =
 {
        0,     0,     0,     0,     0,    14,    11,     0,     2,     3,
       10,     0,     0,     0,     0,    15,     0,    12,     1,     4,
-       0,     0,     6,     0,     0,    14,     5,    19,     7,     0,
-      13,     0,     0,    17,     9,    20,    21,    22,    19,     0,
-      18,     8
+       0,     0,     6,     0,     0,    14,     5,    18,     7,     0,
+      13,     0,     0,    16,     9,    19,    20,    21,    18,     0,
+      17,     8
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
@@ -1471,28 +1471,28 @@ yyreduce:
   case 15:
 #line 104 "engine.y"
     {
-        addColumn((yyvsp[(1) - (1)].stringVal));
+        addColumn((yyvsp[(1) - (1)].stringVal), 0);
+    }
+    break;
+
+  case 19:
+#line 113 "engine.y"
+    {
+        addColumn((yyvsp[(1) - (2)].stringVal), 4);
     }
     break;
 
   case 20:
-#line 114 "engine.y"
+#line 116 "engine.y"
     {
-
+        addColumn((yyvsp[(1) - (2)].stringVal), 8);
     }
     break;
 
   case 21:
-#line 117 "engine.y"
+#line 119 "engine.y"
     {
-
-    }
-    break;
-
-  case 22:
-#line 120 "engine.y"
-    {
-        
+        addColumn((yyvsp[(1) - (2)].stringVal), 32);
     }
     break;
 

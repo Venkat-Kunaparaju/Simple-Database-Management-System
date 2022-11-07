@@ -44,7 +44,8 @@ command:
         tableHeader::initialize($3);
     }
     | CREATE TABLE SQLSTRING OPEN createList CLOSE SEMICOLON {
-
+        tableHeader::createTable($3);
+        tableHeaderr::addColumns($3, currentColumns, numberOfColumns, numberOfColumns);
     }
     | SELECT columnList FROM SQLSTRING SEMICOLON {
         table *tb = tableHeader::findTable($4);
@@ -104,7 +105,6 @@ column:
     | SQLSTRING {
         addColumn($1, 0);
     }
-    |
     ;
 createList:
     create
@@ -120,7 +120,6 @@ create:
     | SQLSTRING TYPESTRING {
         addColumn($1, 32);
     }
-    |
     ;
 
 
