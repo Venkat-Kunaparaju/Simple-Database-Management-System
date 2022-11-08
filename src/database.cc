@@ -94,7 +94,11 @@ void tableHeader::useTable(char * name) {
 }
 
 void tableHeader::printTables() {
-    
+    table *head = tbHead->tables;
+    while(head) {
+        std::cout << head->name << "\n";
+        head = head->next;
+    }
 }
 //Adds columns to given table
 void tableHeader::addColumns(char * name, char columnNames[MAXCOLUMNS][MAXSTRINGLEN], int * columnSizes, int N) {
