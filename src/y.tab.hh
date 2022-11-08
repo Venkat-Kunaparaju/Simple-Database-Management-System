@@ -50,15 +50,16 @@
      DATABASE = 266,
      DATABASES = 267,
      TABLE = 268,
-     SELECT = 269,
-     FROM = 270,
-     SEMICOLON = 271,
-     COMMA = 272,
-     OPEN = 273,
-     CLOSE = 274,
-     TYPEINT = 275,
-     TYPEDOUBLE = 276,
-     TYPESTRING = 277
+     TABLES = 269,
+     SELECT = 270,
+     FROM = 271,
+     SEMICOLON = 272,
+     COMMA = 273,
+     OPEN = 274,
+     CLOSE = 275,
+     TYPEINT = 276,
+     TYPEDOUBLE = 277,
+     TYPESTRING = 278
    };
 #endif
 /* Tokens.  */
@@ -73,15 +74,16 @@
 #define DATABASE 266
 #define DATABASES 267
 #define TABLE 268
-#define SELECT 269
-#define FROM 270
-#define SEMICOLON 271
-#define COMMA 272
-#define OPEN 273
-#define CLOSE 274
-#define TYPEINT 275
-#define TYPEDOUBLE 276
-#define TYPESTRING 277
+#define TABLES 269
+#define SELECT 270
+#define FROM 271
+#define SEMICOLON 272
+#define COMMA 273
+#define OPEN 274
+#define CLOSE 275
+#define TYPEINT 276
+#define TYPEDOUBLE 277
+#define TYPESTRING 278
 
 
 
@@ -95,7 +97,7 @@ typedef union YYSTYPE
     char stringVal[32];
 }
 /* Line 1529 of yacc.c.  */
-#line 99 "y.tab.hh"
+#line 101 "y.tab.hh"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

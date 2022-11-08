@@ -48,8 +48,8 @@ command:
         tableHeader::addColumns($3, currentColumns, currentSizes, numberOfColumns);
         numberOfColumns = 0;
     }
-    | SHOW TABLES {
-        
+    | SHOW TABLES SEMICOLON {
+        tableHeader::printTables();
     }
     | SELECT columnList FROM SQLSTRING SEMICOLON {
         table *tb = tableHeader::findTable($4);
