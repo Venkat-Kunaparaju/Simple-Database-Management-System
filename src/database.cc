@@ -93,6 +93,9 @@ void tableHeader::useTable(char * name) {
     numberOfTables++;
 }
 
+void tableHeader::printTables() {
+    
+}
 //Adds columns to given table
 void tableHeader::addColumns(char * name, char columnNames[MAXCOLUMNS][MAXSTRINGLEN], int * columnSizes, int N) {
     table * toAdd = findTable(name);

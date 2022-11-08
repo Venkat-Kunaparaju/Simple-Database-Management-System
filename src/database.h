@@ -19,6 +19,7 @@ struct tableHeader {
     static int createTable(char *); //Creates table
     static void useTable(char *); //Sets current table
     static void addColumns(char *, char [MAXCOLUMNS][MAXSTRINGLEN], int *, int); //Add columns to given table name
+    static void printTables(); //Prints tables in current database
 
 };
 
