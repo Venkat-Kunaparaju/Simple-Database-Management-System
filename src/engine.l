@@ -29,6 +29,9 @@
 [Tt][Aa][Bb][Ll][Ee] {
   return TABLE;
 }
+[Tt][Aa][Bb][Ll][Ee][Ss] {
+  return TABLES;
+}
 [Dd][Aa][Tt][Aa][Bb][Aa][Ss][Ee] {
   return DATABASE;
 }
