@@ -465,8 +465,8 @@ static const yytype_int8 yyrhs[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    30,    30,    33,    34,    37,    40,    43,    46,    51,
-      54,    98,   102,   105,   106,   108,   109,   113,   119,   120,
-     122,   123,   126,   129
+      54,   108,   112,   115,   116,   118,   119,   123,   129,   130,
+     132,   133,   136,   139
 };
 #endif
 
@@ -1432,40 +1432,50 @@ yyreduce:
 #line 54 "engine.y"
     {
         table *tb = tableHeader::findTable((yyvsp[(4) - (5)].stringVal));
+        int check = 1;
         if (tb) {
             int rows = tb->tableInfo->R;
             unsigned char *output[numberOfColumns][rows]; 
             std::cerr << "|";
             for (int i = 0; i < numberOfColumns; i++) {
-                std::cerr << currentColumnNames[i] << "|";
-                searchRow(tb, currentColumns[i], output[i], rows);
+                if (!findColumn(tb, currentColumns[i])) {
+                    check = 0;
+                }
+                else {
+                    std::cerr << currentColumnNames[i] << "|";
+                    searchRow(tb, currentColumns[i], output[i], rows);
+                }
                 
             }
-            std::cout << "\n\n";
-            for (int i = 0; i < rows; i++) {
-                std::cerr << "|";
-                for (int x = 0; x < numberOfColumns; x++) {
-                    if (getColumnSize(tb, currentColumns[x]) == ROWINT_SIZE) {
-                        TempInt *jk = new TempInt;
-                        memcpy(jk->bytes, output[x][i], ROWINT_SIZE);
-                        std::cout << jk->integer << "|";
-                        delete jk;
+            if (check) {
+                std::cout << "\n\n";
+                for (int i = 0; i < rows; i++) {
+                    std::cerr << "|";
+                    for (int x = 0; x < numberOfColumns; x++) {
+                        if (getColumnSize(tb, currentColumns[x]) == ROWINT_SIZE) {
+                            TempInt *jk = new TempInt;
+                            memcpy(jk->bytes, output[x][i], ROWINT_SIZE);
+                            std::cout << jk->integer << "|";
+                            delete jk;
+                        }
+                        else if (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE) {
+                            TempDouble *jk = new TempDouble;
+                            memcpy(jk->bytes, output[x][i], ROWDOUBLE_SIZE);
+                            std::cout << jk->integer << "|";
+                            delete jk;
+                        }
+                        else if (getColumnSize(tb, currentColumns[x]) == ROWSTRING_SIZE) {
+                            TempString *jk = new TempString;
+                            memcpy(jk->bytes, output[x][i], ROWSTRING_SIZE);
+                            std::cout << jk->string << "|";
+                            delete jk;
+                        }
+                        
                     }
-                    else if (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE) {
-                        TempDouble *jk = new TempDouble;
-                        memcpy(jk->bytes, output[x][i], ROWDOUBLE_SIZE);
-                        std::cout << jk->integer << "|";
-                        delete jk;
-                    }
-                    else if (getColumnSize(tb, currentColumns[x]) == ROWSTRING_SIZE) {
-                        TempString *jk = new TempString;
-                        memcpy(jk->bytes, output[x][i], ROWSTRING_SIZE);
-                        std::cout << jk->string << "|";
-                        delete jk;
-                    }
-                    
+                    std::cout << "\n";
                 }
-                std::cout << "\n";
+            } else {
+                std::cerr << "One or more column names dont exist" << "\n";
             }
         }
         else {
@@ -1477,7 +1487,7 @@ yyreduce:
     break;
 
   case 11:
-#line 98 "engine.y"
+#line 108 "engine.y"
     {
         std::cout << "Exiting..." << "\n";
         exit(1);
@@ -1485,7 +1495,7 @@ yyreduce:
     break;
 
   case 16:
-#line 109 "engine.y"
+#line 119 "engine.y"
     {
         addColumn((yyvsp[(1) - (1)].stringVal), 0);
         strcpy(currentColumnNames[numberOfColumns - 1], (yyvsp[(1) - (1)].stringVal));
@@ -1493,7 +1503,7 @@ yyreduce:
     break;
 
   case 17:
-#line 113 "engine.y"
+#line 123 "engine.y"
     {
         addColumn((yyvsp[(1) - (3)].stringVal), 0);
         strcpy(currentColumnNames[numberOfColumns - 1], (yyvsp[(3) - (3)].stringVal));
@@ -1501,21 +1511,21 @@ yyreduce:
     break;
 
   case 21:
-#line 123 "engine.y"
+#line 133 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 4);
     }
     break;
 
   case 22:
-#line 126 "engine.y"
+#line 136 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 8);
     }
     break;
 
   case 23:
-#line 129 "engine.y"
+#line 139 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 32);
     }
@@ -1523,7 +1533,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1527 "y.tab.cc"
+#line 1537 "y.tab.cc"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1737,7 +1747,7 @@ yyreturn:
 }
 
 
-#line 136 "engine.y"
+#line 146 "engine.y"
 
 void yyerror(const char *s) {
     fprintf(stderr, "%s\n", s);

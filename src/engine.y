@@ -53,40 +53,50 @@ command:
     }
     | SELECT columnList FROM SQLSTRING SEMICOLON {
         table *tb = tableHeader::findTable($4);
+        int check = 1;
         if (tb) {
             int rows = tb->tableInfo->R;
             unsigned char *output[numberOfColumns][rows]; 
             std::cerr << "|";
             for (int i = 0; i < numberOfColumns; i++) {
-                std::cerr << currentColumnNames[i] << "|";
-                searchRow(tb, currentColumns[i], output[i], rows);
+                if (!findColumn(tb, currentColumns[i])) {
+                    check = 0;
+                }
+                else {
+                    std::cerr << currentColumnNames[i] << "|";
+                    searchRow(tb, currentColumns[i], output[i], rows);
+                }
                 
             }
-            std::cout << "\n\n";
-            for (int i = 0; i < rows; i++) {
-                std::cerr << "|";
-                for (int x = 0; x < numberOfColumns; x++) {
-                    if (getColumnSize(tb, currentColumns[x]) == ROWINT_SIZE) {
-                        TempInt *jk = new TempInt;
-                        memcpy(jk->bytes, output[x][i], ROWINT_SIZE);
-                        std::cout << jk->integer << "|";
-                        delete jk;
+            if (check) {
+                std::cout << "\n\n";
+                for (int i = 0; i < rows; i++) {
+                    std::cerr << "|";
+                    for (int x = 0; x < numberOfColumns; x++) {
+                        if (getColumnSize(tb, currentColumns[x]) == ROWINT_SIZE) {
+                            TempInt *jk = new TempInt;
+                            memcpy(jk->bytes, output[x][i], ROWINT_SIZE);
+                            std::cout << jk->integer << "|";
+                            delete jk;
+                        }
+                        else if (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE) {
+                            TempDouble *jk = new TempDouble;
+                            memcpy(jk->bytes, output[x][i], ROWDOUBLE_SIZE);
+                            std::cout << jk->integer << "|";
+                            delete jk;
+                        }
+                        else if (getColumnSize(tb, currentColumns[x]) == ROWSTRING_SIZE) {
+                            TempString *jk = new TempString;
+                            memcpy(jk->bytes, output[x][i], ROWSTRING_SIZE);
+                            std::cout << jk->string << "|";
+                            delete jk;
+                        }
+                        
                     }
-                    else if (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE) {
-                        TempDouble *jk = new TempDouble;
-                        memcpy(jk->bytes, output[x][i], ROWDOUBLE_SIZE);
-                        std::cout << jk->integer << "|";
-                        delete jk;
-                    }
-                    else if (getColumnSize(tb, currentColumns[x]) == ROWSTRING_SIZE) {
-                        TempString *jk = new TempString;
-                        memcpy(jk->bytes, output[x][i], ROWSTRING_SIZE);
-                        std::cout << jk->string << "|";
-                        delete jk;
-                    }
-                    
+                    std::cout << "\n";
                 }
-                std::cout << "\n";
+            } else {
+                std::cerr << "One or more column names dont exist" << "\n";
             }
         }
         else {
