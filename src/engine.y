@@ -109,6 +109,9 @@ column:
     | SQLSTRING {
         addColumn($1, 0);
     }
+    | SQLSTRING AS SQLSTRING {
+
+    }
     ;
 createList:
     create

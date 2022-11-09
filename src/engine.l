@@ -44,6 +44,9 @@
 [Ff][Rr][Oo][Mm] {
   return FROM;
 }
+[Aa][Ss] {
+  return AS;
+}
 [Ii][Nn][Tt] {
   return TYPEINT;
 }
