@@ -465,8 +465,8 @@ static const yytype_int8 yyrhs[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    30,    30,    33,    34,    37,    40,    43,    46,    51,
-      54,    98,   102,   105,   106,   108,   109,   112,   117,   118,
-     120,   121,   124,   127
+      54,    98,   102,   105,   106,   108,   109,   113,   119,   120,
+     122,   123,   126,   129
 };
 #endif
 
@@ -1437,7 +1437,7 @@ yyreduce:
             unsigned char *output[numberOfColumns][rows]; 
             std::cerr << "|";
             for (int i = 0; i < numberOfColumns; i++) {
-                std::cerr << currentColumns[i] << "|";
+                std::cerr << currentColumnNames[i] << "|";
                 searchRow(tb, currentColumns[i], output[i], rows);
                 
             }
@@ -1488,32 +1488,34 @@ yyreduce:
 #line 109 "engine.y"
     {
         addColumn((yyvsp[(1) - (1)].stringVal), 0);
+        strcpy(currentColumnNames[numberOfColumns - 1], (yyvsp[(1) - (1)].stringVal));
     }
     break;
 
   case 17:
-#line 112 "engine.y"
+#line 113 "engine.y"
     {
-        addColumn((yyvsp[(3) - (3)].stringVal), 0);
+        addColumn((yyvsp[(1) - (3)].stringVal), 0);
+        strcpy(currentColumnNames[numberOfColumns - 1], (yyvsp[(3) - (3)].stringVal));
     }
     break;
 
   case 21:
-#line 121 "engine.y"
+#line 123 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 4);
     }
     break;
 
   case 22:
-#line 124 "engine.y"
+#line 126 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 8);
     }
     break;
 
   case 23:
-#line 127 "engine.y"
+#line 129 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 32);
     }
@@ -1521,7 +1523,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1525 "y.tab.cc"
+#line 1527 "y.tab.cc"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1735,7 +1737,7 @@ yyreturn:
 }
 
 
-#line 134 "engine.y"
+#line 136 "engine.y"
 
 void yyerror(const char *s) {
     fprintf(stderr, "%s\n", s);

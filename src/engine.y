@@ -58,7 +58,7 @@ command:
             unsigned char *output[numberOfColumns][rows]; 
             std::cerr << "|";
             for (int i = 0; i < numberOfColumns; i++) {
-                std::cerr << currentColumns[i] << "|";
+                std::cerr << currentColumnNames[i] << "|";
                 searchRow(tb, currentColumns[i], output[i], rows);
                 
             }
