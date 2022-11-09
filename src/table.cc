@@ -219,7 +219,7 @@ void addColumn(char *name, int size) {
     numberOfColumns += 1;
 }
 void testRow() {
-    table *tb = tableHeader::findTable("Test Table 1");
+    table *tb = tableHeader::findTable("Test_Table_1");
     createFenceposts(tb);
     unsigned char *hold[3];
     char *columns[] = {"Grades", "Names", "School"};

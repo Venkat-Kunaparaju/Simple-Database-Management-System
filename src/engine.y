@@ -140,8 +140,8 @@ void yyerror(const char *s) {
 }
 int main() {
     databaseHeader::initialize();
-    testDatabase(1);
-    testTable(1);
+    testDatabase(0);
+    testTable(0);
     testRow();
     
     if (heapCheck())

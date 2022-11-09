@@ -144,9 +144,9 @@ void databaseHeader::useDatabase(char * name) {
 
 //Function to test databaseHeader functions
 void testDatabase(int print) {
-    databaseHeader::createDatabase("TEST DATABASE");
-    databaseHeader::createDatabase("TEST DATABASE 2");
-    databaseHeader::createDatabase("TEST DATABASE 3");
+    databaseHeader::createDatabase("TEST_DATABASE");
+    databaseHeader::createDatabase("TEST_DATABASE_2");
+    databaseHeader::createDatabase("TEST_DATABASE_3");
 
     if (print) {
         std::cout << "TESTING BEGIN\n";

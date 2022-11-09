@@ -141,7 +141,7 @@ void tableHeader::addColumns(char * name, char columnNames[MAXCOLUMNS][MAXSTRING
             columnInfo *temp = (columnInfo *)heapOffset + i;
             strcpy(temp->name, hold);
             temp->size = columnSizes[i];
-            heapLayout.push_back(hold);
+            //heapLayout.push_back(hold);
             if (i == 0) {
                 toAdd->tableInfo->columns = temp;
             }
@@ -156,11 +156,14 @@ void tableHeader::addColumns(char * name, char columnNames[MAXCOLUMNS][MAXSTRING
 }
 
 void testTable(int print) {
-    tableHeader::initialize("TEST DATABASE");
-    tableHeader::createTable("Test Table 1");
-    tableHeader::createTable("Test Table 2");
-    tableHeader::createTable("Test Table 3");
+    tableHeader::initialize("TEST_DATABASE");
+    tableHeader::createTable("Test_Table_1");
+    tableHeader::createTable("Test_Table_2");
+    tableHeader::createTable("Test_Table_3");
 
+    char temp[MAXCOLUMNS][MAXSTRINGLEN] = {"Grades", "Names", "School"};
+    int temp2[] = {32, 4, 8};
+    tableHeader::addColumns("Test_Table_1", temp, temp2, 3);
     if (print) {
         std::cout << "TESTING BEGIN\n";
         tableHeader::initialize("TEST DATABASE 1"); //No database (NULL)
@@ -210,9 +213,6 @@ void testTable(int print) {
 
 
         //Add columns check
-        char temp[MAXCOLUMNS][MAXSTRINGLEN] = {"Grades", "Names", "School"};
-        int temp2[] = {32, 4, 8};
-        tableHeader::addColumns("Test Table 1", temp, temp2, 3);
         std::cout << tableHeader::findTable("Test Table 1")->tableInfo->N << "\n"; //3
         std::cout << tableHeader::findTable("Test Table 1")->tableInfo->columns->name << "\n"; //"Grades"
         std::cout << tableHeader::findTable("Test Table 1")->tableInfo->columns->size << "\n"; //32
