@@ -32,6 +32,7 @@ struct tableInformation {
 };
 
 char currentColumns[MAXCOLUMNS][MAXSTRINGLEN]; //Current table in use
+char currentColumnNames[MAXCOLUMNS][MAXSTRINGLEN]; //Names for the columns in query (AS statements)
 int numberOfColumns = 0; //Number of tables currently in use
 
 int currentSizes[MAXCOLUMNS];

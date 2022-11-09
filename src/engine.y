@@ -20,7 +20,7 @@
 %token <intVal> SQLINT
 %token <doubleVal> SQLDOUBLE
 %token <stringVal> SQLSTRING
-%token EXIT INSERT CREATE SHOW USE DATABASE DATABASES TABLE TABLES SELECT FROM
+%token EXIT INSERT CREATE SHOW USE DATABASE DATABASES TABLE TABLES SELECT FROM AS
 %token SEMICOLON COMMA OPEN CLOSE
 %token TYPEINT TYPEDOUBLE TYPESTRING
 
@@ -108,9 +108,11 @@ columnList:
 column:
     | SQLSTRING {
         addColumn($1, 0);
+        strcpy(currentColumnNames[numberOfColumns - 1], $1);
     }
     | SQLSTRING AS SQLSTRING {
-
+        addColumn($1, 0);
+        strcpy(currentColumnNames[numberOfColumns - 1], $3);
     }
     ;
 createList:
