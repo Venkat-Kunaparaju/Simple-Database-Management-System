@@ -51,7 +51,7 @@ command:
     | SHOW TABLES SEMICOLON {
         tableHeader::printTables();
     }
-    | SELECT columnList FROM SQLSTRING SEMICOLON {
+    | SELECT columnList FROM SQLSTRING whereClause SEMICOLON {
         table *tb = tableHeader::findTable($4);
         int check = 1;
         if (tb) {
@@ -71,19 +71,44 @@ command:
             if (check) {
                 std::cout << "\n\n";
                 for (int i = 0; i < rows; i++) {
-                    char stdOut[1000];
-                    stdOut[0] = '\0';
-                    strcat(stdOut, "|");
+                    int goThrough = 1;
+                    for (int y = 0; y < numberOfCompares; y++) {//Where Clause
+                        for (int x = 0; x < numberOfColumns; x++ ) { 
+                        
+                            if (strcmp(compareColumns[y], currentColumns[x]) == 0) {
+                                if (getColumnSize(tb, currentColumns[x]) == ROWINT_SIZE) {
+                                    TempInt *jk = new TempInt;
+                                    memcpy(jk->bytes, output[x][i], ROWINT_SIZE);
+                                    if (memcmp(jk->bytes, whereCompares[y], ROWINT_SIZE) == 0) {
+                                        goThrough = 0;
+                                    }
+                                    delete jk;
+                                }
+                                else if (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE) {
+                                    TempDouble *jk = new TempDouble;
+                                    memcpy(jk->bytes, output[x][i], ROWDOUBLE_SIZE);
+                                    if (memcmp(jk->bytes, whereCompares[y], ROWDOUBLE_SIZE) == 0) {
+                                        goThrough = 0;
+                                    }
+                                    delete jk;
+                                }
+                                else if (getColumnSize(tb, currentColumns[x]) == ROWSTRING_SIZE) {
+                                    TempString *jk = new TempString;
+                                    memcpy(jk->bytes, output[x][i], ROWSTRING_SIZE);
+                                    std::cout << jk->string << "|";
+                                    delete jk;
+                                }
+                            }
+
+                        }
+                    }
+                    std::cout << goThrough;
                     std::cerr << "|";
                     for (int x = 0; x < numberOfColumns; x++) {
                         if (getColumnSize(tb, currentColumns[x]) == ROWINT_SIZE) {
                             TempInt *jk = new TempInt;
                             memcpy(jk->bytes, output[x][i], ROWINT_SIZE);
                             std::cout << jk->integer << "|";
-                            char temp[ROWINT_SIZE];
-                            sprintf(temp, "%d", jk->integer);
-                            strcat(stdOut, temp);
-                            strcat(stdOut, "|");
                             delete jk;
                         }
                         else if (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE) {
@@ -100,7 +125,6 @@ command:
                         }
                         
                     }
-                    std::cout << stdOut << "\n";
                     std::cout << "\n";
                 }
             } else {
@@ -111,6 +135,7 @@ command:
             yyerror ("Can't find table!");
         }
         numberOfColumns = 0;
+        numberOfCompares = 0;
         
     }
     | EXIT SEMICOLON {
@@ -171,20 +196,20 @@ whereList:
 where:
     SQLSTRING operator QSTRING {
         TempString *store = getTempString($3);
-        whereCompares[numberOfCompares] = store;
-        compareColumns[numberOfCompares] = $1;
+        whereCompares[numberOfCompares] = store->bytes;
+        strcpy(compareColumns[numberOfCompares],$1);
         numberOfCompares += 1;
     }
     | SQLSTRING operator SQLINT {
         TempInt *store = getTempInt($3);
-        whereCompares[numberOfCompares] = store;
-        compareColumns[numberOfCompares] = $1;
+        whereCompares[numberOfCompares] = store->bytes;
+        strcpy(compareColumns[numberOfCompares],$1);
         numberOfCompares += 1;
     }
     | SQLSTRING operator SQLDOUBLE {
         TempDouble *store = getTempDouble($3);
-        whereCompares[numberOfCompares] = store;
-        compareColumns[numberOfCompares] = $1;
+        whereCompares[numberOfCompares] = store->bytes;
+        strcpy(compareColumns[numberOfCompares],$1);
         numberOfCompares += 1;
     }
     ;
