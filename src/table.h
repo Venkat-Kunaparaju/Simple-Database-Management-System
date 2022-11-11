@@ -43,9 +43,9 @@ char compareColumns[MAXCOLUMNS][MAXSTRINGLEN];
 int numberOfCompares = 0;
 //Enum of operatorType
 enum operatorType {
-    GREAT = 2,
-    LESS = 1,
-    EQUAL = 0
+    EGREAT = 2,
+    ELESS = 1,
+    EEQUAL = 0
 };
 
 //Structs for different row values
