@@ -64,9 +64,10 @@
      GREAT = 280,
      LESS = 281,
      EQUAL = 282,
-     TYPEINT = 283,
-     TYPEDOUBLE = 284,
-     TYPESTRING = 285
+     NOTEQUAL = 283,
+     TYPEINT = 284,
+     TYPEDOUBLE = 285,
+     TYPESTRING = 286
    };
 #endif
 /* Tokens.  */
@@ -95,9 +96,10 @@
 #define GREAT 280
 #define LESS 281
 #define EQUAL 282
-#define TYPEINT 283
-#define TYPEDOUBLE 284
-#define TYPESTRING 285
+#define NOTEQUAL 283
+#define TYPEINT 284
+#define TYPEDOUBLE 285
+#define TYPESTRING 286
 
 
 
@@ -111,7 +113,7 @@ typedef union YYSTYPE
     char stringVal[32];
 }
 /* Line 1529 of yacc.c.  */
-#line 115 "y.tab.hh"
+#line 117 "y.tab.hh"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

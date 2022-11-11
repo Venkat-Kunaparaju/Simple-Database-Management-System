@@ -21,7 +21,7 @@
 %token <doubleVal> SQLDOUBLE
 %token <stringVal> SQLSTRING QSTRING
 %token EXIT INSERT CREATE SHOW USE DATABASE DATABASES TABLE TABLES SELECT FROM WHERE AS AND
-%token SEMICOLON COMMA OPEN CLOSE GREAT LESS EQUAL
+%token SEMICOLON COMMA OPEN CLOSE GREAT LESS EQUAL NOTEQUAL
 %token TYPEINT TYPEDOUBLE TYPESTRING
 
 %%
@@ -100,6 +100,12 @@ command:
                                             break;
                                         }
                                     }
+                                    else if (ENOTEQUAL == operatorType[y]) {
+                                        if  (temp->integer == jk->integer) {
+                                            goThrough = 0;
+                                            break;
+                                        }
+                                    }
                                     delete jk;
                                 }
                                 else if (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE) {
@@ -126,12 +132,44 @@ command:
                                             break;
                                         }
                                     }
+                                    else if (ENOTEQUAL == operatorType[y]) {
+                                        if  (temp->integer == jk->integer) {
+                                            goThrough = 0;
+                                            break;
+                                        }
+                                    }
                                     delete jk;
                                 }
                                 else if (getColumnSize(tb, currentColumns[x]) == ROWSTRING_SIZE) {
                                     TempString *jk = new TempString;
                                     memcpy(jk->bytes, output[x][i], ROWSTRING_SIZE);
-                                    std::cout << jk->string << "|";
+
+                                    TempString *temp = new TempString;
+                                    temp = (TempString *)whereCompares[y];
+                                    if (EEQUAL == operatorType[y]) {
+                                        if  (strcmp(temp->string, jk->string) != 0) {
+                                            goThrough = 0;
+                                            break;
+                                        }
+                                    }
+                                    else if (EGREAT == operatorType[y]) {
+                                        if  (strcmp(temp->string, jk->string) > 0) {
+                                            goThrough = 0;
+                                            break;
+                                        }
+                                    }
+                                    else if (ELESS == operatorType[y]) {
+                                        if  (strcmp(temp->string, jk->string) < 0) {
+                                            goThrough = 0;
+                                            break;
+                                        }
+                                    }
+                                    else if (ENOTEQUAL == operatorType[y]) {
+                                        if  (strcmp(temp->string, jk->string) == 0) {
+                                            goThrough = 0;
+                                            break;
+                                        }
+                                    }
                                     delete jk;
                                 }
                             }
@@ -218,6 +256,9 @@ operator:
     }
     | EQUAL {
         operatorType[numberOfCompares] = EEQUAL;
+    }
+    | NOTEQUAL {
+        operatorType[numberOfCompares] = ENOTEQUAL;
     }
     ;
 whereClause:

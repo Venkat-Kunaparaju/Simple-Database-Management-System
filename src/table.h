@@ -43,6 +43,7 @@ char compareColumns[MAXCOLUMNS][MAXSTRINGLEN];
 int numberOfCompares = 0;
 //Enum of operatorType
 enum operatorType {
+    ENOTEQUAL = 3,
     EGREAT = 2,
     ELESS = 1,
     EEQUAL = 0
