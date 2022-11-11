@@ -33,7 +33,9 @@ commands:
     command {
         std::cout << MY_PROMPT;
     }
-    | commands command 
+    | commands command {
+        std::cout << MY_PROMPT;
+    }
     ;
 command:
     CREATE DATABASE SQLSTRING SEMICOLON {
