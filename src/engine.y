@@ -176,28 +176,29 @@ command:
 
                         }
                     }
-                    std::cout << goThrough;
-                    std::cerr << "|";
-                    for (int x = 0; x < numberOfColumns; x++) {
-                        if (getColumnSize(tb, currentColumns[x]) == ROWINT_SIZE) {
-                            TempInt *jk = new TempInt;
-                            memcpy(jk->bytes, output[x][i], ROWINT_SIZE);
-                            std::cout << jk->integer << "|";
-                            delete jk;
+                    if (goThrough) {
+                        std::cerr << "|";
+                        for (int x = 0; x < numberOfColumns; x++) {
+                            if (getColumnSize(tb, currentColumns[x]) == ROWINT_SIZE) {
+                                TempInt *jk = new TempInt;
+                                memcpy(jk->bytes, output[x][i], ROWINT_SIZE);
+                                std::cout << jk->integer << "|";
+                                delete jk;
+                            }
+                            else if (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE) {
+                                TempDouble *jk = new TempDouble;
+                                memcpy(jk->bytes, output[x][i], ROWDOUBLE_SIZE);
+                                std::cout << jk->integer << "|";
+                                delete jk;
+                            }
+                            else if (getColumnSize(tb, currentColumns[x]) == ROWSTRING_SIZE) {
+                                TempString *jk = new TempString;
+                                memcpy(jk->bytes, output[x][i], ROWSTRING_SIZE);
+                                std::cout << jk->string << "|";
+                                delete jk;
+                            }
+                            
                         }
-                        else if (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE) {
-                            TempDouble *jk = new TempDouble;
-                            memcpy(jk->bytes, output[x][i], ROWDOUBLE_SIZE);
-                            std::cout << jk->integer << "|";
-                            delete jk;
-                        }
-                        else if (getColumnSize(tb, currentColumns[x]) == ROWSTRING_SIZE) {
-                            TempString *jk = new TempString;
-                            memcpy(jk->bytes, output[x][i], ROWSTRING_SIZE);
-                            std::cout << jk->string << "|";
-                            delete jk;
-                        }
-                        
                     }
                     std::cout << "\n";
                 }
