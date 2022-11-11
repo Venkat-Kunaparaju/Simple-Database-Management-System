@@ -43,6 +43,9 @@
 [Ff][Rr][Oo][Mm] {
   return FROM;
 }
+[Ww][Hh][Ee][Rr][Ee] {
+  return WHERE;
+}
 [Aa][Ss] {
   return AS;
 }
