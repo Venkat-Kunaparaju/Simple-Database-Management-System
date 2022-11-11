@@ -79,16 +79,46 @@ command:
                                 if (getColumnSize(tb, currentColumns[x]) == ROWINT_SIZE) {
                                     TempInt *jk = new TempInt;
                                     memcpy(jk->bytes, output[x][i], ROWINT_SIZE);
-                                    if (memcmp(jk->bytes, whereCompares[y], ROWINT_SIZE) == 0) {
-                                        goThrough = 0;
+
+                                    TempInt *temp = new TempInt;
+                                    temp = (TempInt *)whereCompares[y];
+                                    if (EEQUAL == operatorType[y]) {
+                                        if  (temp->integer == jk->integer) {
+                                            goThrough = 0;
+                                        }
+                                    }
+                                    else if (EGREAT == operatorType[y]) {
+                                        if  (temp->integer < jk->integer) {
+                                            goThrough = 0;
+                                        }
+                                    }
+                                    else if (ELESS == operatorType[y]) {
+                                        if  (temp->integer > jk->integer) {
+                                            goThrough = 0;
+                                        }
                                     }
                                     delete jk;
                                 }
                                 else if (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE) {
                                     TempDouble *jk = new TempDouble;
                                     memcpy(jk->bytes, output[x][i], ROWDOUBLE_SIZE);
-                                    if (memcmp(jk->bytes, whereCompares[y], ROWDOUBLE_SIZE) == 0) {
-                                        goThrough = 0;
+
+                                    TempDouble *temp = new TempDouble;
+                                    temp = (TempDouble *)whereCompares[y];
+                                    if (EEQUAL == operatorType[y]) {
+                                        if  (temp->integer == jk->integer) {
+                                            goThrough = 0;
+                                        }
+                                    }
+                                    else if (EGREAT == operatorType[y]) {
+                                        if  (temp->integer < jk->integer) {
+                                            goThrough = 0;
+                                        }
+                                    }
+                                    else if (ELESS == operatorType[y]) {
+                                        if  (temp->integer > jk->integer) {
+                                            goThrough = 0;
+                                        }
                                     }
                                     delete jk;
                                 }
