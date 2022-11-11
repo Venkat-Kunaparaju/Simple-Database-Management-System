@@ -85,16 +85,19 @@ command:
                                     if (EEQUAL == operatorType[y]) {
                                         if  (temp->integer == jk->integer) {
                                             goThrough = 0;
+                                            break;
                                         }
                                     }
                                     else if (EGREAT == operatorType[y]) {
                                         if  (temp->integer < jk->integer) {
                                             goThrough = 0;
+                                            break;
                                         }
                                     }
                                     else if (ELESS == operatorType[y]) {
                                         if  (temp->integer > jk->integer) {
                                             goThrough = 0;
+                                            break;
                                         }
                                     }
                                     delete jk;
@@ -108,16 +111,19 @@ command:
                                     if (EEQUAL == operatorType[y]) {
                                         if  (temp->integer == jk->integer) {
                                             goThrough = 0;
+                                            break;
                                         }
                                     }
                                     else if (EGREAT == operatorType[y]) {
                                         if  (temp->integer < jk->integer) {
                                             goThrough = 0;
+                                            break;
                                         }
                                     }
                                     else if (ELESS == operatorType[y]) {
                                         if  (temp->integer > jk->integer) {
                                             goThrough = 0;
+                                            break;
                                         }
                                     }
                                     delete jk;

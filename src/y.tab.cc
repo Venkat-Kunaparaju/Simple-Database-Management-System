@@ -482,9 +482,9 @@ static const yytype_int8 yyrhs[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    30,    30,    33,    34,    37,    40,    43,    46,    51,
-      54,   159,   163,   166,   167,   169,   170,   174,   180,   181,
-     183,   184,   187,   190,   195,   198,   201,   206,   207,   211,
-     212,   215,   221,   227
+      54,   177,   181,   184,   185,   187,   188,   192,   198,   199,
+     201,   202,   205,   208,   213,   216,   219,   224,   225,   229,
+     230,   233,   239,   245
 };
 #endif
 
@@ -1492,16 +1492,19 @@ yyreduce:
                                     if (EEQUAL == operatorType[y]) {
                                         if  (temp->integer == jk->integer) {
                                             goThrough = 0;
+                                            break;
                                         }
                                     }
                                     else if (EGREAT == operatorType[y]) {
                                         if  (temp->integer < jk->integer) {
                                             goThrough = 0;
+                                            break;
                                         }
                                     }
                                     else if (ELESS == operatorType[y]) {
                                         if  (temp->integer > jk->integer) {
                                             goThrough = 0;
+                                            break;
                                         }
                                     }
                                     delete jk;
@@ -1512,8 +1515,23 @@ yyreduce:
 
                                     TempDouble *temp = new TempDouble;
                                     temp = (TempDouble *)whereCompares[y];
-                                    if  (temp->integer == jk->integer) {
-                                        goThrough = 0;
+                                    if (EEQUAL == operatorType[y]) {
+                                        if  (temp->integer == jk->integer) {
+                                            goThrough = 0;
+                                            break;
+                                        }
+                                    }
+                                    else if (EGREAT == operatorType[y]) {
+                                        if  (temp->integer < jk->integer) {
+                                            goThrough = 0;
+                                            break;
+                                        }
+                                    }
+                                    else if (ELESS == operatorType[y]) {
+                                        if  (temp->integer > jk->integer) {
+                                            goThrough = 0;
+                                            break;
+                                        }
                                     }
                                     delete jk;
                                 }
@@ -1566,7 +1584,7 @@ yyreduce:
     break;
 
   case 11:
-#line 159 "engine.y"
+#line 177 "engine.y"
     {
         std::cout << "Exiting..." << "\n";
         exit(1);
@@ -1574,7 +1592,7 @@ yyreduce:
     break;
 
   case 16:
-#line 170 "engine.y"
+#line 188 "engine.y"
     {
         addColumn((yyvsp[(1) - (1)].stringVal), 0);
         strcpy(currentColumnNames[numberOfColumns - 1], (yyvsp[(1) - (1)].stringVal));
@@ -1582,7 +1600,7 @@ yyreduce:
     break;
 
   case 17:
-#line 174 "engine.y"
+#line 192 "engine.y"
     {
         addColumn((yyvsp[(1) - (3)].stringVal), 0);
         strcpy(currentColumnNames[numberOfColumns - 1], (yyvsp[(3) - (3)].stringVal));
@@ -1590,49 +1608,49 @@ yyreduce:
     break;
 
   case 21:
-#line 184 "engine.y"
+#line 202 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 4);
     }
     break;
 
   case 22:
-#line 187 "engine.y"
+#line 205 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 8);
     }
     break;
 
   case 23:
-#line 190 "engine.y"
+#line 208 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 32);
     }
     break;
 
   case 24:
-#line 195 "engine.y"
+#line 213 "engine.y"
     {
         operatorType[numberOfCompares] = EGREAT;
     }
     break;
 
   case 25:
-#line 198 "engine.y"
+#line 216 "engine.y"
     {
         operatorType[numberOfCompares] = ELESS;
     }
     break;
 
   case 26:
-#line 201 "engine.y"
+#line 219 "engine.y"
     {
         operatorType[numberOfCompares] = EEQUAL;
     }
     break;
 
   case 31:
-#line 215 "engine.y"
+#line 233 "engine.y"
     {
         TempString *store = getTempString((yyvsp[(3) - (3)].stringVal));
         whereCompares[numberOfCompares] = store->bytes;
@@ -1642,7 +1660,7 @@ yyreduce:
     break;
 
   case 32:
-#line 221 "engine.y"
+#line 239 "engine.y"
     {
         TempInt *store = getTempInt((yyvsp[(3) - (3)].intVal));
         whereCompares[numberOfCompares] = store->bytes;
@@ -1652,7 +1670,7 @@ yyreduce:
     break;
 
   case 33:
-#line 227 "engine.y"
+#line 245 "engine.y"
     {
         TempDouble *store = getTempDouble((yyvsp[(3) - (3)].doubleVal));
         whereCompares[numberOfCompares] = store->bytes;
@@ -1663,7 +1681,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1667 "y.tab.cc"
+#line 1685 "y.tab.cc"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1877,7 +1895,7 @@ yyreturn:
 }
 
 
-#line 235 "engine.y"
+#line 253 "engine.y"
 
 void yyerror(const char *s) {
     fprintf(stderr, "%s\n", s);
