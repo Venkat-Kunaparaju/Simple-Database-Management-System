@@ -30,8 +30,10 @@ goal:
     commands
     ;
 commands:
-    command
-    | commands command
+    command {
+        std::cout << MY_PROMPT;
+    }
+    | commands command 
     ;
 command:
     CREATE DATABASE SQLSTRING SEMICOLON {
@@ -199,8 +201,9 @@ command:
                             }
                             
                         }
+                        std::cout << "\n";
                     }
-                    std::cout << "\n";
+                    
                 }
             } else {
                 std::cerr << "One or more column names dont exist" << "\n";
@@ -306,6 +309,8 @@ int main() {
     if (heapCheck())
         printHeapLayout();
 
+
     freeMem(heapSize);
+    std::cout << MY_PROMPT;
     yyparse();
 }

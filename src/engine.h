@@ -31,6 +31,8 @@
 #define ERROR_DIFF_SIZES "ERROR: Different sizes\n"
 #define ERROR_COLUMNS_DEFINED "ERROR: Columns already defined\n"
 
+#define MY_PROMPT "prompt>"
+
 int heapSize; //Current size of heap
 int heapUsed; //Amount of heap used
 char * heapOffset; //Next open spot on the heap
