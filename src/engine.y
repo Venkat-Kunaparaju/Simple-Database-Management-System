@@ -140,8 +140,23 @@ create:
         addColumn($1, 32);
     }
     ;
+whereClause:
+    WHERE whereList
+    |
+    ;
+operator:
+    GREAT {
 
+    }
+    | LESS {
 
+    }
+    | EQUAL {
+
+    }
+    ;
+whereList:
+    SQLSTRING operator 
 
 %%
 void yyerror(const char *s) {

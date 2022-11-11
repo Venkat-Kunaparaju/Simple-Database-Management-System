@@ -88,7 +88,11 @@
   yylval.intVal = atoi(yytext);
   return SQLINT; 
   }
-  [^ "\n\t;,][^ "\n\t;,]* { 
+[^ "\n\t;,][^ "\n\t;,]* { 
+    memcpy(yylval.stringVal, yytext, 32);
+    return SQLSTRING; 
+  }
+\"[^ "\n\t][^ "\n\t]*\" { 
     memcpy(yylval.stringVal, yytext, 32);
     return SQLSTRING; 
   }
