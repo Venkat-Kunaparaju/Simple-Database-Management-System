@@ -71,7 +71,15 @@
 ")" {
   return CLOSE;
 }
-
+">" {
+  return GREAT;
+}
+"<" {
+  return LESS;
+}
+[=]+ {
+  return EQUAL;
+}
 [0-9]+\.[0-9]+ { 
   yylval.doubleVal = atof(yytext);
   return SQLDOUBLE;
