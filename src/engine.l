@@ -89,11 +89,14 @@
   return SQLINT; 
   }
 [^ "\n\t;,][^ "\n\t;,]* { 
-    memcpy(yylval.stringVal, yytext, 32);
-    return SQLSTRING; 
+  memcpy(yylval.stringVal, yytext, 32);
+  return SQLSTRING; 
   }
-\"[^ "\n\t][^ "\n\t]*\" { 
-    memcpy(yylval.stringVal, yytext, 32);
-    return SQLSTRING; 
+\"[^"\n\t][^"\n\t]*\" { 
+  std::string s = std::string(yytext);
+  s.erase(s.begin());
+  s.erase(s.end() - 1);
+  memcpy(yylval.stringVal, s.c_str(), 32);
+  return QSTRING; 
   }
 %%

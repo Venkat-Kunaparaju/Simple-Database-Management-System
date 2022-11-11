@@ -19,7 +19,7 @@
 
 %token <intVal> SQLINT
 %token <doubleVal> SQLDOUBLE
-%token <stringVal> SQLSTRING
+%token <stringVal> SQLSTRING QSTRING
 %token EXIT INSERT CREATE SHOW USE DATABASE DATABASES TABLE TABLES SELECT FROM WHERE AS
 %token SEMICOLON COMMA OPEN CLOSE GREAT LESS EQUAL
 %token TYPEINT TYPEDOUBLE TYPESTRING
@@ -140,10 +140,6 @@ create:
         addColumn($1, 32);
     }
     ;
-whereClause:
-    WHERE whereList
-    |
-    ;
 operator:
     GREAT {
 
@@ -155,8 +151,26 @@ operator:
 
     }
     ;
+whereClause:
+    WHERE whereList
+    |
+    ;
+
 whereList:
-    SQLSTRING operator 
+    where
+    | whereList AND where
+    ;
+where:
+    SQLSTRING operator QSTRING {
+
+    }
+    | SQLSTRING operator SQLINT {
+
+    }
+    | SQLSTRING operator SQLDOUBLE {
+
+    }
+    ;
 
 %%
 void yyerror(const char *s) {
