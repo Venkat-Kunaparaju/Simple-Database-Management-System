@@ -42,58 +42,62 @@
      SQLINT = 258,
      SQLDOUBLE = 259,
      SQLSTRING = 260,
-     EXIT = 261,
-     INSERT = 262,
-     CREATE = 263,
-     SHOW = 264,
-     USE = 265,
-     DATABASE = 266,
-     DATABASES = 267,
-     TABLE = 268,
-     TABLES = 269,
-     SELECT = 270,
-     FROM = 271,
-     WHERE = 272,
-     AS = 273,
-     SEMICOLON = 274,
-     COMMA = 275,
-     OPEN = 276,
-     CLOSE = 277,
-     GREAT = 278,
-     LESS = 279,
-     EQUAL = 280,
-     TYPEINT = 281,
-     TYPEDOUBLE = 282,
-     TYPESTRING = 283
+     QSTRING = 261,
+     EXIT = 262,
+     INSERT = 263,
+     CREATE = 264,
+     SHOW = 265,
+     USE = 266,
+     DATABASE = 267,
+     DATABASES = 268,
+     TABLE = 269,
+     TABLES = 270,
+     SELECT = 271,
+     FROM = 272,
+     WHERE = 273,
+     AS = 274,
+     AND = 275,
+     SEMICOLON = 276,
+     COMMA = 277,
+     OPEN = 278,
+     CLOSE = 279,
+     GREAT = 280,
+     LESS = 281,
+     EQUAL = 282,
+     TYPEINT = 283,
+     TYPEDOUBLE = 284,
+     TYPESTRING = 285
    };
 #endif
 /* Tokens.  */
 #define SQLINT 258
 #define SQLDOUBLE 259
 #define SQLSTRING 260
-#define EXIT 261
-#define INSERT 262
-#define CREATE 263
-#define SHOW 264
-#define USE 265
-#define DATABASE 266
-#define DATABASES 267
-#define TABLE 268
-#define TABLES 269
-#define SELECT 270
-#define FROM 271
-#define WHERE 272
-#define AS 273
-#define SEMICOLON 274
-#define COMMA 275
-#define OPEN 276
-#define CLOSE 277
-#define GREAT 278
-#define LESS 279
-#define EQUAL 280
-#define TYPEINT 281
-#define TYPEDOUBLE 282
-#define TYPESTRING 283
+#define QSTRING 261
+#define EXIT 262
+#define INSERT 263
+#define CREATE 264
+#define SHOW 265
+#define USE 266
+#define DATABASE 267
+#define DATABASES 268
+#define TABLE 269
+#define TABLES 270
+#define SELECT 271
+#define FROM 272
+#define WHERE 273
+#define AS 274
+#define AND 275
+#define SEMICOLON 276
+#define COMMA 277
+#define OPEN 278
+#define CLOSE 279
+#define GREAT 280
+#define LESS 281
+#define EQUAL 282
+#define TYPEINT 283
+#define TYPEDOUBLE 284
+#define TYPESTRING 285
 
 
 
@@ -107,7 +111,7 @@ typedef union YYSTYPE
     char stringVal[32];
 }
 /* Line 1529 of yacc.c.  */
-#line 111 "y.tab.hh"
+#line 115 "y.tab.hh"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

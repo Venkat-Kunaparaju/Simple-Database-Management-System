@@ -37,11 +37,15 @@ int numberOfColumns = 0; //Number of tables currently in use
 
 int currentSizes[MAXCOLUMNS];
 
-//Enum of varType (unused)
-enum varType {
-    STRING = 2,
-    DOUBLE = 1,
-    INT = 0
+int operatorType[MAXCOLUMNS];
+unsigned char *whereCompares[MAXCOLUMNS];
+char compareColumns[MAXCOLUMNS][MAXSTRINGLEN];
+int numberOfCompares = 0;
+//Enum of operatorType
+enum operatorType {
+    GREAT = 2,
+    LESS = 1,
+    EQUAL = 0
 };
 
 //Structs for different row values

@@ -46,6 +46,9 @@
 [Ww][Hh][Ee][Rr][Ee] {
   return WHERE;
 }
+[Aa][Nn][Dd] {
+  return AND;
+}
 [Aa][Ss] {
   return AS;
 }
