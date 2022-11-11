@@ -80,22 +80,22 @@ command:
                                     TempInt *jk = new TempInt;
                                     memcpy(jk->bytes, output[x][i], ROWINT_SIZE);
 
-                                    TempInt *temp = new TempInt;
-                                    temp = (TempInt *)whereCompares[y];
+                                    TempDouble *temp = new TempDouble;
+                                    temp = (TempDouble *)whereCompares[y];
                                     if (EEQUAL == operatorType[y]) {
-                                        if  (temp->integer == jk->integer) {
+                                        if  (temp->integer != jk->integer) {
                                             goThrough = 0;
                                             break;
                                         }
                                     }
                                     else if (EGREAT == operatorType[y]) {
-                                        if  (temp->integer < jk->integer) {
+                                        if  (temp->integer > jk->integer) {
                                             goThrough = 0;
                                             break;
                                         }
                                     }
                                     else if (ELESS == operatorType[y]) {
-                                        if  (temp->integer > jk->integer) {
+                                        if  (temp->integer < jk->integer) {
                                             goThrough = 0;
                                             break;
                                         }
@@ -109,19 +109,19 @@ command:
                                     TempDouble *temp = new TempDouble;
                                     temp = (TempDouble *)whereCompares[y];
                                     if (EEQUAL == operatorType[y]) {
-                                        if  (temp->integer == jk->integer) {
+                                        if  (temp->integer != jk->integer) {
                                             goThrough = 0;
                                             break;
                                         }
                                     }
                                     else if (EGREAT == operatorType[y]) {
-                                        if  (temp->integer < jk->integer) {
+                                        if  (temp->integer > jk->integer) {
                                             goThrough = 0;
                                             break;
                                         }
                                     }
                                     else if (ELESS == operatorType[y]) {
-                                        if  (temp->integer > jk->integer) {
+                                        if  (temp->integer < jk->integer) {
                                             goThrough = 0;
                                             break;
                                         }
@@ -237,7 +237,7 @@ where:
         numberOfCompares += 1;
     }
     | SQLSTRING operator SQLINT {
-        TempInt *store = getTempInt($3);
+        TempDouble *store = getTempDouble($3);
         whereCompares[numberOfCompares] = store->bytes;
         strcpy(compareColumns[numberOfCompares],$1);
         numberOfCompares += 1;

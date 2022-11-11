@@ -83,6 +83,9 @@
 [=]+ {
   return EQUAL;
 }
+"!=" {
+  return NOTEQUAL;
+}
 [0-9]+\.[0-9]+ { 
   yylval.doubleVal = atof(yytext);
   return SQLDOUBLE;

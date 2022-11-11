@@ -1487,22 +1487,22 @@ yyreduce:
                                     TempInt *jk = new TempInt;
                                     memcpy(jk->bytes, output[x][i], ROWINT_SIZE);
 
-                                    TempInt *temp = new TempInt;
-                                    temp = (TempInt *)whereCompares[y];
+                                    TempDouble *temp = new TempDouble;
+                                    temp = (TempDouble *)whereCompares[y];
                                     if (EEQUAL == operatorType[y]) {
-                                        if  (temp->integer == jk->integer) {
+                                        if  (temp->integer != jk->integer) {
                                             goThrough = 0;
                                             break;
                                         }
                                     }
                                     else if (EGREAT == operatorType[y]) {
-                                        if  (temp->integer < jk->integer) {
+                                        if  (temp->integer > jk->integer) {
                                             goThrough = 0;
                                             break;
                                         }
                                     }
                                     else if (ELESS == operatorType[y]) {
-                                        if  (temp->integer > jk->integer) {
+                                        if  (temp->integer < jk->integer) {
                                             goThrough = 0;
                                             break;
                                         }
@@ -1516,19 +1516,19 @@ yyreduce:
                                     TempDouble *temp = new TempDouble;
                                     temp = (TempDouble *)whereCompares[y];
                                     if (EEQUAL == operatorType[y]) {
-                                        if  (temp->integer == jk->integer) {
+                                        if  (temp->integer != jk->integer) {
                                             goThrough = 0;
                                             break;
                                         }
                                     }
                                     else if (EGREAT == operatorType[y]) {
-                                        if  (temp->integer < jk->integer) {
+                                        if  (temp->integer > jk->integer) {
                                             goThrough = 0;
                                             break;
                                         }
                                     }
                                     else if (ELESS == operatorType[y]) {
-                                        if  (temp->integer > jk->integer) {
+                                        if  (temp->integer < jk->integer) {
                                             goThrough = 0;
                                             break;
                                         }
@@ -1662,7 +1662,7 @@ yyreduce:
   case 32:
 #line 239 "engine.y"
     {
-        TempInt *store = getTempInt((yyvsp[(3) - (3)].intVal));
+        TempDouble *store = getTempDouble((yyvsp[(3) - (3)].intVal));
         whereCompares[numberOfCompares] = store->bytes;
         strcpy(compareColumns[numberOfCompares],(yyvsp[(1) - (3)].stringVal));
         numberOfCompares += 1;
