@@ -71,12 +71,19 @@ command:
             if (check) {
                 std::cout << "\n\n";
                 for (int i = 0; i < rows; i++) {
+                    char stdOut[1000];
+                    stdOut[0] = '\0';
+                    strcat(stdOut, "|");
                     std::cerr << "|";
                     for (int x = 0; x < numberOfColumns; x++) {
                         if (getColumnSize(tb, currentColumns[x]) == ROWINT_SIZE) {
                             TempInt *jk = new TempInt;
                             memcpy(jk->bytes, output[x][i], ROWINT_SIZE);
                             std::cout << jk->integer << "|";
+                            char temp[ROWINT_SIZE];
+                            sprintf(temp, "%d", jk->integer);
+                            strcat(stdOut, temp);
+                            strcat(stdOut, "|");
                             delete jk;
                         }
                         else if (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE) {
@@ -93,6 +100,7 @@ command:
                         }
                         
                     }
+                    std::cout << stdOut << "\n";
                     std::cout << "\n";
                 }
             } else {
