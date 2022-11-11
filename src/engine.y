@@ -142,13 +142,13 @@ create:
     ;
 operator:
     GREAT {
-        operatorType[numberOfCompares] = GREAT;
+        operatorType[numberOfCompares] = EGREAT;
     }
     | LESS {
-
+        operatorType[numberOfCompares] = ELESS;
     }
     | EQUAL {
-
+        operatorType[numberOfCompares] = EEQUAL;
     }
     ;
 whereClause:
@@ -162,13 +162,22 @@ whereList:
     ;
 where:
     SQLSTRING operator QSTRING {
-
+        TempString *store = getTempString($3);
+        whereCompares[numberOfCompares] = store;
+        compareColumns[numberOfCompares] = $1;
+        numberOfCompares += 1;
     }
     | SQLSTRING operator SQLINT {
-
+        TempInt *store = getTempInt($3);
+        whereCompares[numberOfCompares] = store;
+        compareColumns[numberOfCompares] = $1;
+        numberOfCompares += 1;
     }
     | SQLSTRING operator SQLDOUBLE {
-
+        TempDouble *store = getTempDouble($3);
+        whereCompares[numberOfCompares] = store;
+        compareColumns[numberOfCompares] = $1;
+        numberOfCompares += 1;
     }
     ;
 
