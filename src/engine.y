@@ -52,7 +52,7 @@ command:
         tableHeader::addColumns($3, currentColumns, currentSizes, numberOfColumns);
         numberOfColumns = 0;
     }
-    | INSERT INTO SQLSTRING OPEN columnList CLOSE VALUES OPEN byteList CLOSE SEMICOLON {
+    | INSERT INTO SQLSTRING OPEN columnList CLOSE VALUES OPEN byteList CLOSE SEMICOLON  {
         numberOfColumns = 0;
         numberOfCompares = 0;
     }
