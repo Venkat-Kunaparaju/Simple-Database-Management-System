@@ -52,8 +52,8 @@ command:
         tableHeader::addColumns($3, currentColumns, currentSizes, numberOfColumns);
         numberOfColumns = 0;
     }
-    | INSERT INTO SQLSTRING OPEN columnList CLOSE VALUES OPEN valueList CLOSE SEMICOLON {
-        
+    | INSERT INTO SQLSTRING OPEN columnList CLOSE VALUES OPEN byteList CLOSE SEMICOLON {
+
     }
     | SHOW TABLES SEMICOLON {
         tableHeader::printTables();
@@ -226,6 +226,27 @@ command:
         exit(1);
     }
     | SEMICOLON
+    ;
+byteList:
+    byte:
+    | byteList COMMA byte
+    ;
+byte:
+    QSTRING {
+        TempString *store = getTempString($3);
+        whereCompares[numberOfCompares] = store->bytes;
+        numberOfCompares += 1;
+    }
+    | SQLINT {
+        TempInt *store = getTempInt($3);
+        whereCompares[numberOfCompares] = store->bytes;
+        numberOfCompares += 1;
+    }
+    | SQLDOUBLE {
+        TempDouble *store = getTempDouble($3);
+        whereCompares[numberOfCompares] = store->bytes;
+        numberOfCompares += 1;
+    }
     ;
 columnList:
     column
