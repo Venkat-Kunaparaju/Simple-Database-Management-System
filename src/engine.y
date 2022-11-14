@@ -53,6 +53,12 @@ command:
         numberOfColumns = 0;
     }
     | INSERT INTO SQLSTRING OPEN columnList CLOSE VALUES OPEN byteList CLOSE SEMICOLON  {
+        for (int i = 0; i < numberOfColumns; i++) {
+            std::cout << currentColumnNames[i] << "\n";
+        }
+        for (int i = 0; i < numberOfCompares; i++) {
+            std::cout << whereCompares[i] << "\n";
+        }
         numberOfColumns = 0;
         numberOfCompares = 0;
     }
