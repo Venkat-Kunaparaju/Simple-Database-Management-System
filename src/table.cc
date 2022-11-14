@@ -140,10 +140,12 @@ int addRow(table *tb, unsigned char *temp[], char columnNames[MAXCOLUMNS][MAXSTR
         if (sizes[i] == ROWINT_SIZE) {
             rowInt *insert = (rowInt *)((char *)(mem + offsets[i]));
             memcpy(insert->value.bytes, temp[i], ROWINT_SIZE);
+            std::cout << insert->value.integer << "\n";
         }
         else if (sizes[i] == ROWDOUBLE_SIZE) {
             rowDouble *insert = (rowDouble *)((char *)(mem + offsets[i]));
             memcpy(insert->value.bytes, temp[i], ROWDOUBLE_SIZE);
+            std::cout << insert->value.integer << "\n";
         }
         else if (sizes[i] == ROWSTRING_SIZE) {
             rowString *insert = (rowString *)((char *)(mem + offsets[i]));
