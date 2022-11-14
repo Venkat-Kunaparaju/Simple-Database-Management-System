@@ -74,8 +74,18 @@ command:
         int check = 1;
         if (tb) {
             int rows = tb->tableInfo->R;
-            unsigned char *output[numberOfColumns][rows]; 
             std::cerr << "|";
+            if (strcmp(currentColumns[0], "*") == 0) {
+                numberOfColumns = tb->tableInfo->N;
+                columnInfo *head = tb->tableInfo->columns;
+                    for (int i = 0; i < numberOfColumns; i++) {  
+                        strcpy(currentColumns[i], head->name);
+                        strcpy(currentColumnNames[i], head->name);
+                        head = (head + 1);
+                    }
+
+            }
+            unsigned char *output[numberOfColumns][rows]; 
             for (int i = 0; i < numberOfColumns; i++) {
                 if (!findColumn(tb, currentColumns[i])) {
                     check = 0;
