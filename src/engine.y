@@ -52,6 +52,9 @@ command:
         tableHeader::addColumns($3, currentColumns, currentSizes, numberOfColumns);
         numberOfColumns = 0;
     }
+    | INSERT INTO SQLSTRING OPEN columnList CLOSE VALUES OPEN valueList CLOSE SEMICOLON {
+        
+    }
     | SHOW TABLES SEMICOLON {
         tableHeader::printTables();
     }
