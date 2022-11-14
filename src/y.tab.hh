@@ -57,17 +57,19 @@
      WHERE = 273,
      AS = 274,
      AND = 275,
-     SEMICOLON = 276,
-     COMMA = 277,
-     OPEN = 278,
-     CLOSE = 279,
-     GREAT = 280,
-     LESS = 281,
-     EQUAL = 282,
-     NOTEQUAL = 283,
-     TYPEINT = 284,
-     TYPEDOUBLE = 285,
-     TYPESTRING = 286
+     INTO = 276,
+     VALUES = 277,
+     SEMICOLON = 278,
+     COMMA = 279,
+     OPEN = 280,
+     CLOSE = 281,
+     GREAT = 282,
+     LESS = 283,
+     EQUAL = 284,
+     NOTEQUAL = 285,
+     TYPEINT = 286,
+     TYPEDOUBLE = 287,
+     TYPESTRING = 288
    };
 #endif
 /* Tokens.  */
@@ -89,17 +91,19 @@
 #define WHERE 273
 #define AS 274
 #define AND 275
-#define SEMICOLON 276
-#define COMMA 277
-#define OPEN 278
-#define CLOSE 279
-#define GREAT 280
-#define LESS 281
-#define EQUAL 282
-#define NOTEQUAL 283
-#define TYPEINT 284
-#define TYPEDOUBLE 285
-#define TYPESTRING 286
+#define INTO 276
+#define VALUES 277
+#define SEMICOLON 278
+#define COMMA 279
+#define OPEN 280
+#define CLOSE 281
+#define GREAT 282
+#define LESS 283
+#define EQUAL 284
+#define NOTEQUAL 285
+#define TYPEINT 286
+#define TYPEDOUBLE 287
+#define TYPESTRING 288
 
 
 
@@ -113,7 +117,7 @@ typedef union YYSTYPE
     char stringVal[32];
 }
 /* Line 1529 of yacc.c.  */
-#line 117 "y.tab.hh"
+#line 121 "y.tab.hh"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

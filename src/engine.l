@@ -25,6 +25,12 @@
 [Uu][Ss][Ee] {
   return USE;
 }
+[Ii][Nn][Tt][Oo] {
+  return INTO;
+}
+[Vv][Aa][Ll][Uu][Ee][Ss] {
+  return VALUES;
+}
 [Tt][Aa][Bb][Ll][Ee] {
   return TABLE;
 }
