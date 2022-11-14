@@ -53,7 +53,8 @@ command:
         numberOfColumns = 0;
     }
     | INSERT INTO SQLSTRING OPEN columnList CLOSE VALUES OPEN byteList CLOSE SEMICOLON {
-
+        numberOfColumns = 0;
+        numberOfCompares = 0;
     }
     | SHOW TABLES SEMICOLON {
         tableHeader::printTables();
@@ -228,22 +229,22 @@ command:
     | SEMICOLON
     ;
 byteList:
-    byte:
+    byte
     | byteList COMMA byte
     ;
 byte:
     QSTRING {
-        TempString *store = getTempString($3);
+        TempString *store = getTempString($1);
         whereCompares[numberOfCompares] = store->bytes;
         numberOfCompares += 1;
     }
     | SQLINT {
-        TempInt *store = getTempInt($3);
+        TempInt *store = getTempInt($1);
         whereCompares[numberOfCompares] = store->bytes;
         numberOfCompares += 1;
     }
     | SQLDOUBLE {
-        TempDouble *store = getTempDouble($3);
+        TempDouble *store = getTempDouble($1);
         whereCompares[numberOfCompares] = store->bytes;
         numberOfCompares += 1;
     }
