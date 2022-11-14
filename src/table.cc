@@ -119,7 +119,7 @@ int getColumnSize(table *tb, char *columnName) {
 }
 
 //Adds row given row information in bytes and the corresponding column names
-int addRow(table *tb, unsigned char *temp[], char **columnNames) {
+int addRow(table *tb, unsigned char *temp[], char columnNames[MAXCOLUMNS][MAXSTRINGLEN]) {
     int rowSize = getSizeOfRow(tb);
     char *mem = newMem(rowSize);
 
@@ -222,7 +222,7 @@ void testRow() {
     table *tb = tableHeader::findTable("Test_Table_1");
     createFenceposts(tb);
     unsigned char *hold[3];
-    char *columns[] = {"Grades", "Names", "School"};
+    char columns[MAXCOLUMNS][MAXSTRINGLEN] = {"Grades", "Names", "School"};
     
     TempString *store3 = getTempString("hahahasgsadgagda");
     hold[0] = store3->bytes;

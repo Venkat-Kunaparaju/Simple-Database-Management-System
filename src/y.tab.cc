@@ -492,10 +492,10 @@ static const yytype_int8 yyrhs[] =
 static const yytype_uint16 yyrline[] =
 {
        0,    30,    30,    33,    36,    41,    44,    47,    50,    55,
-      65,    68,   231,   235,   238,   239,   242,   247,   252,   259,
-     260,   262,   263,   267,   273,   274,   276,   277,   280,   283,
-     288,   291,   294,   297,   302,   303,   307,   308,   311,   317,
-     323
+      67,    70,   233,   237,   240,   241,   244,   249,   254,   261,
+     262,   264,   265,   269,   275,   276,   278,   279,   282,   285,
+     290,   293,   296,   299,   304,   305,   309,   310,   313,   319,
+     325
 };
 #endif
 
@@ -1490,26 +1490,28 @@ yyreduce:
   case 9:
 #line 55 "engine.y"
     {
-        for (int i = 0; i < numberOfColumns; i++) {
-            std::cout << currentColumnNames[i] << "\n";
+        table *tb = tableHeader::findTable((yyvsp[(3) - (11)].stringVal));
+        if (tb) {
+            addRow(tb, whereCompares, currentColumnNames);
         }
-        for (int i = 0; i < numberOfCompares; i++) {
-            std::cout << whereCompares[i] << "\n";
+        else {
+            yyerror ("Can't find table!");
         }
+
         numberOfColumns = 0;
         numberOfCompares = 0;
     }
     break;
 
   case 10:
-#line 65 "engine.y"
+#line 67 "engine.y"
     {
         tableHeader::printTables();
     }
     break;
 
   case 11:
-#line 68 "engine.y"
+#line 70 "engine.y"
     {
         table *tb = tableHeader::findTable((yyvsp[(4) - (6)].stringVal));
         int check = 1;
@@ -1676,7 +1678,7 @@ yyreduce:
     break;
 
   case 12:
-#line 231 "engine.y"
+#line 233 "engine.y"
     {
         std::cout << "Exiting..." << "\n";
         exit(1);
@@ -1684,7 +1686,7 @@ yyreduce:
     break;
 
   case 16:
-#line 242 "engine.y"
+#line 244 "engine.y"
     {
         TempString *store = getTempString((yyvsp[(1) - (1)].stringVal));
         whereCompares[numberOfCompares] = store->bytes;
@@ -1693,7 +1695,7 @@ yyreduce:
     break;
 
   case 17:
-#line 247 "engine.y"
+#line 249 "engine.y"
     {
         TempInt *store = getTempInt((yyvsp[(1) - (1)].intVal));
         whereCompares[numberOfCompares] = store->bytes;
@@ -1702,7 +1704,7 @@ yyreduce:
     break;
 
   case 18:
-#line 252 "engine.y"
+#line 254 "engine.y"
     {
         TempDouble *store = getTempDouble((yyvsp[(1) - (1)].doubleVal));
         whereCompares[numberOfCompares] = store->bytes;
@@ -1711,7 +1713,7 @@ yyreduce:
     break;
 
   case 22:
-#line 263 "engine.y"
+#line 265 "engine.y"
     {
         addColumn((yyvsp[(1) - (1)].stringVal), 0);
         strcpy(currentColumnNames[numberOfColumns - 1], (yyvsp[(1) - (1)].stringVal));
@@ -1719,7 +1721,7 @@ yyreduce:
     break;
 
   case 23:
-#line 267 "engine.y"
+#line 269 "engine.y"
     {
         addColumn((yyvsp[(1) - (3)].stringVal), 0);
         strcpy(currentColumnNames[numberOfColumns - 1], (yyvsp[(3) - (3)].stringVal));
@@ -1727,56 +1729,56 @@ yyreduce:
     break;
 
   case 27:
-#line 277 "engine.y"
+#line 279 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 4);
     }
     break;
 
   case 28:
-#line 280 "engine.y"
+#line 282 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 8);
     }
     break;
 
   case 29:
-#line 283 "engine.y"
+#line 285 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 32);
     }
     break;
 
   case 30:
-#line 288 "engine.y"
+#line 290 "engine.y"
     {
         operatorType[numberOfCompares] = EGREAT;
     }
     break;
 
   case 31:
-#line 291 "engine.y"
+#line 293 "engine.y"
     {
         operatorType[numberOfCompares] = ELESS;
     }
     break;
 
   case 32:
-#line 294 "engine.y"
+#line 296 "engine.y"
     {
         operatorType[numberOfCompares] = EEQUAL;
     }
     break;
 
   case 33:
-#line 297 "engine.y"
+#line 299 "engine.y"
     {
         operatorType[numberOfCompares] = ENOTEQUAL;
     }
     break;
 
   case 38:
-#line 311 "engine.y"
+#line 313 "engine.y"
     {
         TempString *store = getTempString((yyvsp[(3) - (3)].stringVal));
         whereCompares[numberOfCompares] = store->bytes;
@@ -1786,7 +1788,7 @@ yyreduce:
     break;
 
   case 39:
-#line 317 "engine.y"
+#line 319 "engine.y"
     {
         TempDouble *store = getTempDouble((yyvsp[(3) - (3)].intVal));
         whereCompares[numberOfCompares] = store->bytes;
@@ -1796,7 +1798,7 @@ yyreduce:
     break;
 
   case 40:
-#line 323 "engine.y"
+#line 325 "engine.y"
     {
         TempDouble *store = getTempDouble((yyvsp[(3) - (3)].doubleVal));
         whereCompares[numberOfCompares] = store->bytes;
@@ -1807,7 +1809,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1811 "y.tab.cc"
+#line 1813 "y.tab.cc"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2021,7 +2023,7 @@ yyreturn:
 }
 
 
-#line 331 "engine.y"
+#line 333 "engine.y"
 
 void yyerror(const char *s) {
     fprintf(stderr, "%s\n", s);

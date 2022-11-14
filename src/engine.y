@@ -53,12 +53,14 @@ command:
         numberOfColumns = 0;
     }
     | INSERT INTO SQLSTRING OPEN columnList CLOSE VALUES OPEN byteList CLOSE SEMICOLON  {
-        for (int i = 0; i < numberOfColumns; i++) {
-            std::cout << currentColumnNames[i] << "\n";
+        table *tb = tableHeader::findTable($3);
+        if (tb) {
+            addRow(tb, whereCompares, currentColumnNames);
         }
-        for (int i = 0; i < numberOfCompares; i++) {
-            std::cout << whereCompares[i] << "\n";
+        else {
+            yyerror ("Can't find table!");
         }
+
         numberOfColumns = 0;
         numberOfCompares = 0;
     }
