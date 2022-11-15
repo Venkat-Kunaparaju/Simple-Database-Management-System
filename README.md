@@ -24,4 +24,5 @@ The program manages the layout of the heap and the size of the heap. By being ab
 | EXIT | Exits out of the process |
 
 ### Notes
--
+- Valid Types: INT (4 bytes), DOUBLE (8 bytes), STRING (32 bytes)
+- 
