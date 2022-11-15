@@ -29,6 +29,8 @@
 goal:
     commands
     | error {
+        numberOfColumns = 0;
+        numberOfCompares = 0;
         yyparse();
     }
     ;
