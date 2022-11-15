@@ -7,7 +7,7 @@
 %option noyywrap
 %%
 [ \t\n] {
-  //Ignore space and tabs
+  //Ignore space and tabs and newline
 }
 
 [Ee][Xx][Ii][Tt] {

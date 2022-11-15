@@ -67,9 +67,10 @@
      LESS = 283,
      EQUAL = 284,
      NOTEQUAL = 285,
-     TYPEINT = 286,
-     TYPEDOUBLE = 287,
-     TYPESTRING = 288
+     NEWLINE = 286,
+     TYPEINT = 287,
+     TYPEDOUBLE = 288,
+     TYPESTRING = 289
    };
 #endif
 /* Tokens.  */
@@ -101,9 +102,10 @@
 #define LESS 283
 #define EQUAL 284
 #define NOTEQUAL 285
-#define TYPEINT 286
-#define TYPEDOUBLE 287
-#define TYPESTRING 288
+#define NEWLINE 286
+#define TYPEINT 287
+#define TYPEDOUBLE 288
+#define TYPESTRING 289
 
 
 
@@ -117,7 +119,7 @@ typedef union YYSTYPE
     char stringVal[32];
 }
 /* Line 1529 of yacc.c.  */
-#line 121 "y.tab.hh"
+#line 123 "y.tab.hh"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

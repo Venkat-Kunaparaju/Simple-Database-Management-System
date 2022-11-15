@@ -873,7 +873,7 @@ case 1:
 YY_RULE_SETUP
 #line 9 "engine.l"
 {
-  //Ignore space and tabs
+  //Ignore space and tabs and newline
 }
 	YY_BREAK
 case 2:

@@ -32,6 +32,7 @@
 #define ERROR_COLUMNS_DEFINED "ERROR: Columns already defined\n"
 
 #define MY_PROMPT "prompt>"
+#define NEW_LINE  "  ---->"
 
 int heapSize; //Current size of heap
 int heapUsed; //Amount of heap used

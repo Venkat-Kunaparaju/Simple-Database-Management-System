@@ -21,7 +21,7 @@
 %token <doubleVal> SQLDOUBLE
 %token <stringVal> SQLSTRING QSTRING
 %token EXIT INSERT CREATE SHOW USE DATABASE DATABASES TABLE TABLES SELECT FROM WHERE AS AND INTO VALUES
-%token SEMICOLON COMMA OPEN CLOSE GREAT LESS EQUAL NOTEQUAL
+%token SEMICOLON COMMA OPEN CLOSE GREAT LESS EQUAL NOTEQUAL NEWLINE
 %token TYPEINT TYPEDOUBLE TYPESTRING
 
 %%
@@ -34,10 +34,14 @@ goal:
     ;
 commands:
     command {
-        std::cout << MY_PROMPT;
+        if (newLineCounter == 0) {
+            std::cout << MY_PROMPT;
+        }
     }
     | commands command {
-        std::cout << MY_PROMPT;
+        if (newLineCounter == 0) {
+            std::cout << MY_PROMPT;
+        }
     }
     ;
 command:
