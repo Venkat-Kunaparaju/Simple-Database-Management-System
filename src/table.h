@@ -42,7 +42,6 @@ unsigned char *whereCompares[MAXCOLUMNS];
 char compareColumns[MAXCOLUMNS][MAXSTRINGLEN];
 int numberOfCompares = 0;
 
-int newLineCounter  = 0;
 //Enum of operatorType
 enum operatorType {
     ENOTEQUAL = 3,

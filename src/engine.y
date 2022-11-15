@@ -34,14 +34,10 @@ goal:
     ;
 commands:
     command {
-        if (newLineCounter == 0) {
-            std::cout << MY_PROMPT;
-        }
+        std::cout << MY_PROMPT;
     }
     | commands command {
-        if (newLineCounter == 0) {
-            std::cout << MY_PROMPT;
-        }
+        std::cout << MY_PROMPT;
     }
     ;
 command:

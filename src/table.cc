@@ -140,12 +140,10 @@ int addRow(table *tb, unsigned char *temp[], char columnNames[MAXCOLUMNS][MAXSTR
         if (sizes[i] == ROWINT_SIZE) {
             rowInt *insert = (rowInt *)((char *)(mem + offsets[i]));
             memcpy(insert->value.bytes, temp[i], ROWINT_SIZE);
-            std::cout << insert->value.integer << "\n";
         }
         else if (sizes[i] == ROWDOUBLE_SIZE) {
             rowDouble *insert = (rowDouble *)((char *)(mem + offsets[i]));
             memcpy(insert->value.bytes, temp[i], ROWDOUBLE_SIZE);
-            std::cout << insert->value.integer << "\n";
         }
         else if (sizes[i] == ROWSTRING_SIZE) {
             rowString *insert = (rowString *)((char *)(mem + offsets[i]));
@@ -244,7 +242,6 @@ void testRow() {
 
 
     createEndFenceposts(tb);
-    databaseHeader::createDatabase("dsga");
 
     createFenceposts(tb);
 
@@ -261,8 +258,6 @@ void testRow() {
 
     createEndFenceposts(tb);
 
-    databaseHeader::createDatabase("dsgaa");
-
     createFenceposts(tb);
 
     TempInt *store9 = getTempInt(22135);
@@ -276,16 +271,6 @@ void testRow() {
 
     createEndFenceposts(tb);
 
-    int rows = tb->tableInfo->R;
-    unsigned char *output[rows];  
-
-    searchRow(tb, "Names", output, rows);  
-    TempInt *jk = new TempInt;
-    memcpy(jk->bytes, output[3], ROWINT_SIZE);
-    std::cout << jk->integer << "\n";
-
-    searchRow(tb, "Grades", output, rows);
-    searchRow(tb, "School", output, rows);
 
 }
 
