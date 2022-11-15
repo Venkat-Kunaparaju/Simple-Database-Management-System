@@ -111,4 +111,8 @@
   memcpy(yylval.stringVal, s.c_str(), 32);
   return QSTRING; 
   }
+[^\n;][^\n;]* {
+
+  return EVERYTHINGELSE;
+}
 %%
