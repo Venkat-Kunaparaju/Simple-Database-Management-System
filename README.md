@@ -24,5 +24,8 @@ The program manages the layout of the heap and the size of the heap. By being ab
 | EXIT | Exits out of the process |
 
 ### Notes
-- Valid Types: INT (4 bytes), DOUBLE (8 bytes), STRING (32 bytes)
-- 
+- Valid Data Types: INT (4 bytes), DOUBLE (8 bytes), STRING (32 bytes)
+- All commands need to end with ';' to execute
+- Insert Statements require all columns in table to be specified currently
+- Select/From statements only support single table queries currently
+- Where statements only supported with AND operators currently. 
