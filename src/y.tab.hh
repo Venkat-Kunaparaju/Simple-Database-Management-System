@@ -69,8 +69,7 @@
      NOTEQUAL = 285,
      TYPEINT = 286,
      TYPEDOUBLE = 287,
-     TYPESTRING = 288,
-     EVERYTHINGELSE = 289
+     TYPESTRING = 288
    };
 #endif
 /* Tokens.  */
@@ -105,7 +104,6 @@
 #define TYPEINT 286
 #define TYPEDOUBLE 287
 #define TYPESTRING 288
-#define EVERYTHINGELSE 289
 
 
 
@@ -119,7 +117,7 @@ typedef union YYSTYPE
     char stringVal[32];
 }
 /* Line 1529 of yacc.c.  */
-#line 123 "y.tab.hh"
+#line 121 "y.tab.hh"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

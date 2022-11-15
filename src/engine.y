@@ -23,12 +23,14 @@
 %token EXIT INSERT CREATE SHOW USE DATABASE DATABASES TABLE TABLES SELECT FROM WHERE AS AND INTO VALUES
 %token SEMICOLON COMMA OPEN CLOSE GREAT LESS EQUAL NOTEQUAL
 %token TYPEINT TYPEDOUBLE TYPESTRING
-%token EVERYTHINGELSE
 
 %%
 
 goal:
     commands
+    | error {
+        yyparse();
+    }
     ;
 commands:
     command {
