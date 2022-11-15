@@ -19,3 +19,5 @@ The program manages the layout of the heap and the size of the heap. By being ab
 | USE DATABASE   [Database Name] | Uses the specified database  |
 | CREATE TABLE [Table Name] ([Column Type List])  | Creates table in current database with specified columns |
 | SHOW TABLES | Shows current tables in current database |
+| INSERT INTO [Table Name] ([Column List]) Values ([Value List]) | Inserts new entry into specified table, at specified columns |
+| SELECT [Column Names] FROM [Table Name] WHERE [Conditions] | Queries table and outputs specified column information |
