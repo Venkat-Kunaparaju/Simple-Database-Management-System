@@ -21,3 +21,4 @@ The program manages the layout of the heap and the size of the heap. By being ab
 | SHOW TABLES | Shows current tables in current database |
 | INSERT INTO [Table Name] ([Column List]) Values ([Value List]) | Inserts new entry into specified table, at specified columns |
 | SELECT [Column Names] FROM [Table Name] WHERE [Conditions] | Queries table and outputs specified column information |
+| EXIT | Exits out of the process |
