@@ -61,7 +61,7 @@ command:
         table *tb = tableHeader::findTable($3);
         if (tb) {
             if (numberOfColumns != numberOfCompares) {
-                yerror ("Number of columns don't match number of Values!")
+                yyerror ("Number of columns don't match number of Values!");
             } 
             else {
                 createFenceposts(tb);
