@@ -60,9 +60,14 @@ command:
     | INSERT INTO SQLSTRING OPEN columnList CLOSE VALUES OPEN byteList CLOSE SEMICOLON  {
         table *tb = tableHeader::findTable($3);
         if (tb) {
-            createFenceposts(tb);
-            addRow(tb, whereCompares, currentColumnNames);
-            createEndFenceposts(tb);
+            if (numberOfColumns != numberOfCompares) {
+                yerror ("Number of columns don't match number of Values!")
+            } 
+            else {
+                createFenceposts(tb);
+                addRow(tb, whereCompares, currentColumnNames);
+                createEndFenceposts(tb);
+            }
         }
         else {
             yyerror ("Can't find table!");
