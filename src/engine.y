@@ -252,6 +252,9 @@ command:
         numberOfCompares = 0;
         
     }
+    | CHANGE PROMPT QSTRING {
+        
+    }
     | EXIT SEMICOLON {
         std::cout << "Exiting..." << "\n";
         exit(1);

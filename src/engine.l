@@ -58,6 +58,9 @@
 [Aa][Ss] {
   return AS;
 }
+[Cc][Hh][Aa][Nn][Gg][Ee] {
+  return CHANGE;
+}
 [Ii][Nn][Tt] {
   return TYPEINT;
 }
