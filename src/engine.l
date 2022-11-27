@@ -61,6 +61,9 @@
 [Cc][Hh][Aa][Nn][Gg][Ee] {
   return CHANGE;
 }
+[Pp][Rr][Oo][Mm][Pp][Tt] {
+  return PROMPT;
+}
 [Ii][Nn][Tt] {
   return TYPEINT;
 }
