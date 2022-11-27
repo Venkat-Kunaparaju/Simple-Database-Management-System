@@ -22,6 +22,7 @@
 %token <stringVal> SQLSTRING QSTRING
 %token EXIT INSERT CREATE SHOW USE DATABASE DATABASES TABLE TABLES SELECT FROM WHERE AS AND INTO VALUES
 %token SEMICOLON COMMA OPEN CLOSE GREAT LESS EQUAL NOTEQUAL NEWLINE
+%token CHANGE
 %token TYPEINT TYPEDOUBLE TYPESTRING
 
 %%
@@ -253,7 +254,7 @@ command:
         
     }
     | CHANGE PROMPT QSTRING {
-        
+        strcpy(MY_PROMPT, $3);
     }
     | EXIT SEMICOLON {
         std::cout << "Exiting..." << "\n";
