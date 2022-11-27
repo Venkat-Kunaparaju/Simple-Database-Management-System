@@ -253,8 +253,8 @@ command:
         numberOfCompares = 0;
         
     }
-    | CHANGE PROMPT QSTRING {
-        strcpy(MY_PROMPT, $3);
+    | CHANGE PROMPT QSTRING SEMICOLON {
+        MY_PROMPT = $3;
     }
     | EXIT SEMICOLON {
         std::cout << "Exiting..." << "\n";
