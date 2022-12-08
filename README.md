@@ -21,7 +21,10 @@ The program manages the layout of the heap and the size of the heap. By being ab
 | SHOW TABLES | Shows current tables in current database |
 | INSERT INTO [Table Name] ([Column List]) Values ([Value List]) | Inserts new entry into specified table, at specified columns |
 | SELECT [Column Names] FROM [Table Name] WHERE [Conditions] | Queries table and outputs specified column information |
+| CHANGE PROMPT [Prompt String] | Changes prompt to user inputted prompt |
 | EXIT | Exits out of the process |
+
+## Data structures
 
 ### Notes
 - Valid Data Types: INT (4 bytes), DOUBLE (8 bytes), STRING (32 bytes)
@@ -29,3 +32,6 @@ The program manages the layout of the heap and the size of the heap. By being ab
 - Insert Statements require all columns in table to be specified currently
 - Select/From statements only support single table queries currently
 - Where statements only supported with AND operators currently. 
+
+
+
