@@ -24,9 +24,14 @@ The program manages the layout of the heap and the size of the heap. By being ab
 | CHANGE PROMPT [Prompt String] | Changes prompt to user inputted prompt |
 | EXIT | Exits out of the process |
 
+## Data structures
+
 ### Notes
 - Valid Data Types: INT (4 bytes), DOUBLE (8 bytes), STRING (32 bytes)
 - All commands need to end with ';' to execute
 - Insert Statements require all columns in table to be specified currently
 - Select/From statements only support single table queries currently
 - Where statements only supported with AND operators currently. 
+
+
+
