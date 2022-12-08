@@ -25,7 +25,7 @@ The program manages the layout of the heap and the size of the heap. By being ab
 | EXIT | Exits out of the process |
 
 ## Data structures
-![image](https://github.com/VenkatKunaparaju/Simple-Database-Management-System/blob/main/imgs/Database.png?raw=true=10x10)
+![image](https://github.com/VenkatKunaparaju/Simple-Database-Management-System/blob/main/imgs/Database.png?raw=true)
 ### Notes
 - Valid Data Types: INT (4 bytes), DOUBLE (8 bytes), STRING (32 bytes)
 - All commands need to end with ';' to execute
