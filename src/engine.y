@@ -85,6 +85,8 @@ command:
         int check = 1;
         if (tb) {
             int rows = tb->tableInfo->R;
+
+            // Expand *
             if (strcmp(currentColumns[0], "*") == 0) {
                 numberOfColumns = tb->tableInfo->N;
                 columnInfo *head = tb->tableInfo->columns;
@@ -95,12 +97,16 @@ command:
                     }
 
             }
+
+            //Check for all column names are valid
             unsigned char *output[numberOfColumns][rows]; 
             for (int i = 0; i < numberOfColumns; i++) {
                 if (!findColumn(tb, currentColumns[i])) {
                     check = 0;
                 }
             }
+
+            //Only query if column names are valid
             if (check) {
                 std::cerr << "|";
                 for (int i = 0; i < numberOfColumns; i ++) {
@@ -114,64 +120,39 @@ command:
                         for (int x = 0; x < numberOfColumns; x++ ) { 
                         
                             if (strcmp(compareColumns[y], currentColumns[x]) == 0) {
-                                if (getColumnSize(tb, currentColumns[x]) == ROWINT_SIZE) {
+                                if ((getColumnSize(tb, currentColumns[x]) == ROWINT_SIZE) || (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE)) {
                                     TempInt *jk = new TempInt;
                                     memcpy(jk->bytes, output[x][i], ROWINT_SIZE);
+                                    double tool = jk->integer;
+                                    if (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE) {
+                                        delete jk;
+                                        TempDouble *jk = new TempDouble;
+                                        memcpy(jk->bytes, output[x][i], ROWDOUBLE_SIZE);
+                                        tool = jk->integer;
 
+                                    }
                                     TempDouble *temp = new TempDouble;
                                     temp = (TempDouble *)whereCompares[y];
                                     if (EEQUAL == operatorType[y]) {
-                                        if  (temp->integer != jk->integer) {
+                                        if  (temp->integer != tool) {
                                             goThrough = 0;
                                             break;
                                         }
                                     }
                                     else if (EGREAT == operatorType[y]) {
-                                        if  (temp->integer > jk->integer) {
+                                        if  (temp->integer > tool) {
                                             goThrough = 0;
                                             break;
                                         }
                                     }
                                     else if (ELESS == operatorType[y]) {
-                                        if  (temp->integer < jk->integer) {
+                                        if  (temp->integer < tool) {
                                             goThrough = 0;
                                             break;
                                         }
                                     }
                                     else if (ENOTEQUAL == operatorType[y]) {
-                                        if  (temp->integer == jk->integer) {
-                                            goThrough = 0;
-                                            break;
-                                        }
-                                    }
-                                    delete jk;
-                                }
-                                else if (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE) {
-                                    TempDouble *jk = new TempDouble;
-                                    memcpy(jk->bytes, output[x][i], ROWDOUBLE_SIZE);
-
-                                    TempDouble *temp = new TempDouble;
-                                    temp = (TempDouble *)whereCompares[y];
-                                    if (EEQUAL == operatorType[y]) {
-                                        if  (temp->integer != jk->integer) {
-                                            goThrough = 0;
-                                            break;
-                                        }
-                                    }
-                                    else if (EGREAT == operatorType[y]) {
-                                        if  (temp->integer > jk->integer) {
-                                            goThrough = 0;
-                                            break;
-                                        }
-                                    }
-                                    else if (ELESS == operatorType[y]) {
-                                        if  (temp->integer < jk->integer) {
-                                            goThrough = 0;
-                                            break;
-                                        }
-                                    }
-                                    else if (ENOTEQUAL == operatorType[y]) {
-                                        if  (temp->integer == jk->integer) {
+                                        if  (temp->integer == tool) {
                                             goThrough = 0;
                                             break;
                                         }

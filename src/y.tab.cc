@@ -499,10 +499,10 @@ static const yytype_int8 yyrhs[] =
 static const yytype_uint16 yyrline[] =
 {
        0,    31,    31,    32,    39,    42,    47,    50,    53,    56,
-      61,    80,    83,   255,   258,   262,   265,   266,   269,   274,
-     279,   286,   287,   289,   290,   294,   300,   301,   303,   304,
-     307,   310,   315,   318,   321,   324,   329,   330,   334,   335,
-     338,   344,   350
+      61,    80,    83,   236,   239,   243,   246,   247,   250,   255,
+     260,   267,   268,   270,   271,   275,   281,   282,   284,   285,
+     288,   291,   296,   299,   302,   305,   310,   311,   315,   316,
+     319,   325,   331
 };
 #endif
 
@@ -1545,6 +1545,8 @@ yyreduce:
         int check = 1;
         if (tb) {
             int rows = tb->tableInfo->R;
+
+            // Expand *
             if (strcmp(currentColumns[0], "*") == 0) {
                 numberOfColumns = tb->tableInfo->N;
                 columnInfo *head = tb->tableInfo->columns;
@@ -1555,12 +1557,16 @@ yyreduce:
                     }
 
             }
+
+            //Check for all column names are valid
             unsigned char *output[numberOfColumns][rows]; 
             for (int i = 0; i < numberOfColumns; i++) {
                 if (!findColumn(tb, currentColumns[i])) {
                     check = 0;
                 }
             }
+
+            //Only query if column names are valid
             if (check) {
                 std::cerr << "|";
                 for (int i = 0; i < numberOfColumns; i ++) {
@@ -1574,64 +1580,39 @@ yyreduce:
                         for (int x = 0; x < numberOfColumns; x++ ) { 
                         
                             if (strcmp(compareColumns[y], currentColumns[x]) == 0) {
-                                if (getColumnSize(tb, currentColumns[x]) == ROWINT_SIZE) {
+                                if ((getColumnSize(tb, currentColumns[x]) == ROWINT_SIZE) || (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE)) {
                                     TempInt *jk = new TempInt;
                                     memcpy(jk->bytes, output[x][i], ROWINT_SIZE);
+                                    double tool = jk->integer;
+                                    if (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE) {
+                                        delete jk;
+                                        TempDouble *jk = new TempDouble;
+                                        memcpy(jk->bytes, output[x][i], ROWDOUBLE_SIZE);
+                                        tool = jk->integer;
 
+                                    }
                                     TempDouble *temp = new TempDouble;
                                     temp = (TempDouble *)whereCompares[y];
                                     if (EEQUAL == operatorType[y]) {
-                                        if  (temp->integer != jk->integer) {
+                                        if  (temp->integer != tool) {
                                             goThrough = 0;
                                             break;
                                         }
                                     }
                                     else if (EGREAT == operatorType[y]) {
-                                        if  (temp->integer > jk->integer) {
+                                        if  (temp->integer > tool) {
                                             goThrough = 0;
                                             break;
                                         }
                                     }
                                     else if (ELESS == operatorType[y]) {
-                                        if  (temp->integer < jk->integer) {
+                                        if  (temp->integer < tool) {
                                             goThrough = 0;
                                             break;
                                         }
                                     }
                                     else if (ENOTEQUAL == operatorType[y]) {
-                                        if  (temp->integer == jk->integer) {
-                                            goThrough = 0;
-                                            break;
-                                        }
-                                    }
-                                    delete jk;
-                                }
-                                else if (getColumnSize(tb, currentColumns[x]) == ROWDOUBLE_SIZE) {
-                                    TempDouble *jk = new TempDouble;
-                                    memcpy(jk->bytes, output[x][i], ROWDOUBLE_SIZE);
-
-                                    TempDouble *temp = new TempDouble;
-                                    temp = (TempDouble *)whereCompares[y];
-                                    if (EEQUAL == operatorType[y]) {
-                                        if  (temp->integer != jk->integer) {
-                                            goThrough = 0;
-                                            break;
-                                        }
-                                    }
-                                    else if (EGREAT == operatorType[y]) {
-                                        if  (temp->integer > jk->integer) {
-                                            goThrough = 0;
-                                            break;
-                                        }
-                                    }
-                                    else if (ELESS == operatorType[y]) {
-                                        if  (temp->integer < jk->integer) {
-                                            goThrough = 0;
-                                            break;
-                                        }
-                                    }
-                                    else if (ENOTEQUAL == operatorType[y]) {
-                                        if  (temp->integer == jk->integer) {
+                                        if  (temp->integer == tool) {
                                             goThrough = 0;
                                             break;
                                         }
@@ -1715,14 +1696,14 @@ yyreduce:
     break;
 
   case 13:
-#line 255 "engine.y"
+#line 236 "engine.y"
     {
         MY_PROMPT = (yyvsp[(3) - (4)].stringVal);
     }
     break;
 
   case 14:
-#line 258 "engine.y"
+#line 239 "engine.y"
     {
         std::cout << "Exiting..." << "\n";
         exit(1);
@@ -1730,7 +1711,7 @@ yyreduce:
     break;
 
   case 18:
-#line 269 "engine.y"
+#line 250 "engine.y"
     {
         TempString *store = getTempString((yyvsp[(1) - (1)].stringVal));
         whereCompares[numberOfCompares] = store->bytes;
@@ -1739,7 +1720,7 @@ yyreduce:
     break;
 
   case 19:
-#line 274 "engine.y"
+#line 255 "engine.y"
     {
         TempInt *store = getTempInt((yyvsp[(1) - (1)].intVal));
         whereCompares[numberOfCompares] = store->bytes;
@@ -1748,7 +1729,7 @@ yyreduce:
     break;
 
   case 20:
-#line 279 "engine.y"
+#line 260 "engine.y"
     {
         TempDouble *store = getTempDouble((yyvsp[(1) - (1)].doubleVal));
         whereCompares[numberOfCompares] = store->bytes;
@@ -1757,7 +1738,7 @@ yyreduce:
     break;
 
   case 24:
-#line 290 "engine.y"
+#line 271 "engine.y"
     {
         addColumn((yyvsp[(1) - (1)].stringVal), 0);
         strcpy(currentColumnNames[numberOfColumns - 1], (yyvsp[(1) - (1)].stringVal));
@@ -1765,7 +1746,7 @@ yyreduce:
     break;
 
   case 25:
-#line 294 "engine.y"
+#line 275 "engine.y"
     {
         addColumn((yyvsp[(1) - (3)].stringVal), 0);
         strcpy(currentColumnNames[numberOfColumns - 1], (yyvsp[(3) - (3)].stringVal));
@@ -1773,56 +1754,56 @@ yyreduce:
     break;
 
   case 29:
-#line 304 "engine.y"
+#line 285 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 4);
     }
     break;
 
   case 30:
-#line 307 "engine.y"
+#line 288 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 8);
     }
     break;
 
   case 31:
-#line 310 "engine.y"
+#line 291 "engine.y"
     {
         addColumn((yyvsp[(1) - (2)].stringVal), 32);
     }
     break;
 
   case 32:
-#line 315 "engine.y"
+#line 296 "engine.y"
     {
         operatorType[numberOfCompares] = EGREAT;
     }
     break;
 
   case 33:
-#line 318 "engine.y"
+#line 299 "engine.y"
     {
         operatorType[numberOfCompares] = ELESS;
     }
     break;
 
   case 34:
-#line 321 "engine.y"
+#line 302 "engine.y"
     {
         operatorType[numberOfCompares] = EEQUAL;
     }
     break;
 
   case 35:
-#line 324 "engine.y"
+#line 305 "engine.y"
     {
         operatorType[numberOfCompares] = ENOTEQUAL;
     }
     break;
 
   case 40:
-#line 338 "engine.y"
+#line 319 "engine.y"
     {
         TempString *store = getTempString((yyvsp[(3) - (3)].stringVal));
         whereCompares[numberOfCompares] = store->bytes;
@@ -1832,7 +1813,7 @@ yyreduce:
     break;
 
   case 41:
-#line 344 "engine.y"
+#line 325 "engine.y"
     {
         TempDouble *store = getTempDouble((yyvsp[(3) - (3)].intVal));
         whereCompares[numberOfCompares] = store->bytes;
@@ -1842,7 +1823,7 @@ yyreduce:
     break;
 
   case 42:
-#line 350 "engine.y"
+#line 331 "engine.y"
     {
         TempDouble *store = getTempDouble((yyvsp[(3) - (3)].doubleVal));
         whereCompares[numberOfCompares] = store->bytes;
@@ -1853,7 +1834,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1857 "y.tab.cc"
+#line 1838 "y.tab.cc"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2067,7 +2048,7 @@ yyreturn:
 }
 
 
-#line 358 "engine.y"
+#line 339 "engine.y"
 
 void yyerror(const char *s) {
     fprintf(stderr, "%s\n", s);
