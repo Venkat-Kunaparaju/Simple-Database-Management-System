@@ -85,7 +85,6 @@ command:
         int check = 1;
         if (tb) {
             int rows = tb->tableInfo->R;
-            std::cerr << "|";
             if (strcmp(currentColumns[0], "*") == 0) {
                 numberOfColumns = tb->tableInfo->N;
                 columnInfo *head = tb->tableInfo->columns;
@@ -101,13 +100,13 @@ command:
                 if (!findColumn(tb, currentColumns[i])) {
                     check = 0;
                 }
-                else {
+            }
+            if (check) {
+                std::cerr << "|";
+                for (int i = 0; i < numberOfColumns; i ++) {
                     std::cerr << currentColumnNames[i] << "|";
                     searchRow(tb, currentColumns[i], output[i], rows);
                 }
-                
-            }
-            if (check) {
                 std::cout << "\n\n";
                 for (int i = 0; i < rows; i++) {
                     int goThrough = 1;
