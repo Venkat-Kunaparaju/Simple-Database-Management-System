@@ -9,8 +9,8 @@ To interact with the DBMS, SQL syntax and commands are used.
 
 ## How to Run
 
-1. '''make clean''' 
-2. '''make engine'''
+1. make clean
+2. make engine
 3. ./engine
 
 ## Memory Management
