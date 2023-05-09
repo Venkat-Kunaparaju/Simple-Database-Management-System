@@ -7,6 +7,12 @@ This is a simple DBMS where the program controls the management and allocation o
 
 To interact with the DBMS, SQL syntax and commands are used.
 
+## How to Run
+
+1. '''make clean''' 
+2. '''make engine'''
+3. ./engine
+
 ## Memory Management
 The program manages the layout of the heap and the size of the heap. By being able to manage the layout of the heap, blocks of memory that are related to one another (ex. table entries) can be placed next to each other to allow for easy access and traversal through these blocks. Rather than using existing data structures that use heap memory, creating custom data structures allows for creativity and strucutres that fit the design. 
 
